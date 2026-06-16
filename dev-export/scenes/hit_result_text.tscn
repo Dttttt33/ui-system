@@ -1,4 +1,6 @@
-[gd_scene load_steps=1 format=3]
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 [node name="HitResultText" type="Label"]
 anchors_preset = 8
@@ -13,9 +15,10 @@ offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0.843, 0, 1)
-theme_override_colors/font_outline_color = Color(0.545, 0.416, 0.125, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 44
+theme_override_colors/font_outline_color = Color(0.722, 0.596, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 42
 text = "Perfect!"
 horizontal_alignment = 1
 vertical_alignment = 1

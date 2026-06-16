@@ -1,20 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[sub_resource type="StyleBoxFlat" id="message_panel"]
-bg_color = Color(1, 0.96, 0.84, 1)
-border_color = Color(0.831, 0.659, 0.294, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 12
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_left = 24
-corner_radius_bottom_right = 24
-content_margin_left = 48.0
-content_margin_top = 32.0
-content_margin_right = 48.0
-content_margin_bottom = 32.0
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 [node name="SwitchHandFullscreen" type="CanvasLayer"]
 layer = 15
@@ -25,44 +11,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.55)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Title" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -100.0
-offset_right = 220.0
-offset_bottom = 100.0
+offset_left = -400.0
+offset_top = -40.0
+offset_right = 400.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("message_panel")
-
-[node name="VBox" type="VBoxContainer" parent="Panel"]
-layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 16
-
-[node name="Icon" type="TextureRect" parent="Panel/VBox"]
-layout_mode = 2
-custom_minimum_size = Vector2(64, 64)
-size_flags_horizontal = 4
-
-[node name="Title" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.333, 0.788, 0.788, 1)
-theme_override_colors/font_outline_color = Color(0.180, 0.510, 0.510, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.4)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 36
-text = "SWITCH HANDS!"
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 40
+text = "SWITCH TO LEFT HAND"
 horizontal_alignment = 1
-
-[node name="Subtitle" type="Label" parent="Panel/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
-theme_override_font_sizes/font_size = 18
-text = "Move ring to RIGHT hand"
-horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,52 +1,119 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
-[sub_resource type="StyleBoxFlat" id="score_panel"]
+[ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+
+# Outer wrapper = cream panel
+[sub_resource type="StyleBoxFlat" id="outer"]
+bg_color = Color(1.0, 0.961, 0.839, 1)
+border_color = Color(0.784, 0.659, 0.282, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 9
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+# Score badge = amber
+[sub_resource type="StyleBoxFlat" id="badge_amber"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+# Caught badge = green
+[sub_resource type="StyleBoxFlat" id="badge_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 7
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_left = 14
-corner_radius_bottom_right = 14
-content_margin_left = 20.0
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
 content_margin_top = 6.0
-content_margin_right = 20.0
+content_margin_right = 14.0
 content_margin_bottom = 6.0
 
 [node name="ScoreHUD" type="PanelContainer"]
-anchors_preset = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 200.0
-offset_bottom = 72.0
-theme_override_styles/panel = SubResource("score_panel")
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("outer")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="HBox"]
-custom_minimum_size = Vector2(28, 28)
+[node name="ScoreBadge" type="PanelContainer" parent="HBox"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("badge_amber")
 
-[node name="Value" type="Label" parent="HBox"]
+[node name="VBox" type="VBoxContainer" parent="HBox/ScoreBadge"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="HBox/ScoreBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 9
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="HBox/ScoreBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 26
+text = "2,480"
+horizontal_alignment = 1
+
+[node name="CaughtBadge" type="PanelContainer" parent="HBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("badge_green")
+
+[node name="VBox" type="VBoxContainer" parent="HBox/CaughtBadge"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="HBox/CaughtBadge/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 28
-text = "2,480"
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 9
+text = "CAUGHT"
+horizontal_alignment = 1
 
-[node name="Shine" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 6.0
-offset_top = 3.0
-offset_right = -6.0
-offset_bottom = 16.0
-color = Color(1, 1, 1, 0.35)
+[node name="Value" type="Label" parent="HBox/CaughtBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("font_display")
+theme_override_font_sizes/font_size = 26
+text = "6"
+horizontal_alignment = 1

@@ -1,12 +1,20 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" load_steps=17 format=3]
 
-[sub_resource type="StyleBoxFlat" id="panel_normal"]
-bg_color = Color(1, 0.96, 0.84, 1)
-border_color = Color(0.831, 0.659, 0.294, 1)
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+[ext_resource type="FontFile" path="res://assets/fonts/Fredoka-Medium.ttf" id="font_body"]
+
+# ===========================================================================
+# BASE STYLES — matches HTML ui-preview.html pixel-exact
+# ===========================================================================
+
+# --- Cream Panel (default PanelContainer) ---
+[sub_resource type="StyleBoxFlat" id="panel_cream"]
+bg_color = Color(1.0, 0.961, 0.839, 1)
+border_color = Color(0.784, 0.659, 0.282, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 10
+border_width_bottom = 9
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_left = 24
@@ -16,62 +24,245 @@ content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="button_normal"]
+# --- Green Button (normal) ---
+[sub_resource type="StyleBoxFlat" id="btn_green_normal"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 5
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+
+# --- Green Button (pressed) ---
+[sub_resource type="StyleBoxFlat" id="btn_green_pressed"]
+bg_color = Color(0.390, 0.710, 0.170, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 0
+border_width_top = 3
+border_width_right = 0
+border_width_bottom = 2
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+content_margin_left = 20.0
+content_margin_top = 15.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+
+# --- Green Button (hover) ---
+[sub_resource type="StyleBoxFlat" id="btn_green_hover"]
+bg_color = Color(0.490, 0.830, 0.250, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 5
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+
+# --- Amber Badge ---
+[sub_resource type="StyleBoxFlat" id="badge_amber"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+# --- Green Badge ---
+[sub_resource type="StyleBoxFlat" id="badge_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 8
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_left = 14
-corner_radius_bottom_right = 14
-content_margin_left = 24.0
-content_margin_top = 12.0
-content_margin_right = 24.0
-content_margin_bottom = 12.0
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
 
-[sub_resource type="StyleBoxFlat" id="button_pressed"]
-bg_color = Color(0.390, 0.710, 0.170, 1)
+# --- Green Name Tab (small, for action card tops) ---
+[sub_resource type="StyleBoxFlat" id="tab_green"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_left = 14
-corner_radius_bottom_right = 14
-content_margin_left = 24.0
-content_margin_top = 17.0
-content_margin_right = 24.0
-content_margin_bottom = 12.0
+border_width_bottom = 6
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="button_hover"]
-bg_color = Color(0.490, 0.830, 0.250, 1)
-border_color = Color(0.290, 0.608, 0.118, 1)
+# --- Teal Pill (hand side indicator) ---
+[sub_resource type="StyleBoxFlat" id="pill_teal"]
+bg_color = Color(0.333, 0.788, 0.788, 1)
+border_color = Color(0.227, 0.604, 0.604, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
+border_width_bottom = 6
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+content_margin_left = 12.0
+content_margin_top = 5.0
+content_margin_right = 12.0
+content_margin_bottom = 5.0
+
+# --- Amber Banner (phase banner) ---
+[sub_resource type="StyleBoxFlat" id="banner_amber"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 9
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 40.0
+content_margin_top = 16.0
+content_margin_right = 40.0
+content_margin_bottom = 16.0
+
+# --- Gold Title Tab (end panel "COMPLETE!") ---
+[sub_resource type="StyleBoxFlat" id="tab_gold"]
+bg_color = Color(1.0, 0.843, 0, 1)
+border_color = Color(0.722, 0.596, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
 border_width_bottom = 8
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_left = 14
-corner_radius_bottom_right = 14
-content_margin_left = 24.0
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 28.0
+content_margin_top = 6.0
+content_margin_right = 28.0
+content_margin_bottom = 6.0
+
+# --- Stat Box Green ---
+[sub_resource type="StyleBoxFlat" id="stat_green"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 8.0
 content_margin_top = 12.0
-content_margin_right = 24.0
+content_margin_right = 8.0
 content_margin_bottom = 12.0
 
+# --- Stat Box Amber ---
+[sub_resource type="StyleBoxFlat" id="stat_amber"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 8.0
+content_margin_top = 12.0
+content_margin_right = 8.0
+content_margin_bottom = 12.0
+
+# --- Stat Box Red ---
+[sub_resource type="StyleBoxFlat" id="stat_red"]
+bg_color = Color(0.910, 0.271, 0.227, 1)
+border_color = Color(0.769, 0.188, 0.157, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 8.0
+content_margin_top = 12.0
+content_margin_right = 8.0
+content_margin_bottom = 12.0
+
+# --- Fox Warning Pill ---
+[sub_resource type="StyleBoxFlat" id="pill_cream"]
+bg_color = Color(1.0, 0.961, 0.839, 1)
+border_color = Color(0.784, 0.659, 0.282, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 9
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+content_margin_left = 28.0
+content_margin_top = 12.0
+content_margin_right = 28.0
+content_margin_bottom = 12.0
+
+# ===========================================================================
+# THEME RESOURCE
+# ===========================================================================
 [resource]
-PanelContainer/styles/panel = SubResource("panel_normal")
-Button/styles/normal = SubResource("button_normal")
-Button/styles/pressed = SubResource("button_pressed")
-Button/styles/hover = SubResource("button_hover")
+default_font = ExtResource("font_body")
+default_font_size = 18
+
+PanelContainer/styles/panel = SubResource("panel_cream")
+
+Button/styles/normal = SubResource("btn_green_normal")
+Button/styles/pressed = SubResource("btn_green_pressed")
+Button/styles/hover = SubResource("btn_green_hover")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
-Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("font_display")
+Button/font_sizes/font_size = 20
+
 Label/colors/font_color = Color(0.290, 0.216, 0.157, 1)
+Label/fonts/font = ExtResource("font_body")
 Label/font_sizes/font_size = 18

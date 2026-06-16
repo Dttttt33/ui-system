@@ -1,17 +1,19 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Shader" path="res://common/ui/shaders/directional_glow.gdshader" id="1"]
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+[ext_resource type="Shader" path="res://common/ui/shaders/directional_glow.gdshader" id="shader_glow"]
 
-[sub_resource type="ShaderMaterial" id="left_glow_mat"]
-shader = ExtResource("1")
+[sub_resource type="ShaderMaterial" id="left_glow"]
+shader = ExtResource("shader_glow")
 shader_parameter/glow_color = Color(0.961, 0.651, 0.137, 1.0)
 shader_parameter/intensity = 0.35
 shader_parameter/pulse_speed = 1.4
 shader_parameter/direction = 1
 
-[sub_resource type="StyleBoxFlat" id="pill_panel"]
-bg_color = Color(1, 0.96, 0.84, 1)
-border_color = Color(0.831, 0.659, 0.294, 1)
+# Cream pill with gold border
+[sub_resource type="StyleBoxFlat" id="pill"]
+bg_color = Color(1.0, 0.961, 0.839, 1)
+border_color = Color(0.784, 0.659, 0.282, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -38,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-material = SubResource("left_glow_mat")
+material = SubResource("left_glow")
 color = Color(1, 1, 1, 1)
 
 [node name="Pill" type="PanelContainer" parent="."]
@@ -48,12 +50,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -160.0
-offset_top = -30.0
+offset_top = -34.0
 offset_right = 160.0
-offset_bottom = 30.0
+offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("pill_panel")
+theme_override_styles/panel = SubResource("pill")
 
 [node name="HBox" type="HBoxContainer" parent="Pill"]
 layout_mode = 2
@@ -67,5 +69,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Pill/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 26
 text = "WATCH OUT!"

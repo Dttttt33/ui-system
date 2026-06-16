@@ -1,4 +1,6 @@
-[gd_scene load_steps=1 format=3]
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 [node name="GoldenCountdown" type="Control"]
 custom_minimum_size = Vector2(88, 100)
@@ -7,8 +9,6 @@ offset_bottom = 100.0
 
 [node name="RingProgress" type="TextureProgressBar" parent="."]
 layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 88.0
 offset_bottom = 88.0
 max_value = 100.0
@@ -17,7 +17,7 @@ fill_mode = 4
 radial_initial_angle = -90.0
 nine_patch_stretch = true
 tint_progress = Color(1, 0.843, 0, 1)
-tint_under = Color(0, 0, 0, 0.2)
+tint_under = Color(0, 0, 0, 0.1)
 
 [node name="PumpkinIcon" type="TextureRect" parent="."]
 layout_mode = 1
@@ -33,6 +33,7 @@ offset_top = 88.0
 offset_right = 64.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 12
 text = "4s"
 horizontal_alignment = 1

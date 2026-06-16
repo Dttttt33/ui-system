@@ -1,28 +1,33 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
-[sub_resource type="StyleBoxFlat" id="card_panel"]
-bg_color = Color(1, 0.96, 0.84, 1)
+[ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+
+# Card panel: cream bg, bold dark-gold border, thick bottom
+[sub_resource type="StyleBoxFlat" id="card"]
+bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.545, 0.416, 0.125, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 10
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_left = 20
-corner_radius_bottom_right = 20
-content_margin_left = 10.0
-content_margin_top = 14.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 11
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_left = 28
+corner_radius_bottom_right = 28
+content_margin_left = 12.0
+content_margin_top = 22.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
 
+# Green name tab
 [sub_resource type="StyleBoxFlat" id="name_tab"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 5
+border_width_bottom = 6
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_left = 10
@@ -32,29 +37,30 @@ content_margin_top = 4.0
 content_margin_right = 16.0
 content_margin_bottom = 4.0
 
+# Teal hand pill
 [sub_resource type="StyleBoxFlat" id="hand_pill"]
 bg_color = Color(0.333, 0.788, 0.788, 1)
 border_color = Color(0.227, 0.604, 0.604, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 4
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
-content_margin_left = 10.0
+content_margin_left = 8.0
 content_margin_top = 3.0
-content_margin_right = 10.0
+content_margin_right = 8.0
 content_margin_bottom = 3.0
 
 [node name="ActionCard" type="Control"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 20.0
+offset_left = 10.0
 offset_top = -240.0
-offset_right = 320.0
+offset_right = 230.0
 offset_bottom = 240.0
 grow_vertical = 2
 
@@ -63,8 +69,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 16.0
-theme_override_styles/panel = SubResource("card_panel")
+offset_top = 15.0
+theme_override_styles/panel = SubResource("card")
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
@@ -85,35 +91,85 @@ theme_override_styles/panel = SubResource("hand_pill")
 [node name="HandLabel" type="Label" parent="Panel/VBox/HandPill"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 11
 text = "Left hand"
 horizontal_alignment = 1
 
-[node name="RepBlocks" type="HBoxContainer" parent="Panel/VBox"]
+[node name="RepRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 3
 alignment = 1
 
-[node name="Done1" type="ColorRect" parent="Panel/VBox/RepBlocks"]
-custom_minimum_size = Vector2(22, 26)
-color = Color(1, 0.843, 0, 1)
-
-[node name="Done2" type="ColorRect" parent="Panel/VBox/RepBlocks"]
-custom_minimum_size = Vector2(22, 26)
-color = Color(1, 0.843, 0, 1)
-
-[node name="Pending1" type="ColorRect" parent="Panel/VBox/RepBlocks"]
-custom_minimum_size = Vector2(22, 26)
-color = Color(0.910, 0.875, 0.753, 1)
-
-[node name="Pending2" type="ColorRect" parent="Panel/VBox/RepBlocks"]
-custom_minimum_size = Vector2(22, 26)
-color = Color(0.910, 0.875, 0.753, 1)
-
-[node name="CountLabel" type="Label" parent="Panel/VBox/RepBlocks"]
+[node name="Done1" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
 layout_mode = 2
+
+[node name="D1Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done1"]
+layout_mode = 2
+color = Color(1, 0.843, 0, 1)
+
+[node name="Done2" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="D2Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done2"]
+layout_mode = 2
+color = Color(1, 0.843, 0, 1)
+
+[node name="Done3" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="D3Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done3"]
+layout_mode = 2
+color = Color(1, 0.843, 0, 1)
+
+[node name="Done4" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="D4Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done4"]
+layout_mode = 2
+color = Color(1, 0.843, 0, 1)
+
+[node name="Done5" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="D5Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done5"]
+layout_mode = 2
+color = Color(1, 0.843, 0, 1)
+
+[node name="Pending1" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="P1Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending1"]
+layout_mode = 2
+color = Color(0.910, 0.875, 0.753, 1)
+
+[node name="Pending2" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="P2Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending2"]
+layout_mode = 2
+color = Color(0.910, 0.875, 0.753, 1)
+
+[node name="Pending3" type="PanelContainer" parent="Panel/VBox/RepRow"]
+custom_minimum_size = Vector2(13, 15)
+layout_mode = 2
+
+[node name="P3Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending3"]
+layout_mode = 2
+color = Color(0.910, 0.875, 0.753, 1)
+
+[node name="CountLabel" type="Label" parent="Panel/VBox/RepRow"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 14
-text = "2/4"
+text = "5/8"
 
 [node name="NameTab" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -121,7 +177,7 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -60.0
-offset_top = -2.0
+offset_top = 0.0
 offset_right = 60.0
 offset_bottom = 30.0
 grow_horizontal = 2
@@ -130,6 +186,7 @@ theme_override_styles/panel = SubResource("name_tab")
 [node name="NameLabel" type="Label" parent="NameTab"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 13
 text = "Bicep Curl"
 horizontal_alignment = 1
