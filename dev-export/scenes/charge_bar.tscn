@@ -5,10 +5,10 @@
 [sub_resource type="StyleBoxFlat" id="track_bg"]
 bg_color = Color(0.831, 0.769, 0.627, 1)
 border_color = Color(0.545, 0.478, 0.353, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
@@ -26,9 +26,9 @@ shader_parameter/shine_height = 0.35
 shader_parameter/shine_opacity = 0.4
 
 [node name="ChargeBar" type="PanelContainer"]
-custom_minimum_size = Vector2(160, 22)
-offset_right = 160.0
-offset_bottom = 22.0
+custom_minimum_size = Vector2(300, 36)
+offset_right = 300.0
+offset_bottom = 36.0
 theme_override_styles/panel = SubResource("track_bg")
 
 [node name="Fill" type="ColorRect" parent="."]
@@ -38,7 +38,7 @@ material = SubResource("fill_mat")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "CHARGE"
 horizontal_alignment = 1
 vertical_alignment = 1
