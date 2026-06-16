@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm Ring Toss — Design Tokens (Final)</title>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #6EC531;
+  --green-dark: #4A9B1E;
+  --green-deep: #2B5E10;
+  --amber: #F5A623;
+  --amber-dark: #D4891A;
+  --amber-deep: #A06810;
+  --red: #E8453A;
+  --red-dark: #C43028;
+  --red-deep: #8B1A14;
+  --gold: #FFD700;
+  --blue: #4A9DD9;
+  --panel-fill: #FFF5D6;
+  --panel-inner: #FFF9E8;
+  --panel-border: #D4A84B;
+  --panel-border-deep: #A07830;
+  --card-row: #F5E8C0;
+  --text-dark: #4A3728;
+  --text-med: #6B5540;
+  --text-light: #8B7A60;
+  --miss: #C4B898;
+  --locked: #8B8B8B;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Fredoka', sans-serif;
+  background: linear-gradient(180deg, #87CEEB 0%, #A8D8A8 50%, #6EC531 100%);
+  min-height: 100vh;
+  color: var(--text-dark);
+  padding: 40px;
+}
+
+/* === PANELS === */
+.panel {
+  background: var(--panel-fill);
+  border: 4px solid var(--panel-border);
+  border-radius: 24px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 6px 0 #7A5A1A;
+  position: relative;
+}
+.panel-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 18px;
+  color: #fff;
+  background: var(--green);
+  border: 3px solid var(--green-dark);
+  border-radius: 10px;
+  padding: 4px 20px;
+  display: inline-block;
+  box-shadow: 0 3px 0 var(--green-deep);
+  text-shadow: 0 2px 0 var(--green-deep);
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+h1 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 40px;
+  color: #fff;
+  text-shadow: 0 3px 0 var(--green-deep), 0 0 20px rgba(0,0,0,0.2);
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+h2 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 20px;
+  color: #fff;
+  background: var(--green);
+  display: inline-block;
+  padding: 5px 22px;
+  border-radius: 12px;
+  border: 3px solid var(--green-dark);
+  box-shadow: 0 3px 0 var(--green-deep);
+  text-shadow: 0 2px 0 var(--green-deep);
+  margin: 48px 0 20px;
+}
+h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px; font-weight: 600; margin: 20px 0 10px; color: var(--text-med);
+}
+.subtitle { color: rgba(255,255,255,0.9); font-size: 15px; margin-bottom: 28px; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+/* === COLOR SWATCHES === */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.swatch {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 3px solid rgba(0,0,0,0.12);
+}
+.swatch-color {
+  height: 64px;
+  position: relative;
+}
+.swatch-color::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35), transparent);
+  border-radius: 10px 10px 0 0;
+}
+.swatch-label {
+  padding: 7px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #fff;
+}
+.swatch-label .name { color: var(--text-dark); display: block; margin-bottom: 1px; }
+.swatch-label .value { color: var(--text-light); font-family: monospace; font-size: 10px; }
+
+/* === TYPOGRAPHY === */
+.type-row {
+  display: flex; align-items: baseline; gap: 20px; padding: 10px 0;
+  border-bottom: 2px solid var(--card-row);
+}
+.type-meta { width: 140px; flex-shrink: 0; font-size: 11px; color: var(--text-light); font-family: monospace; }
+.type-sample { flex: 1; }
+
+/* === BUTTONS === */
+.btn {
+  display: inline-block;
+  padding: 10px 26px;
+  border-radius: 14px;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+  letter-spacing: 0.5px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 8px; right: 8px; height: 38%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), transparent);
+  border-radius: 10px 10px 20px 20px;
+  pointer-events: none;
+}
+.btn:active { transform: translateY(3px); }
+.btn-green { background: var(--green); border-bottom: 5px solid var(--green-dark); }
+.btn-green:active { border-bottom-width: 2px; }
+.btn-amber { background: var(--amber); border-bottom: 5px solid var(--amber-dark); color: var(--text-dark); text-shadow: none; }
+.btn-amber:active { border-bottom-width: 2px; }
+.btn-red { background: var(--red); border-bottom: 5px solid var(--red-dark); }
+.btn-red:active { border-bottom-width: 2px; }
+.btn-blue { background: var(--blue); border-bottom: 5px solid #2D7AB8; }
+
+/* === PROGRESS === */
+.progress-track {
+  height: 22px;
+  background: #D4C4A0;
+  border-radius: 11px;
+  border: 3px solid #8B7A5A;
+  overflow: hidden;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.25);
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 4px; right: 4px; height: 6px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 4px;
+}
+
+/* === DECORATIVE SHAPES === */
+.deco-grid { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+.deco-item { text-align: center; }
+.deco-item .label { font-size: 10px; color: var(--text-med); margin-top: 6px; font-weight: 600; }
+
+.star-wrap {
+  width: 56px; height: 56px;
+  position: relative;
+  filter: drop-shadow(0 3px 0 #B89800);
+}
+.star-wrap svg { width: 100%; height: 100%; }
+.star-wrap.empty { filter: drop-shadow(0 3px 0 #8B8068); }
+
+.coin {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #FFE44D 0%, #F5C800 45%, #C8A000 100%);
+  border: 4px solid #B89800;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Luckiest Guy'; font-size: 20px; color: #8B6900;
+  box-shadow: 0 5px 0 #7A5200, inset 0 -4px 6px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.badge {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Luckiest Guy'; font-size: 22px; color: #fff;
+  position: relative;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.15);
+}
+.badge::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 18%; right: 18%; height: 30%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0));
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ribbon {
+  background: var(--green);
+  color: #fff;
+  font-family: 'Luckiest Guy';
+  font-size: 14px;
+  padding: 6px 26px;
+  position: relative;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  border: 3px solid var(--green-dark);
+  box-shadow: 0 4px 0 var(--green-deep);
+}
+
+
+/* === HUD MOCK === */
+.hud-mock {
+  background: linear-gradient(180deg, #87CEEB 0%, #A8D8A8 55%, #78B838 100%);
+  border-radius: 24px;
+  border: 4px solid #3D8B20;
+  box-shadow: 0 6px 0 #1A3308;
+  padding: 28px;
+  position: relative;
+  aspect-ratio: 16/9;
+  max-width: 860px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+.hud-panel {
+  position: absolute;
+  background: var(--panel-fill);
+  border: 3px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 6px 14px;
+  box-shadow: 0 3px 0 var(--panel-border-deep);
+}
+.hud-panel::after { display: none; }
+.hud-score {
+  top: 16px; right: 16px;
+  text-align: center;
+  padding: 10px 20px;
+}
+.hud-score .num {
+  font-family: 'Luckiest Guy'; font-size: 34px; color: var(--text-dark); line-height: 1.1;
+}
+.hud-score .lbl {
+  font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px;
+}
+.hud-rep {
+  top: 16px; left: 16px;
+  background: var(--green);
+  border-color: var(--green-dark);
+  box-shadow: 0 3px 0 var(--green-deep);
+  color: #fff;
+  font-family: 'Luckiest Guy';
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  padding: 5px 14px;
+}
+.hud-rep::after { display: none; }
+.hud-combo {
+  position: absolute;
+  top: 44%; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'Luckiest Guy';
+  font-size: 48px;
+  color: var(--red);
+  text-shadow: 0 3px 0 var(--red-deep);
+  animation: combo-bounce 0.7s ease-in-out infinite;
+}
+.hud-charge-wrap {
+  position: absolute;
+  bottom: 50px; left: 50%; transform: translateX(-50%);
+  width: 180px; text-align: center;
+}
+.hud-charge-lbl {
+  font-family: 'Luckiest Guy';
+  font-size: 12px; color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  margin-bottom: 4px;
+}
+.hud-charge-track {
+  height: 18px;
+  background: #D4C4A0;
+  border-radius: 9px;
+  border: 3px solid #8B7A5A;
+  overflow: hidden;
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.25);
+}
+.hud-charge-fill {
+  height: 100%; width: 72%;
+  background: linear-gradient(90deg, var(--green), #B8E44B);
+  border-radius: 6px;
+  position: relative;
+  animation: charge-glow 2s ease infinite;
+}
+.hud-charge-fill::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 3px; right: 3px; height: 5px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 3px;
+}
+.hud-ring { display: none; }
+.hud-phase {
+  bottom: 16px; right: 16px;
+  font-size: 12px; font-weight: 600;
+}
+.hud-stars {
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px;
+}
+.hud-stars svg { display: block; }
+
+@keyframes combo-bounce {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(-1deg); }
+  50% { transform: translate(-50%, -50%) scale(1.07) rotate(1deg); }
+}
+@keyframes charge-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.88; }
+}
+
+/* === SPACING VIS === */
+.spacing-row { display: flex; align-items: center; gap: 12px; margin: 6px 0; }
+.spacing-bar { height: 20px; background: var(--green); border-radius: 6px; border-bottom: 3px solid var(--green-dark); position: relative; }
+.spacing-bar::before { content:''; position:absolute; top:3px; left:4px; right:4px; height:5px; background:rgba(255,255,255,0.4); border-radius:3px; }
+.spacing-label { font-size: 11px; font-family: monospace; color: var(--text-light); width: 80px; flex-shrink: 0; }
+
+/* === RADIUS === */
+.radius-grid { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.radius-box {
+  width: 72px; height: 72px;
+  background: linear-gradient(180deg, #8edc6a 0%, #5cba3a 50%, #3d9020 100%);
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: 0 3px 0 #2a6010;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 11px; font-weight: 600;
+  position: relative;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+.radius-box::before { content:''; position:absolute; top:5px; left:15%; right:15%; height:35%; background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.05)); border-radius: inherit; pointer-events:none; }
+.radius-box.pill { width: 120px; height: 60px; }
+.radius-box.circle { width: 72px; height: 72px; }
+
+/* === EASING === */
+.easing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.easing-card {
+  background: var(--panel-inner); border: 3px solid var(--panel-border); border-radius: 14px; padding: 14px; text-align: center;
+  box-shadow: 0 3px 0 var(--panel-border-deep);
+}
+.easing-card .name { font-family: 'Luckiest Guy'; font-size: 13px; margin-bottom: 4px; color: var(--text-dark); }
+.easing-card .curve { font-size: 9px; font-family: monospace; color: var(--text-light); }
+.easing-track {
+  height: 8px; background: var(--card-row); border-radius: 4px; margin-top: 10px; position: relative; overflow: visible;
+  border: 2px solid rgba(0,0,0,0.1);
+}
+.easing-ball {
+  width: 18px; height: 18px; border-radius: 50%;
+  position: absolute; top: -7px; left: 0;
+  border: 2px solid rgba(0,0,0,0.15);
+}
+.easing-card:hover .easing-ball { left: calc(100% - 18px); }
+
+/* Section break */
+.section-break { height: 3px; background: linear-gradient(90deg, transparent, var(--panel-border), transparent); margin: 40px 0; }
+</style>
+</head>
+<body>
+
+<h1>FARM RING TOSS</h1>
+<p class="subtitle">Design Tokens — Cartoon Farm GUI Style · Luckiest Guy + Fredoka · Green/Amber/Cream · Red Highlight</p>
+
+<!-- ===== COLOR: CORE ===== -->
+<h2>COLORS — CORE</h2>
+<div class="panel" style="margin-top:32px; padding-top:32px;">
+  <div class="panel-title">BRAND PALETTE</div>
+  <div class="color-grid">
+    <div class="swatch"><div class="swatch-color" style="background:#6EC531"></div><div class="swatch-label"><span class="name">Green</span><span class="value">#6EC531</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4A9B1E"></div><div class="swatch-label"><span class="name">Green Dark</span><span class="value">#4A9B1E</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#357A12"></div><div class="swatch-label"><span class="name">Green Deep</span><span class="value">#357A12</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F5A623"></div><div class="swatch-label"><span class="name">Amber</span><span class="value">#F5A623</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#D4891A"></div><div class="swatch-label"><span class="name">Amber Dark</span><span class="value">#D4891A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#A06810"></div><div class="swatch-label"><span class="name">Amber Deep</span><span class="value">#A06810</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#E8453A"></div><div class="swatch-label"><span class="name">Red (Accent)</span><span class="value">#E8453A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#C43028"></div><div class="swatch-label"><span class="name">Red Dark</span><span class="value">#C43028</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4A9DD9"></div><div class="swatch-label"><span class="name">Sky Blue</span><span class="value">#4A9DD9</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#FFD700"></div><div class="swatch-label"><span class="name">Gold</span><span class="value">#FFD700</span></div></div>
+  </div>
+</div>
+
+<!-- ===== COLOR: SURFACE ===== -->
+<h2>COLORS — SURFACE</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">PANELS & BG</div>
+  <div class="color-grid">
+    <div class="swatch"><div class="swatch-color" style="background:#FFF5D6"></div><div class="swatch-label"><span class="name">Panel Fill</span><span class="value">#FFF5D6</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#FFF9E8"></div><div class="swatch-label"><span class="name">Panel Inner</span><span class="value">#FFF9E8</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#D4A84B"></div><div class="swatch-label"><span class="name">Panel Border</span><span class="value">#D4A84B</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#A07830"></div><div class="swatch-label"><span class="name">Border Deep</span><span class="value">#A07830</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F5E8C0"></div><div class="swatch-label"><span class="name">Card Row</span><span class="value">#F5E8C0</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#87CEEB"></div><div class="swatch-label"><span class="name">Sky BG</span><span class="value">#87CEEB</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4A3728"></div><div class="swatch-label"><span class="name">Text Dark</span><span class="value">#4A3728</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8B7A60"></div><div class="swatch-label"><span class="name">Text Light</span><span class="value">#8B7A60</span></div></div>
+  </div>
+</div>
+
+<!-- ===== COLOR: GAME EVENTS ===== -->
+<h2>COLORS — GAME EVENTS</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">FEEDBACK COLORS</div>
+  <div class="color-grid">
+    <div class="swatch"><div class="swatch-color" style="background:#6EC531"></div><div class="swatch-label"><span class="name">Hit / Success</span><span class="value">#6EC531</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#FFD700"></div><div class="swatch-label"><span class="name">Perfect</span><span class="value">#FFD700</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#C4B898"></div><div class="swatch-label"><span class="name">Miss (muted)</span><span class="value">#C4B898</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#E8453A"></div><div class="swatch-label"><span class="name">Combo / Burst</span><span class="value">#E8453A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F5A623"></div><div class="swatch-label"><span class="name">Warning</span><span class="value">#F5A623</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4A9DD9"></div><div class="swatch-label"><span class="name">Info / Hint</span><span class="value">#4A9DD9</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8B8B8B"></div><div class="swatch-label"><span class="name">Locked</span><span class="value">#8B8B8B</span></div></div>
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== TYPOGRAPHY ===== -->
+<h2>TYPOGRAPHY</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">FONT SCALE</div>
+  <div style="margin-bottom:12px; font-size:13px; color:var(--text-med);">Display/HUD: <strong>Luckiest Guy</strong> · Body/UI: <strong>Fredoka</strong></div>
+
+  <div class="type-row">
+    <div class="type-meta">hud-score<br>64px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:64px; line-height:1; color:var(--text-dark); text-shadow: 0 3px 0 rgba(0,0,0,0.15);">2480</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">hud-combo<br>52px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:52px; line-height:1; color:var(--red); text-shadow: 0 3px 0 var(--red-deep);">5x COMBO!</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">display-lg<br>44px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:44px; line-height:1.1; color:var(--gold); text-shadow: 0 3px 0 #B89800;">PERFECT!</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">display-md<br>32px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:32px; color:var(--green-dark); text-shadow: 0 2px 0 var(--green-deep);">GREAT HARVEST!</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">title<br>24px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:24px; color:var(--text-dark);">PHASE 2: CHALLENGE</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">hud-label<br>22px</div>
+    <div class="type-sample" style="font-family:'Luckiest Guy'; font-size:22px; color:#fff; background:var(--green); display:inline-block; padding:3px 12px; border-radius:8px; border-bottom:3px solid var(--green-dark); text-shadow:0 1px 2px rgba(0,0,0,0.3);">REP 24/36</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">body<br>18px Fredoka</div>
+    <div class="type-sample" style="font-family:'Fredoka'; font-size:18px; font-weight:500; color:var(--text-dark);">Swing wide to reach the far targets</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">caption<br>14px Fredoka</div>
+    <div class="type-sample" style="font-family:'Fredoka'; font-size:14px; font-weight:500; color:var(--text-med);">Hold steady for precision rings</div>
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== BUTTONS ===== -->
+<h2>BUTTONS</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">BUTTON STYLES</div>
+  <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+    <button class="btn btn-green">START</button>
+    <button class="btn btn-green">RESUME</button>
+    <button class="btn btn-amber">OPTIONS</button>
+    <button class="btn btn-red">5x COMBO</button>
+    <button class="btn btn-blue">REPLAY</button>
+  </div>
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+    <!-- Play -->
+    <div class="badge" style="background:linear-gradient(180deg, #8edc6a 0%, #5cba3a 50%, #3d9020 100%); border:none; box-shadow:0 5px 0 var(--green-dark); width:60px; height:60px;">
+      <svg width="22" height="24" viewBox="0 0 22 24"><path d="M5,2 L19,12 L5,22 Z" fill="rgba(255,255,255,0.9)" stroke="none"/></svg>
+    </div>
+    <!-- Pause -->
+    <div class="badge" style="background:linear-gradient(180deg, #ffd860 0%, #f0b020 50%, #c88010 100%); border:none; box-shadow:0 5px 0 var(--amber-dark); width:60px; height:60px;">
+      <svg width="18" height="20" viewBox="0 0 22 24"><rect x="3" y="2" width="6" height="20" rx="2" fill="rgba(255,255,255,0.85)"/><rect x="13" y="2" width="6" height="20" rx="2" fill="rgba(255,255,255,0.85)"/></svg>
+    </div>
+    <!-- Close -->
+    <div class="badge" style="background:linear-gradient(180deg, #f07868 0%, #e04838 50%, #b82818 100%); border:none; box-shadow:0 5px 0 var(--red-dark); width:60px; height:60px;">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M6,6 L18,18 M18,6 L6,18" stroke="rgba(255,255,255,0.9)" stroke-width="4.5" stroke-linecap="round"/></svg>
+    </div>
+    <!-- Gear -->
+    <div class="badge" style="background:linear-gradient(180deg, #7ac0e8 0%, #4a9dd9 50%, #2a70a8 100%); border:none; box-shadow:0 5px 0 #2D7AB8; width:60px; height:60px;">
+      <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12,8.5a3.5,3.5 0 1,0 0,7a3.5,3.5 0 1,0 0,-7z M10.5,2h3l.4,2.2a8,8 0 0,1 2,1.2l2.1-.9 2.1,2.1-.9,2.1a8,8 0 0,1 1.2,2l2.2.4v3l-2.2.4a8,8 0 0,1-1.2,2l.9,2.1-2.1,2.1-2.1-.9a8,8 0 0,1-2,1.2L13.5,22h-3l-.4-2.2a8,8 0 0,1-2-1.2l-2.1.9-2.1-2.1.9-2.1a8,8 0 0,1-1.2-2L1.4,12.9v-3l2.2-.4a8,8 0 0,1 1.2-2L3.9,5.4 6,3.3l2.1.9a8,8 0 0,1 2-1.2Z" fill="rgba(255,255,255,0.85)" stroke="none"/></svg>
+    </div>
+  </div>
+  <div style="margin-top:16px; font-size:12px; color:var(--text-light);">
+    Depth: 5px bottom border (darker shade) + top shine gradient + press = translateY(3px)<br>
+    Click any button to see press state ↑
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== PROGRESS BARS ===== -->
+<h2>PROGRESS BARS</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">METERS</div>
+  <div style="max-width:400px;">
+    <div style="font-size:12px; font-weight:600; margin-bottom:5px;">Charge — 72%</div>
+    <div class="progress-track"><div class="progress-fill" style="width:72%; background:linear-gradient(90deg, var(--green), #B8E44B);"></div></div>
+    <div style="font-size:12px; font-weight:600; margin:14px 0 5px;">Charge — Full (gold)</div>
+    <div class="progress-track"><div class="progress-fill" style="width:100%; background:linear-gradient(90deg, #F5B800, #FFE44D);"></div></div>
+    <div style="font-size:12px; font-weight:600; margin:14px 0 5px;">Timer / Warning (red)</div>
+    <div class="progress-track" style="border-color:#6B3A2A;"><div class="progress-fill" style="width:35%; background:linear-gradient(90deg, var(--red), #FF7B5A);"></div></div>
+    <div style="font-size:12px; font-weight:600; margin:14px 0 5px;">Phase Progress (blue)</div>
+    <div class="progress-track" style="border-color:#2D5A7A;"><div class="progress-fill" style="width:60%; background:linear-gradient(90deg, var(--blue), #7BC3E8);"></div></div>
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== DECORATIVE SHAPES ===== -->
+<h2>DECORATIVE SHAPES</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">ELEMENTS</div>
+  <div class="deco-grid">
+    <div class="deco-item">
+      <div class="star-wrap"><svg width="60" height="60" viewBox="0 0 64 64" style="filter:drop-shadow(0 3px 0 #B89800)"><path d="M32,4 C33,4 34,6 35,10 L37,18 C38,21 40,23 43,24 L51,25 C55,25 57,27 56,29 L50,34 C47,36 46,39 47,42 L49,50 C50,54 48,56 45,55 L38,50 C35,48 31,48 28,50 L21,55 C18,56 16,54 17,50 L19,42 C20,39 19,36 16,34 L10,29 C8,27 9,25 13,25 L21,24 C24,23 26,21 27,18 L29,10 C30,6 31,4 32,4 Z" fill="#FFD700"/></svg></div>
+      <div class="label">Star (gold)</div>
+    </div>
+    <div class="deco-item">
+      <div class="star-wrap empty"><svg width="60" height="60" viewBox="0 0 64 64" style="filter:drop-shadow(0 3px 0 #8B8068)"><path d="M32,4 C33,4 34,6 35,10 L37,18 C38,21 40,23 43,24 L51,25 C55,25 57,27 56,29 L50,34 C47,36 46,39 47,42 L49,50 C50,54 48,56 45,55 L38,50 C35,48 31,48 28,50 L21,55 C18,56 16,54 17,50 L19,42 C20,39 19,36 16,34 L10,29 C8,27 9,25 13,25 L21,24 C24,23 26,21 27,18 L29,10 C30,6 31,4 32,4 Z" fill="#C4B898"/></svg></div>
+      <div class="label">Star (empty)</div>
+    </div>
+    <div class="deco-item">
+      <div class="badge" style="background:linear-gradient(180deg, #ffd860 0%, #f0c020 50%, #c89800 100%); border:none; box-shadow:0 5px 0 var(--amber-dark); width:54px; height:54px; font-size:22px; color:#6a4a00; text-shadow:none;">$</div>
+      <div class="label">Coin</div>
+    </div>
+    <div class="deco-item">
+      <div class="badge" style="background:linear-gradient(180deg, #8edc6a 0%, #5cba3a 50%, #3d9020 100%); border:none; box-shadow:0 5px 0 var(--green-dark); width:54px; height:54px; font-size:22px;">3</div>
+      <div class="label">Badge</div>
+    </div>
+    <div class="deco-item">
+      <div class="badge" style="background:linear-gradient(180deg, #f07868 0%, #e04838 50%, #b82818 100%); border:none; box-shadow:0 5px 0 var(--red-dark); width:54px; height:54px; font-size:22px;">!</div>
+      <div class="label">Alert</div>
+    </div>
+    <div class="deco-item">
+      <div class="badge" style="background:linear-gradient(180deg, #ffd060 0%, #f0b020 50%, #c88010 100%); border:none; box-shadow:0 5px 0 var(--amber-dark); width:54px; height:54px; font-size:22px; color:var(--text-dark); text-shadow:none;">7</div>
+      <div class="label">Level</div>
+    </div>
+    <div class="deco-item"><div class="ribbon">NEW RECORD!</div><div class="label">Ribbon</div></div>
+    <div class="deco-item"><div class="ribbon" style="background:var(--amber);border-color:var(--amber-dark);box-shadow:0 4px 0 var(--amber-deep);">PHASE 2</div><div class="label">Phase Tag</div></div>
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== PANELS ===== -->
+<h2>PANEL STYLES</h2>
+<p style="font-size:13px; color:rgba(255,255,255,0.85); margin-bottom:12px;">奶油底 + 彩色标签 tab 区分类型</p>
+<div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
+  <div style="background:#FFF5D6; border:4px solid #C8A848; border-radius:20px; padding:24px 20px; box-shadow:0 6px 0 #8B6A20; padding-top:32px; position:relative;">
+    <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--green);border:3px solid #3D8B20;border-radius:8px;padding:3px 16px;box-shadow:0 3px 0 #1A3308;font-family:'Luckiest Guy';font-size:14px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.3);white-space:nowrap;">DEFAULT</div>
+    <div style="font-size:12px; color:var(--text-dark); line-height:1.8;">
+      Fill: cream #FFF5D6<br>Border: gold #C8A848<br>Shadow: dark brown #8B6A20<br>Title: green tab on top
+    </div>
+  </div>
+  <div style="background:#FFF5D6; border:4px solid #C8A848; border-radius:20px; padding:24px 20px; box-shadow:0 6px 0 #8B6A20; padding-top:32px; position:relative;">
+    <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--amber);border:3px solid #C07A14;border-radius:8px;padding:3px 16px;box-shadow:0 3px 0 #6B4408;font-family:'Luckiest Guy';font-size:14px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.3);white-space:nowrap;">UPGRADES</div>
+    <div style="font-size:12px; color:var(--text-dark); line-height:1.8;">
+      Same cream body<br>Title tab: amber<br>Used for item/upgrade<br>panels
+    </div>
+  </div>
+  <div style="background:#FFF5D6; border:4px solid #C8A848; border-radius:20px; padding:24px 20px; box-shadow:0 6px 0 #8B6A20; padding-top:32px; position:relative;">
+    <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--red);border:3px solid var(--red-dark);border-radius:8px;padding:3px 16px;box-shadow:0 3px 0 var(--red-deep);font-family:'Luckiest Guy';font-size:14px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.3);white-space:nowrap;">ALERT</div>
+    <div style="font-size:12px; color:var(--text-dark); line-height:1.8;">
+      Same cream body<br>Title tab: red<br>Used for warnings<br>confirmations
+    </div>
+  </div>
+</div>
+
+
+<div class="section-break"></div>
+
+<!-- ===== SPACING ===== -->
+<h2>SPACING</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">SCALE (8px BASE)</div>
+  <div class="spacing-row"><span class="spacing-label">xs — 4px</span><div class="spacing-bar" style="width:4px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">sm — 8px</span><div class="spacing-bar" style="width:8px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">md — 16px</span><div class="spacing-bar" style="width:16px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">lg — 24px</span><div class="spacing-bar" style="width:24px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">xl — 32px</span><div class="spacing-bar" style="width:32px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">2xl — 48px</span><div class="spacing-bar" style="width:48px"></div></div>
+  <div class="spacing-row"><span class="spacing-label">3xl — 64px</span><div class="spacing-bar" style="width:64px"></div></div>
+</div>
+
+<!-- ===== RADIUS ===== -->
+<h2>RADIUS</h2>
+<div class="panel" style="padding-top:32px;">
+  <div class="panel-title">CORNERS</div>
+  <div class="radius-grid">
+    <div class="radius-box" style="border-radius:8px">sm 8px</div>
+    <div class="radius-box" style="border-radius:14px">md 14px</div>
+    <div class="radius-box" style="border-radius:20px">lg 20px</div>
+    <div class="radius-box" style="border-radius:28px">xl 28px</div>
+    <div class="radius-box pill" style="border-radius:999px;">pill</div>
+    <div class="radius-box circle" style="border-radius:50%;">round</div>
+  </div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== ANIMATION ===== -->
+<h2>ANIMATION CURVES</h2>
+<div class="easing-grid">
+  <div class="easing-card">
+    <div class="name">BOUNCE</div>
+    <div class="curve">cubic-bezier(0.68,-0.55,0.27,1.55)</div>
+    <div class="easing-track"><div class="easing-ball" style="background:var(--red); transition: left 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)"></div></div>
+  </div>
+  <div class="easing-card">
+    <div class="name">SPRING</div>
+    <div class="curve">cubic-bezier(0.34,1.56,0.64,1.0)</div>
+    <div class="easing-track"><div class="easing-ball" style="background:var(--amber); transition: left 0.6s cubic-bezier(0.34,1.56,0.64,1.0)"></div></div>
+  </div>
+  <div class="easing-card">
+    <div class="name">EASE-OUT</div>
+    <div class="curve">cubic-bezier(0.0,0.0,0.2,1.0)</div>
+    <div class="easing-track"><div class="easing-ball" style="background:var(--green); transition: left 0.6s cubic-bezier(0.0,0.0,0.2,1.0)"></div></div>
+  </div>
+  <div class="easing-card">
+    <div class="name">DECELERATE</div>
+    <div class="curve">cubic-bezier(0.0,0.0,0.0,1.0)</div>
+    <div class="easing-track"><div class="easing-ball" style="background:var(--blue); transition: left 0.6s cubic-bezier(0.0,0.0,0.0,1.0)"></div></div>
+  </div>
+</div>
+<p style="font-size:11px; color:rgba(255,255,255,0.7); margin-top:6px;">Hover each card →</p>
+
+<div class="section-break"></div>
+
+<!-- ===== HUD MOCK ===== -->
+<h2>GAME HUD MOCK</h2>
+<p style="font-size:13px; color:rgba(255,255,255,0.85); margin-bottom:12px;">All tokens applied — simulated 16:9 gameplay screen</p>
+<div class="hud-mock">
+  <!-- Stars -->
+  <div class="hud-stars">
+    <svg width="32" height="32" viewBox="0 0 64 64" style="filter:drop-shadow(0 2px 0 #B89800)"><path d="M32,4 C33,4 34,6 35,10 L37,18 C38,21 40,23 43,24 L51,25 C55,25 57,27 56,29 L50,34 C47,36 46,39 47,42 L49,50 C50,54 48,56 45,55 L38,50 C35,48 31,48 28,50 L21,55 C18,56 16,54 17,50 L19,42 C20,39 19,36 16,34 L10,29 C8,27 9,25 13,25 L21,24 C24,23 26,21 27,18 L29,10 C30,6 31,4 32,4 Z" fill="#FFD700"/></svg>
+    <svg width="32" height="32" viewBox="0 0 64 64" style="filter:drop-shadow(0 2px 0 #B89800)"><path d="M32,4 C33,4 34,6 35,10 L37,18 C38,21 40,23 43,24 L51,25 C55,25 57,27 56,29 L50,34 C47,36 46,39 47,42 L49,50 C50,54 48,56 45,55 L38,50 C35,48 31,48 28,50 L21,55 C18,56 16,54 17,50 L19,42 C20,39 19,36 16,34 L10,29 C8,27 9,25 13,25 L21,24 C24,23 26,21 27,18 L29,10 C30,6 31,4 32,4 Z" fill="#FFD700"/></svg>
+    <svg width="32" height="32" viewBox="0 0 64 64" style="filter:drop-shadow(0 2px 0 #8B8068)"><path d="M32,4 C33,4 34,6 35,10 L37,18 C38,21 40,23 43,24 L51,25 C55,25 57,27 56,29 L50,34 C47,36 46,39 47,42 L49,50 C50,54 48,56 45,55 L38,50 C35,48 31,48 28,50 L21,55 C18,56 16,54 17,50 L19,42 C20,39 19,36 16,34 L10,29 C8,27 9,25 13,25 L21,24 C24,23 26,21 27,18 L29,10 C30,6 31,4 32,4 Z" fill="#C4B898"/></svg>
+  </div>
+  <!-- Rep -->
+  <div class="hud-panel hud-rep">REP 24/36</div>
+  <!-- Score -->
+  <div class="hud-panel hud-score">
+    <div class="lbl">SCORE</div>
+    <div class="num" style="font-family:'Luckiest Guy'">2480</div>
+  </div>
+  <!-- Combo -->
+  <div class="hud-combo">5x COMBO!</div>
+  <!-- Charge -->
+  <div class="hud-charge-wrap">
+    <div class="hud-charge-lbl">CHARGE</div>
+    <div class="hud-charge-track"><div class="hud-charge-fill"></div></div>
+  </div>
+  <!-- Phase badge -->
+  <div class="hud-panel hud-phase">PHASE 2</div>
+</div>
+
+<div class="section-break"></div>
+
+<!-- ===== DEPTH RECIPE ===== -->
+<h2>DEPTH RECIPE</h2>
+<div class="panel" style="padding-top:32px; max-width:600px;">
+  <div class="panel-title">HOW TO BUILD DEPTH</div>
+  <table style="width:100%; font-size:12px; font-family:'Fredoka'; border-collapse:collapse;">
+    <tr style="border-bottom:2px solid var(--card-row);">
+      <td style="padding:8px 0; font-weight:700; width:40%;">Thick border</td>
+      <td style="padding:8px 0;">3–4px solid, color = base -20% lightness</td>
+    </tr>
+    <tr style="border-bottom:2px solid var(--card-row);">
+      <td style="padding:8px 0; font-weight:700;">Bottom bar</td>
+      <td style="padding:8px 0;">box-shadow: 0 4–5px 0 [deep color]</td>
+    </tr>
+    <tr style="border-bottom:2px solid var(--card-row);">
+      <td style="padding:8px 0; font-weight:700;">Inner white border</td>
+      <td style="padding:8px 0;">::after inset 5px, 2px solid rgba(255,255,255,0.5)</td>
+    </tr>
+    <tr style="border-bottom:2px solid var(--card-row);">
+      <td style="padding:8px 0; font-weight:700;">Top shine</td>
+      <td style="padding:8px 0;">::before top 35-40%, white→transparent gradient</td>
+    </tr>
+    <tr style="border-bottom:2px solid var(--card-row);">
+      <td style="padding:8px 0; font-weight:700;">Coin/badge spot</td>
+      <td style="padding:8px 0;">::after small ellipse, top-left, rgba(255,255,255,0.5)</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 0; font-weight:700;">Text depth</td>
+      <td style="padding:8px 0;">text-shadow: 0 2–3px 0 [dark], NO blur<br>OR white outline: ±1px ±1px 0 #fff</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

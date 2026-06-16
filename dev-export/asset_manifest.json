@@ -1,0 +1,214 @@
+{
+  "$schema": "farm-ring-toss-assets/1.0",
+  "meta": {
+    "format": "PNG-32 (alpha)",
+    "color_space": "sRGB",
+    "max_texture_size": 2048,
+    "naming": "category_name_variant.png",
+    "import_filter": "linear for sprites, nearest for pixel icons",
+    "source": "Midjourney → remove background → resize → import"
+  },
+  "assets": [
+    {
+      "id": "A1", "category": "game_object",
+      "name": "ring_normal", "file": "game_objects/ring_normal.png",
+      "size": [256, 256], "purpose": "Player's standard throwing ring",
+      "tint_color": "#F5A623", "priority": "P1"
+    },
+    {
+      "id": "A2", "category": "game_object",
+      "name": "ring_precision", "file": "game_objects/ring_precision.png",
+      "size": [256, 256], "purpose": "Precision mode ring",
+      "tint_color": "#4A9DD9", "priority": "P1"
+    },
+    {
+      "id": "A3", "category": "game_object",
+      "name": "ring_shockwave", "file": "game_objects/ring_shockwave.png",
+      "size": [256, 256], "purpose": "Shockwave burst ring",
+      "tint_color": "#E8453A", "priority": "P1"
+    },
+    {
+      "id": "A4", "category": "game_object",
+      "name": "target_watermelon", "file": "game_objects/target_watermelon.png",
+      "size": [192, 192], "purpose": "Crop target — watermelon",
+      "priority": "P0"
+    },
+    {
+      "id": "A5", "category": "game_object",
+      "name": "target_pumpkin", "file": "game_objects/target_pumpkin.png",
+      "size": [192, 192], "purpose": "Crop target — pumpkin",
+      "priority": "P0"
+    },
+    {
+      "id": "A6", "category": "game_object",
+      "name": "target_corn", "file": "game_objects/target_corn.png",
+      "size": [192, 192], "purpose": "Crop target — corn",
+      "priority": "P0"
+    },
+    {
+      "id": "A7", "category": "game_object",
+      "name": "target_sheep", "file": "game_objects/target_sheep.png",
+      "size": [256, 256], "purpose": "Animal target — sheep",
+      "priority": "P0"
+    },
+    {
+      "id": "A8", "category": "game_object",
+      "name": "target_chicken", "file": "game_objects/target_chicken.png",
+      "size": [192, 192], "purpose": "Animal target — chicken",
+      "priority": "P0"
+    },
+    {
+      "id": "A9", "category": "game_object",
+      "name": "target_pumpkin_golden", "file": "game_objects/target_pumpkin_golden.png",
+      "size": [256, 256], "purpose": "High-value golden pumpkin target",
+      "priority": "P0"
+    },
+    {
+      "id": "A10", "category": "game_object",
+      "name": "target_rainbow_fruit", "file": "game_objects/target_rainbow_fruit.png",
+      "size": [256, 256], "purpose": "Special rainbow fruit — triggers bonus",
+      "priority": "P1"
+    },
+    {
+      "id": "A11", "category": "game_object",
+      "name": "fox", "file": "game_objects/fox.png",
+      "size": [256, 320], "purpose": "Antagonist fox that steals golden pumpkins",
+      "priority": "P0"
+    },
+    {
+      "id": "A12", "category": "game_object",
+      "name": "stake_post", "file": "game_objects/stake_post.png",
+      "size": [128, 256], "purpose": "Ring landing post/stake",
+      "priority": "P0"
+    },
+    {
+      "id": "B1", "category": "environment",
+      "name": "sky_layer", "file": "environment/sky_layer.png",
+      "size": [1920, 540], "transparent": false,
+      "purpose": "Sky gradient + clouds (topmost parallax layer)",
+      "priority": "P0"
+    },
+    {
+      "id": "B2", "category": "environment",
+      "name": "far_hills", "file": "environment/far_hills.png",
+      "size": [1920, 400], "transparent": true,
+      "purpose": "Far background hills (parallax 0.3x)",
+      "priority": "P0"
+    },
+    {
+      "id": "B3", "category": "environment",
+      "name": "mid_farm", "file": "environment/mid_farm.png",
+      "size": [1920, 500], "transparent": true,
+      "purpose": "Mid-ground barn + windmill (parallax 0.6x)",
+      "priority": "P0"
+    },
+    {
+      "id": "B4", "category": "environment",
+      "name": "foreground_grass", "file": "environment/foreground_grass.png",
+      "size": [1920, 300], "transparent": true,
+      "purpose": "Foreground grass + flowers (parallax 1.0x)",
+      "priority": "P0"
+    },
+    {
+      "id": "B5", "category": "environment",
+      "name": "fence_section", "file": "environment/fence_section.png",
+      "size": [512, 256], "transparent": true,
+      "purpose": "Tileable wooden fence prop",
+      "priority": "P1"
+    },
+    {
+      "id": "B6", "category": "environment",
+      "name": "hay_bale", "file": "environment/hay_bale.png",
+      "size": [192, 192], "transparent": true,
+      "purpose": "Decorative hay bale",
+      "priority": "P1"
+    },
+    {
+      "id": "B7", "category": "environment",
+      "name": "tree", "file": "environment/tree.png",
+      "size": [256, 320], "transparent": true,
+      "purpose": "Cartoon fruit tree",
+      "priority": "P1"
+    },
+    {
+      "id": "B8", "category": "environment",
+      "name": "sunflower", "file": "environment/sunflower.png",
+      "size": [128, 256], "transparent": true,
+      "purpose": "Decorative sunflower",
+      "priority": "P1"
+    },
+    {
+      "id": "C1", "category": "ui_decorative",
+      "name": "action_illust", "file": "ui/action_illust_{exercise}.png",
+      "size": [400, 600], "transparent": true,
+      "purpose": "Exercise illustration for ActionCard (x8 variants)",
+      "variants": ["kettlebell_swing", "bicep_curl", "deep_squat", "lawnmower_pull", "standing_row", "shoulder_press", "lateral_raise", "deadlift"],
+      "priority": "P0"
+    },
+    {
+      "id": "C2", "category": "ui_decorative",
+      "name": "trophy", "file": "ui/trophy.png",
+      "size": [192, 192], "transparent": true,
+      "purpose": "EndPanel decoration — victory trophy",
+      "priority": "P2"
+    },
+    {
+      "id": "C3", "category": "ui_decorative",
+      "name": "ribbon_banner", "file": "ui/ribbon_banner.png",
+      "size": [512, 128], "transparent": true,
+      "purpose": "NEW RECORD ribbon background",
+      "priority": "P2"
+    },
+    {
+      "id": "C4", "category": "ui_decorative",
+      "name": "confetti_burst", "file": "ui/confetti_burst.png",
+      "size": [512, 512], "transparent": true,
+      "purpose": "Confetti particle source sprite",
+      "priority": "P2"
+    },
+    {
+      "id": "C5", "category": "ui_decorative",
+      "name": "star_burst_rays", "file": "ui/star_burst_rays.png",
+      "size": [512, 512], "transparent": true,
+      "purpose": "Star glow rays (behind Perfect text)",
+      "priority": "P2"
+    },
+    {
+      "id": "D1", "category": "icon",
+      "name": "icon_ring", "file": "icons/icon_ring.png",
+      "size": [64, 64], "purpose": "Ring count HUD icon",
+      "priority": "P1"
+    },
+    {
+      "id": "D2", "category": "icon",
+      "name": "icon_pumpkin", "file": "icons/icon_pumpkin.png",
+      "size": [64, 64], "purpose": "Golden pumpkin count icon",
+      "priority": "P1"
+    },
+    {
+      "id": "D3", "category": "icon",
+      "name": "icon_fox", "file": "icons/icon_fox.png",
+      "size": [64, 64], "purpose": "Fox warning icon",
+      "priority": "P1"
+    },
+    {
+      "id": "D4", "category": "icon",
+      "name": "icon_star", "file": "icons/icon_star.png",
+      "size": [64, 64], "purpose": "Score rating star",
+      "priority": "P1"
+    },
+    {
+      "id": "D5", "category": "icon",
+      "name": "icon_hand", "file": "icons/icon_hand_{side}.png",
+      "size": [64, 64], "purpose": "Hand side indicator (L/R)",
+      "variants": ["left", "right"],
+      "priority": "P1"
+    },
+    {
+      "id": "D6", "category": "icon",
+      "name": "icon_fire", "file": "icons/icon_fire.png",
+      "size": [64, 64], "purpose": "Combo/fire streak icon",
+      "priority": "P1"
+    }
+  ]
+}

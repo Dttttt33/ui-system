@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm Ring Toss — Assets & Prompts Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --green: #6EC531; --green-dark: #4A9B1E; --green-deep: #2B5E10;
+  --amber: #F5A623; --amber-dark: #D4891A; --amber-deep: #A06810;
+  --red: #E8453A; --red-dark: #C43028; --red-deep: #8B1A14;
+  --gold: #FFD700; --blue: #4A9DD9;
+  --panel-fill: #FFF5D6; --panel-border: #D4A84B;
+  --text-dark: #4A3728; --text-light: #8B7A60;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Fredoka', sans-serif;
+  background: #f0f4f8;
+  padding: 40px;
+  color: var(--text-dark);
+}
+
+h1 { font-family: 'Luckiest Guy'; font-size: 36px; margin-bottom: 8px; }
+.subtitle { color: var(--text-light); margin-bottom: 32px; font-size: 16px; }
+
+.section-title {
+  font-family: 'Luckiest Guy';
+  font-size: 22px;
+  margin: 48px 0 20px;
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--red);
+  display: inline-block;
+}
+
+.style-note {
+  margin: 24px 0;
+  padding: 16px;
+  background: var(--panel-fill);
+  border: 2px solid var(--panel-border);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.style-note strong { font-family: 'Luckiest Guy'; font-size: 14px; }
+
+.asset-card {
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.asset-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0ede8;
+}
+.asset-id {
+  background: var(--panel-fill);
+  border: 2px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-family: 'JetBrains Mono';
+  font-size: 12px;
+  font-weight: 600;
+}
+.asset-name { font-weight: 600; font-size: 15px; }
+.asset-meta {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-light);
+  text-align: right;
+}
+.priority-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.p0 { background: #ffe8e8; color: var(--red); }
+.p1 { background: #fff3dc; color: var(--amber-dark); }
+.p2 { background: #e8f5e2; color: var(--green-dark); }
+
+.asset-body { padding: 14px 16px; }
+.asset-purpose {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.prompt-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.prompt-col { position: relative; }
+.prompt-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.prompt-label.generated { color: var(--green-dark); }
+.prompt-label.revision { color: var(--amber-dark); }
+.prompt-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.prompt-label.generated .dot { background: var(--green); }
+.prompt-label.revision .dot { background: var(--amber); }
+
+.prompt-block {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.6;
+  min-height: 100px;
+  position: relative;
+}
+.prompt-block .prefix { color: #89b4fa; }
+.prompt-block .param { color: #a6e3a1; }
+
+.prompt-revision {
+  background: #2d2a1e;
+  color: #f5e6c8;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.6;
+  min-height: 100px;
+  border: 2px dashed var(--amber);
+  resize: vertical;
+  width: 100%;
+  outline: none;
+}
+.prompt-revision::placeholder {
+  color: rgba(245,166,35,0.4);
+  font-style: italic;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #cdd6f4;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Fredoka';
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+@media(max-width:900px) {
+  .prompt-pair { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>FARM RING TOSS — ASSETS & PROMPTS</h1>
+<p class="subtitle">每个资产两列：左=AI 生成 prompt，右=空白框填入你的修改版。美术 audit 后填入 revision，即可追踪改动。</p>
+
+<div class="style-note">
+  <strong>GLOBAL STYLE ANCHOR</strong><br>
+  Prefix: <code>cute cartoon farm game asset, thick black outlines, flat cel shading, bright saturated colors, simple shapes, white background, game sprite style, no text, no watermark</code><br>
+  Suffix: <code>--style raw --s 200 --v 6.1</code> + aspect ratio per asset<br>
+  Lock style: <code>--sref [URL]</code> after first approved output. Character consistency: <code>--cref [URL]</code>
+</div>
+
+<p class="section-title">A. Game Objects</p>
+
+<!-- A1 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A1</span>
+    <span class="asset-name">Ring — Normal (Amber)</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Standard throwing ring. Amber rubber donut. Flies far with kettlebell actions.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon ring toss ring, thick black outlines, flat cel shading, bright amber colored rubber ring, simple donut shape, slight 3D depth, game sprite style, single object centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A2 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A2</span>
+    <span class="asset-name">Ring — Precision (Blue)</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Precision ring for bicep curl. Blue, nimble feel. Targets small/agile animals.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon ring toss ring, thick black outlines, flat cel shading, bright blue colored rubber ring, simple donut shape, slight 3D depth, game sprite style, single object centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A3 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A3</span>
+    <span class="asset-name">Ring — Shockwave (Red)</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Shockwave ring for deep squat. Red, heavier. Slams down to stun.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon ring toss ring, thick black outlines, flat cel shading, bright red colored rubber ring, simple donut shape, slightly thicker and heavier looking, game sprite style, single object centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A4 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A4</span>
+    <span class="asset-name">Target — Watermelon</span>
+    <span class="asset-meta">192×192 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Near-range crop target. Round, big, slow-moving. Easy to hit.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon watermelon, thick black outlines, flat cel shading, bright saturated colors, farm vegetable game sprite, simple round shape, sitting on ground, slight top-down 3/4 view, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A5 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A5</span>
+    <span class="asset-name">Target — Pumpkin</span>
+    <span class="asset-meta">192×192 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Core crop target. Orange, medium difficulty.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon pumpkin, thick black outlines, flat cel shading, bright orange saturated colors, farm vegetable game sprite, simple round shape, sitting on ground, slight top-down 3/4 view, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A6 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A6</span>
+    <span class="asset-name">Target — Corn</span>
+    <span class="asset-meta">192×192 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Tall crop target. Vertical shape, slightly harder to ring.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon corn on the cob, thick black outlines, flat cel shading, bright yellow saturated colors, farm vegetable game sprite, standing upright, slight top-down 3/4 view, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A7 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A7</span>
+    <span class="asset-name">Target — Sheep</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Far-range animal target. Larger, moves slowly. Needs full ROM throw.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon sheep, thick black outlines, flat cel shading, bright colors, chibi proportions, big head small body, friendly expression, fluffy white wool, farm animal game character, side view facing right, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A8 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A8</span>
+    <span class="asset-name">Target — Chicken</span>
+    <span class="asset-meta">192×192 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Small, agile animal target. Moves quickly, harder to ring.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon chicken, thick black outlines, flat cel shading, bright colors, chibi proportions, big head small body, friendly expression, farm animal game character, side view facing right, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A9 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A9</span>
+    <span class="asset-name">Target — Golden Pumpkin</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">High-value timed target. 4s countdown. Fox tries to steal. Gold sparkle.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon golden pumpkin, thick black outlines, flat cel shading, shiny gold color with sparkle highlights, magical glowing effect, precious game collectible, simple shape, centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A10 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A10</span>
+    <span class="asset-name">Target — Rainbow Fruit</span>
+    <span class="asset-meta">256×256 <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Rare bonus. Requires perfect full ROM. Triggers celebration + 1200 bonus.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon magical rainbow apple, thick black outlines, flat cel shading, rainbow gradient colors red orange yellow green blue, sparkle effects, glowing, special power-up game item, centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A11 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A11</span>
+    <span class="asset-name">Fox</span>
+    <span class="asset-meta">256×320 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Antagonist. Sneaks toward golden pumpkins. Mischievous but cute, not scary.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon fox character, thick black outlines, flat cel shading, orange fur, mischievous sneaky expression, holding something, full body side view, running pose, bushy tail, chibi proportions, farm game villain character, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 4:5 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A12 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">A12</span>
+    <span class="asset-name">Stake / Post</span>
+    <span class="asset-meta">128×256 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Ring landing point. Wooden post in ground.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon wooden stake post, thick black outlines, flat cel shading, simple brown wood grain texture, farm style, stuck in green grass patch, game target post for ring toss, centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:2 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section-title">B. Environment Layers</p>
+
+<!-- B1 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">B1</span>
+    <span class="asset-name">Sky Layer</span>
+    <span class="asset-meta">1920×540 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Topmost parallax. Blue gradient sky, fluffy clouds, warm sunlight.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cartoon farm game sky background, horizontal panorama, bright blue gradient sky, fluffy white clouds, warm sunlight, cheerful atmosphere, flat illustration style, no ground visible, game background layer, no text <span class="param">--style raw --s 200 --ar 16:5 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B2 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">B2</span>
+    <span class="asset-name">Far Hills</span>
+    <span class="asset-meta">1920×400 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Distant rolling green hills with wildflowers. Parallax 0.3x.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cartoon farm game background layer, horizontal panorama, rolling green hills with wildflowers, bright saturated colors, thick outlines, flat cel shading, side scrolling game background, bottom transparent area, no text, no watermark <span class="param">--style raw --s 200 --ar 16:5 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B3 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">B3</span>
+    <span class="asset-name">Mid Farm Buildings</span>
+    <span class="asset-meta">1920×500 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Red barn, windmill, silo. Parallax 0.6x.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cartoon farm game background layer, horizontal panorama, red barn and white windmill with silo, bright saturated colors, thick outlines, flat cel shading, side scrolling game background, bottom transparent area, no text, no watermark <span class="param">--style raw --s 200 --ar 16:5 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B4 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">B4</span>
+    <span class="asset-name">Foreground Grass</span>
+    <span class="asset-meta">1920×300 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Closest layer (1.0x parallax). Thick grass + scattered flowers.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cartoon grass foreground layer, thick blades of green grass, small colorful wildflowers scattered, flat cel shading, thick outlines, bright green, horizontal strip, game foreground decoration, transparent top, no text <span class="param">--style raw --s 200 --ar 16:3 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- B5-B8 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">B5-B8</span>
+    <span class="asset-name">Props (Fence / Hay / Tree / Sunflower)</span>
+    <span class="asset-meta">128-512px <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Decorative farm props scattered around play area.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon [wooden farm fence section / hay bale / fruit tree / sunflower], thick black outlines, flat cel shading, bright saturated colors, simple shapes, farm decoration game prop, centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section-title">C. UI Decorative</p>
+
+<!-- C1 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">C1</span>
+    <span class="asset-name">Action Illustrations (×8)</span>
+    <span class="asset-meta">400×600 <span class="priority-badge p0">P0</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">Exercise pose illustrations for ActionCard. One per movement. Stick-figure style showing the motion.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon fitness exercise illustration, [kettlebell swing / bicep curl / deep squat / lawnmower pull / standing row / shoulder press / lateral raise / deadlift], simple stick figure style person doing the movement, thick outlines, flat colors, minimal detail, green and brown color scheme, instructional pose diagram, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 2:3 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- C2-C5 -->
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">C2-C5</span>
+    <span class="asset-name">Effects (Trophy / Ribbon / Confetti / Star Rays)</span>
+    <span class="asset-meta">192-512px <span class="priority-badge p2">P2</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">UI celebration: trophy, NEW RECORD ribbon, confetti burst, star glow rays.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cartoon [golden trophy cup / red ribbon banner / confetti explosion burst / radial star light rays], thick outlines, flat cel shading, bright saturated colors, celebration game effect, centered, white background, no text, no watermark <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="section-title">D. Icons (64×64)</p>
+
+<div class="asset-card">
+  <div class="asset-header">
+    <span class="asset-id">D1-D6</span>
+    <span class="asset-name">Icon Set (Ring / Pumpkin / Fox / Star / Hand / Fire)</span>
+    <span class="asset-meta">64×64 <span class="priority-badge p1">P1</span></span>
+  </div>
+  <div class="asset-body">
+    <p class="asset-purpose">HUD icons. Consistent style, thick outlines, simple shapes.</p>
+    <div class="prompt-pair">
+      <div class="prompt-col">
+        <div class="prompt-label generated"><span class="dot"></span> AI Generated</div>
+        <div class="prompt-block">
+          <button class="copy-btn" onclick="copyPrompt(this)">copy</button>
+          <span class="prefix">/imagine</span> cute cartoon game icon, flat cel shading, thick outlines, [amber ring / golden pumpkin / orange fox head / gold star / open hand / fire flame], single icon, simple shape, bright colors, 64x64 pixel art style, centered on white background, no text <span class="param">--style raw --s 200 --ar 1:1 --v 6.1</span>
+        </div>
+      </div>
+      <div class="prompt-col">
+        <div class="prompt-label revision"><span class="dot"></span> Revision</div>
+        <textarea class="prompt-revision" placeholder="Paste your revised prompt here..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="style-note">
+  <strong>POST-PROCESSING</strong><br>
+  1. Select best variant → Upscale<br>
+  2. Remove background → PNG-32 alpha<br>
+  3. Verify outlines intact<br>
+  4. Resize to target (power-of-2 friendly)<br>
+  5. Import Godot as Texture2D, filter: linear
+</div>
+
+<script>
+function copyPrompt(btn) {
+  const block = btn.parentElement;
+  const text = block.textContent.replace('copy', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+</script>
+
+</body>
+</html>

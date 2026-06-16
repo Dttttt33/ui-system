@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm Ring Toss — Copy/Text Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600&display=swap');
+
+:root {
+  --green: #6EC531; --green-dark: #4A9B1E; --green-deep: #2B5E10;
+  --amber: #F5A623; --amber-dark: #D4891A; --amber-deep: #A06810;
+  --red: #E8453A; --red-dark: #C43028;
+  --gold: #FFD700;
+  --panel-fill: #FFF5D6; --panel-border: #D4A84B;
+  --text-dark: #4A3728; --text-light: #8B7A60;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Fredoka', sans-serif;
+  background: #f0f4f8;
+  padding: 40px;
+  color: var(--text-dark);
+}
+
+h1 { font-family: 'Luckiest Guy'; font-size: 36px; margin-bottom: 8px; }
+.subtitle { color: var(--text-light); margin-bottom: 32px; font-size: 16px; line-height: 1.6; }
+
+.section-title {
+  font-family: 'Luckiest Guy';
+  font-size: 22px;
+  margin: 40px 0 20px;
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--amber);
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 32px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+thead { background: var(--panel-fill); }
+th {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 16px;
+  text-align: left;
+  color: var(--text-light);
+  border-bottom: 2px solid var(--panel-border);
+}
+td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0ede8;
+  vertical-align: top;
+  line-height: 1.6;
+}
+tr:last-child td { border-bottom: none; }
+
+.copy-slot { font-weight: 500; color: var(--text-dark); }
+.copy-context { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+.copy-generated {
+  font-family: 'Luckiest Guy';
+  font-size: 16px;
+  padding: 8px 14px;
+  background: var(--panel-fill);
+  border: 2px solid var(--panel-border);
+  border-radius: 10px;
+  display: inline-block;
+}
+.copy-generated.body-font {
+  font-family: 'Fredoka';
+  font-weight: 500;
+  font-size: 14px;
+}
+.copy-generated.small { font-size: 13px; }
+
+.revision-input {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 2px dashed var(--amber);
+  border-radius: 10px;
+  background: #fffbf0;
+  font-family: 'Fredoka';
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  resize: vertical;
+  outline: none;
+  margin-top: 8px;
+}
+.revision-input::placeholder {
+  color: rgba(245,166,35,0.5);
+  font-style: italic;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.tag-hud { background: #e8f5e2; color: var(--green-dark); }
+.tag-feedback { background: #fff3dc; color: #8B6914; }
+.tag-prompt { background: #fce8e7; color: var(--red); }
+.tag-end { background: #e8e3ff; color: #5B3DBD; }
+.tag-system { background: #e3f2fd; color: #1565C0; }
+
+.note {
+  margin-top: 32px;
+  padding: 16px;
+  background: #fff;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<h1>FARM RING TOSS — COPY PREVIEW</h1>
+<p class="subtitle">所有文案位。每行：位置/需求 → AI 生成版 → 空白 revision 框。<br>美术/策划 audit 后在 revision 栏填入修改，即可追踪改动。</p>
+
+<p class="section-title">HUD Labels</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-hud">HUD</span> <span class="copy-slot">Rep counter</span></td>
+  <td>Compact, always visible. Format: PREFIX current/total</td>
+  <td><span class="copy-generated">REP 18/36</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-hud">HUD</span> <span class="copy-slot">Score label</span></td>
+  <td>Caption above score number</td>
+  <td><span class="copy-generated small">SCORE</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-hud">HUD</span> <span class="copy-slot">Charge bar label</span></td>
+  <td>Small text above bar during ROM fill</td>
+  <td><span class="copy-generated small">CHARGE</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-hud">HUD</span> <span class="copy-slot">Combo streak</span></td>
+  <td>During consecutive hits</td>
+  <td><span class="copy-generated">x5 COMBO</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-hud">HUD</span> <span class="copy-slot">Stability bonus</span></td>
+  <td>CoP steady → ring flies straight</td>
+  <td><span class="copy-generated small">STEADY +10%</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Hit Feedback</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Perfect hit</span></td>
+  <td>Full ROM + ideal timing. Maximum reward. Big text.</td>
+  <td><span class="copy-generated" style="color:var(--gold);font-size:20px;">PERFECT!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Good hit</span></td>
+  <td>Acceptable ROM, ring lands on target</td>
+  <td><span class="copy-generated" style="color:var(--green);">Good!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Miss</span></td>
+  <td>Ring misses. Gentle, non-punishing. Fredoka font.</td>
+  <td><span class="copy-generated body-font" style="color:#C4B898;">Try again</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Double hit</span></td>
+  <td>Ring lands on 2 targets</td>
+  <td><span class="copy-generated" style="color:var(--amber);font-size:20px;">DOUBLE!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Triple hit</span></td>
+  <td>Ring lands on 3 targets</td>
+  <td><span class="copy-generated" style="color:var(--red);font-size:20px;">TRIPLE!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Amazing (4+)</span></td>
+  <td>Rare, sweeps many targets</td>
+  <td><span class="copy-generated" style="font-size:20px;background:linear-gradient(90deg,var(--red),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AMAZING!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Rhythm perfect</span></td>
+  <td>Player returns in green zone</td>
+  <td><span class="copy-generated" style="color:var(--gold);">Perfect timing!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Rhythm too fast</span></td>
+  <td>Before green zone</td>
+  <td><span class="copy-generated body-font" style="color:var(--text-light);">Too fast</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-feedback">FEEDBACK</span> <span class="copy-slot">Rhythm too slow</span></td>
+  <td>After green zone</td>
+  <td><span class="copy-generated body-font" style="color:var(--text-light);">Too slow</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Prompts & Banners</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Phase — Near</span></td>
+  <td>Phase 1: close targets, easy. Kettlebell/curl.</td>
+  <td><span class="copy-generated">RING THE CROPS!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Phase — Far</span></td>
+  <td>Phase 2: further targets, full ROM needed.</td>
+  <td><span class="copy-generated">REACH THE ANIMALS!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Phase — Mixed</span></td>
+  <td>Final: all targets + fox + golden. High intensity.</td>
+  <td><span class="copy-generated">FARM FRENZY!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Switch hand</span></td>
+  <td>Mid-set arm transition</td>
+  <td><span class="copy-generated">SWITCH SIDES</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Fox warning</span></td>
+  <td>Fox heading toward golden pumpkin. Urgent but playful.</td>
+  <td><span class="copy-generated">WATCH OUT!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Golden spawn</span></td>
+  <td>High-value target appeared</td>
+  <td><span class="copy-generated">GOLDEN PUMPKIN!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Rainbow hit</span></td>
+  <td>Full-screen celebration</td>
+  <td><span class="copy-generated" style="font-size:22px;">RAINBOW!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-prompt">PROMPT</span> <span class="copy-slot">Rainbow bonus</span></td>
+  <td>Bonus points text</td>
+  <td><span class="copy-generated">+1200 BONUS</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">Action Card Labels</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Kettlebell Swing</span></td>
+  <td>Bilateral. Ring flies far, targets big/slow.</td>
+  <td><span class="copy-generated">KETTLEBELL SWING</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Bicep Curl</span></td>
+  <td>Unilateral. Ring short, targets small/agile.</td>
+  <td><span class="copy-generated">BICEP CURL</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Deep Squat</span></td>
+  <td>T-bar. Ring slams down, ground shockwave.</td>
+  <td><span class="copy-generated">DEEP SQUAT</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Lawnmower Pull</span></td>
+  <td>Unilateral row. Medium range.</td>
+  <td><span class="copy-generated">LAWNMOWER PULL</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Standing Row</span></td>
+  <td>T-bar upright. Medium arc.</td>
+  <td><span class="copy-generated">STANDING ROW</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Shoulder Press</span></td>
+  <td>Unilateral. High arc.</td>
+  <td><span class="copy-generated">SHOULDER PRESS</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Lateral Raise</span></td>
+  <td>Wide sweep, ring curves sideways.</td>
+  <td><span class="copy-generated">LATERAL RAISE</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">ACTION</span> <span class="copy-slot">Hand side badges</span></td>
+  <td>Which hand holds the handle</td>
+  <td><span class="copy-generated small">LEFT</span> <span class="copy-generated small">RIGHT</span> <span class="copy-generated small">BOTH</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">End Panel</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Tab title</span></td>
+  <td>Green pill above panel</td>
+  <td><span class="copy-generated">COMPLETE!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Stat labels</span></td>
+  <td>Three stat card labels</td>
+  <td><span class="copy-generated small">SCORE</span> <span class="copy-generated small">BEST HIT</span> <span class="copy-generated small">GOLDEN</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Victory — 3 stars</span></td>
+  <td>Maximum performance</td>
+  <td><span class="copy-generated" style="font-size:20px;">GREAT JOB!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Victory — 2 stars</span></td>
+  <td>Good performance</td>
+  <td><span class="copy-generated" style="font-size:20px;">WELL DONE!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Victory — 1 star</span></td>
+  <td>Basic completion</td>
+  <td><span class="copy-generated" style="font-size:20px;">NICE TRY!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Victory — 0 stars</span></td>
+  <td>Minimum. No shame.</td>
+  <td><span class="copy-generated" style="font-size:20px;">KEEP GOING!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">Done button</span></td>
+  <td>Primary button to close</td>
+  <td><span class="copy-generated">DONE</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-end">END</span> <span class="copy-slot">New record</span></td>
+  <td>Ribbon overlay on personal best</td>
+  <td><span class="copy-generated">NEW RECORD!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<p class="section-title">System / Instructional</p>
+<table>
+<thead><tr><th>Slot</th><th>Context</th><th>Generated</th><th>Revision</th></tr></thead>
+<tbody>
+<tr>
+  <td><span class="tag tag-system">SYS</span> <span class="copy-slot">Burst ready</span></td>
+  <td>Burst window opens</td>
+  <td><span class="copy-generated body-font">Burst ready — go all out!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">SYS</span> <span class="copy-slot">Fox stole it</span></td>
+  <td>Fox grabbed golden pumpkin</td>
+  <td><span class="copy-generated body-font" style="color:var(--amber);">The fox got away!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">SYS</span> <span class="copy-slot">Pumpkin saved</span></td>
+  <td>Player saved it before fox</td>
+  <td><span class="copy-generated" style="color:var(--gold);">SAVED!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+<tr>
+  <td><span class="tag tag-system">SYS</span> <span class="copy-slot">Countdown urgent</span></td>
+  <td>Golden countdown &lt;1s</td>
+  <td><span class="copy-generated" style="color:var(--red);">HURRY!</span></td>
+  <td><textarea class="revision-input" placeholder="Your revision..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<div class="note">
+  <strong>Copy guidelines:</strong><br>
+  • HUD/feedback: Luckiest Guy, UPPERCASE<br>
+  • System/instructional: Fredoka, sentence case<br>
+  • Tone: encouraging, playful, never punishing<br>
+  • Keep SHORT — player exercising, glances &lt;0.5s<br>
+  • English only for now. Chinese TBD.
+</div>
+
+</body>
+</html>
