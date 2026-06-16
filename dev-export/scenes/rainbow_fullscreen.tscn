@@ -3,6 +3,13 @@
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 [ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="shader_rainbow"]
 
+# ===========================================================================
+# RainbowFullscreen — Fullscreen celebration overlay on 1920×1080
+# CanvasLayer 20 (above everything)
+# White flash → centered "RAINBOW!" (52px, animated rainbow gradient) + "+1200 BONUS" (24px, gold)
+# Duration: 1.5s then fade out
+# ===========================================================================
+
 [sub_resource type="ShaderMaterial" id="rainbow_mat"]
 shader = ExtResource("shader_rainbow")
 shader_parameter/speed = 1.5
@@ -11,6 +18,7 @@ shader_parameter/scale = 2.0
 [node name="RainbowFullscreen" type="CanvasLayer"]
 layer = 20
 
+# White flash: full viewport, starts at 30% opacity, fades to 0
 [node name="WhiteFlash" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +27,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.3)
 
+# Centered text container
+# Position: x:660 y:460 → x:1260 y:620 (600×160)
 [node name="Center" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,22 +44,24 @@ grow_vertical = 2
 theme_override_constants/separation = 4
 alignment = 1
 
+# "RAINBOW!" — animated rainbow gradient text
 [node name="Title" type="Label" parent="Center"]
 layout_mode = 2
 material = SubResource("rainbow_mat")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.2)
-theme_override_constants/outline_size = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_constants/shadow_offset_y = 4
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 52
 text = "RAINBOW!"
 horizontal_alignment = 1
 
+# "+1200 BONUS" — gold with darker shadow
 [node name="Bonus" type="Label" parent="Center"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.843, 0, 1)
-theme_override_colors/font_outline_color = Color(0.722, 0.596, 0, 1)
-theme_override_constants/outline_size = 4
+theme_override_colors/font_shadow_color = Color(0.722, 0.596, 0, 1)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 24
 text = "+1200 BONUS"

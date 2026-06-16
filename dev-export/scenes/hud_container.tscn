@@ -1,8 +1,45 @@
 [gd_scene load_steps=1 format=3]
 
+# ===========================================================================
+# HUD Container — Layout zones on 1920×1080 viewport
+# ===========================================================================
+# All positions are in absolute pixels for 1920×1080.
+# stretch_mode = canvas_items, aspect = keep (see project_settings.cfg)
+#
+# Layout map:
+# ┌────────────────────────────────────────────────────────────────────────┐
+# │ [TopLeft: RepCounter]   [TopCenter: ProgressBar]   [TopRight: ScoreHUD]│
+# │  x:24 y:12              center, 640w               x:1648 y:10        │
+# │  160×48                 y:12, h:36                  260×64             │
+# │                                                                        │
+# │                     [TopRight2: ComboCounter]                           │
+# │                      x:1740 y:84  140×50                               │
+# │                                                                        │
+# │ [LeftCard]                                                             │
+# │  x:24 y:240             [CenterArea: HitResult / PhaseBanner]          │
+# │  220×480                 center, 600×240                               │
+# │                                                                        │
+# │                                                                        │
+# │                     [BottomCenter: ChargeBar / RhythmBar]              │
+# │                      center, 320w, y:940–990                           │
+# └────────────────────────────────────────────────────────────────────────┘
+
 [node name="HUDContainer" type="CanvasLayer"]
 layer = 10
 
+# --- TOP LEFT: RepCounter zone ---
+# Position: 24px from left, 12px from top
+# Size: 160×48
+[node name="TopLeft" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 184.0
+offset_bottom = 60.0
+
+# --- TOP CENTER: ProgressBar zone ---
+# Position: centered horizontally, 12px from top
+# Size: 640×48 (bar is 36px tall, milestones extend ±8px)
 [node name="TopCenter" type="Control" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -10,19 +47,51 @@ anchor_right = 0.5
 offset_left = -320.0
 offset_top = 12.0
 offset_right = 320.0
-offset_bottom = 48.0
+offset_bottom = 60.0
 grow_horizontal = 2
 
+# --- TOP RIGHT: ScoreHUD zone ---
+# Position: 12px from right edge, 10px from top
+# Size: 260×64
 [node name="TopRight" type="Control" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -260.0
+offset_left = -272.0
 offset_top = 10.0
 offset_right = -12.0
 offset_bottom = 74.0
 grow_horizontal = 0
 
+# --- TOP RIGHT 2: ComboCounter zone ---
+# Position: 12px from right edge, 84px from top (below ScoreHUD)
+# Size: 160×50
+[node name="TopRight2" type="Control" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -172.0
+offset_top = 84.0
+offset_right = -12.0
+offset_bottom = 134.0
+grow_horizontal = 0
+
+# --- LEFT: ActionCard zone ---
+# Position: 24px from left, vertically centered (y: 300–780)
+# Size: 220×480
+[node name="LeftCard" type="Control" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -240.0
+offset_right = 244.0
+offset_bottom = 240.0
+grow_vertical = 2
+
+# --- CENTER: Transient feedback (HitResult, PhaseBanner, MultiHit, SwitchHand) ---
+# Position: dead center of viewport
+# Size: 600×240
 [node name="CenterArea" type="Control" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,16 +105,9 @@ offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LeftCard" type="Control" parent="."]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -240.0
-offset_right = 230.0
-offset_bottom = 240.0
-grow_vertical = 2
-
+# --- BOTTOM CENTER: ChargeBar / ReturnRhythmBar ---
+# Position: centered, 90px from bottom
+# Size: 320×40
 [node name="BottomCenter" type="Control" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -58,3 +120,6 @@ offset_right = 160.0
 offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+
+# --- FULLSCREEN overlays (BurstHint, SwitchHand, RainbowFullscreen) ---
+# Handled by their own CanvasLayer at higher layer indices

@@ -4,17 +4,23 @@
 [ext_resource type="FontFile" path="res://assets/fonts/Fredoka-Medium.ttf" id="font_body"]
 
 # ===========================================================================
-# BASE STYLES — matches HTML ui-preview.html pixel-exact
+# BASE STYLES — matches HTML ui-preview.html pixel-exact @ 1920×1080
+# Depth rule: border = brand-dark, bottom extra = separate darker color
 # ===========================================================================
 
 # --- Cream Panel (default PanelContainer) ---
+# HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20
+# Godot approach: border_color = medium gold, bottom extra uses expand_margin
 [sub_resource type="StyleBoxFlat" id="panel_cream"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 9
+border_width_bottom = 4
+shadow_color = Color(0.545, 0.416, 0.125, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_left = 24
@@ -25,6 +31,7 @@ content_margin_right = 20.0
 content_margin_bottom = 20.0
 
 # --- Green Button (normal) ---
+# HTML: bg #6EC531, border-bottom 5px #4A9B1E, box-shadow 0 3px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="btn_green_normal"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
@@ -32,6 +39,9 @@ border_width_left = 0
 border_width_top = 0
 border_width_right = 0
 border_width_bottom = 5
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_left = 14
@@ -49,6 +59,8 @@ border_width_left = 0
 border_width_top = 3
 border_width_right = 0
 border_width_bottom = 2
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 0
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_left = 14
@@ -66,6 +78,9 @@ border_width_left = 0
 border_width_top = 0
 border_width_right = 0
 border_width_bottom = 5
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_left = 14
@@ -76,13 +91,17 @@ content_margin_right = 20.0
 content_margin_bottom = 12.0
 
 # --- Amber Badge ---
+# HTML: bg #F5A623, border 3px #D4891A, box-shadow 0 4px 0 #A06810
 [sub_resource type="StyleBoxFlat" id="badge_amber"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 7
+border_width_bottom = 3
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -93,13 +112,17 @@ content_margin_right = 14.0
 content_margin_bottom = 6.0
 
 # --- Green Badge ---
+# HTML: bg #6EC531, border 3px #4A9B1E, box-shadow 0 4px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="badge_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 7
+border_width_bottom = 3
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -110,13 +133,17 @@ content_margin_right = 14.0
 content_margin_bottom = 6.0
 
 # --- Green Name Tab (small, for action card tops) ---
+# HTML: bg #6EC531, border 3px #4A9B1E, box-shadow 0 3px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="tab_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 6
+border_width_bottom = 3
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_left = 10
@@ -127,13 +154,17 @@ content_margin_right = 16.0
 content_margin_bottom = 4.0
 
 # --- Teal Pill (hand side indicator) ---
+# HTML: bg #55c9c9, border 3px #3aa, box-shadow 0 3px 0 #288080
 [sub_resource type="StyleBoxFlat" id="pill_teal"]
 bg_color = Color(0.333, 0.788, 0.788, 1)
-border_color = Color(0.227, 0.604, 0.604, 1)
+border_color = Color(0.200, 0.667, 0.667, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 6
+border_width_bottom = 3
+shadow_color = Color(0.157, 0.502, 0.502, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
@@ -144,13 +175,17 @@ content_margin_right = 12.0
 content_margin_bottom = 5.0
 
 # --- Amber Banner (phase banner) ---
+# HTML: bg #F5A623, border 4px #D4891A, box-shadow 0 5px 0 #A06810
 [sub_resource type="StyleBoxFlat" id="banner_amber"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 9
+border_width_bottom = 4
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -161,13 +196,17 @@ content_margin_right = 40.0
 content_margin_bottom = 16.0
 
 # --- Gold Title Tab (end panel "COMPLETE!") ---
+# HTML: bg #FFD700, border 4px #B89800, box-shadow 0 4px 0 #7A5200
 [sub_resource type="StyleBoxFlat" id="tab_gold"]
 bg_color = Color(1.0, 0.843, 0, 1)
 border_color = Color(0.722, 0.596, 0, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.478, 0.322, 0, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -178,13 +217,17 @@ content_margin_right = 28.0
 content_margin_bottom = 6.0
 
 # --- Stat Box Green ---
+# HTML: bg #6EC531, border 4px #4A9B1E, box-shadow 0 4px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="stat_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -201,7 +244,10 @@ border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -212,13 +258,17 @@ content_margin_right = 8.0
 content_margin_bottom = 12.0
 
 # --- Stat Box Red ---
+# HTML: bg #E8453A, border 4px #C43028, box-shadow 0 4px 0 #8B1A14
 [sub_resource type="StyleBoxFlat" id="stat_red"]
 bg_color = Color(0.910, 0.271, 0.227, 1)
 border_color = Color(0.769, 0.188, 0.157, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.545, 0.102, 0.078, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -229,13 +279,17 @@ content_margin_right = 8.0
 content_margin_bottom = 12.0
 
 # --- Fox Warning Pill ---
+# HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20
 [sub_resource type="StyleBoxFlat" id="pill_cream"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 9
+border_width_bottom = 4
+shadow_color = Color(0.545, 0.416, 0.125, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999

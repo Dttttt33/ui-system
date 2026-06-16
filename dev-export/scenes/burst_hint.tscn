@@ -2,6 +2,13 @@
 
 [ext_resource type="Shader" path="res://common/ui/shaders/edge_glow.gdshader" id="shader_glow"]
 
+# ===========================================================================
+# BurstHint — Fullscreen edge glow overlay on 1920×1080
+# CanvasLayer 9 (below HUD, above game)
+# Breathing amber edge glow — no text, purely atmospheric
+# Appears 1.5s before burst opportunity
+# ===========================================================================
+
 [sub_resource type="ShaderMaterial" id="glow_mat"]
 shader = ExtResource("shader_glow")
 shader_parameter/glow_color = Color(0.961, 0.651, 0.137, 1.0)
@@ -12,6 +19,7 @@ shader_parameter/edge_width = 0.15
 [node name="BurstHint" type="CanvasLayer"]
 layer = 9
 
+# Fullscreen: covers entire 1920×1080 viewport
 [node name="EdgeGlow" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0

@@ -3,6 +3,13 @@
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 [ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="shader_rainbow"]
 
+# ===========================================================================
+# MultiHitResult — Center of viewport on 1920×1080
+# Position: x:760 y:380 → x:1160 y:700 (400×320 container)
+# Shows DOUBLE!/TRIPLE!/AMAZING! with multiplier and score
+# Uses font_shadow for downward text-shadow effect
+# ===========================================================================
+
 [sub_resource type="ShaderMaterial" id="rainbow_mat"]
 shader = ExtResource("shader_rainbow")
 shader_parameter/speed = 1.5
@@ -14,48 +21,57 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -80.0
-offset_right = 160.0
-offset_bottom = 80.0
+offset_left = -200.0
+offset_top = -160.0
+offset_right = 200.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 4
 alignment = 1
 
+# DOUBLE! — amber with dark shadow
+# HTML: color #F5A623, text-shadow 0 4px 0 #7A4A08, 0 6px 8px rgba(0,0,0,0.3)
 [node name="TitleDouble" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.961, 0.651, 0.137, 1)
-theme_override_colors/font_outline_color = Color(0.478, 0.290, 0.031, 1)
-theme_override_constants/outline_size = 8
+theme_override_colors/font_shadow_color = Color(0.478, 0.290, 0.031, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 42
 text = "DOUBLE!"
 horizontal_alignment = 1
 
+# TRIPLE! — red with deep shadow (hidden by default, toggled by script)
 [node name="TitleTriple" type="Label" parent="."]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.910, 0.271, 0.227, 1)
-theme_override_colors/font_outline_color = Color(0.353, 0.039, 0.031, 1)
-theme_override_constants/outline_size = 8
+theme_override_colors/font_shadow_color = Color(0.353, 0.039, 0.031, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 42
 text = "TRIPLE!"
 horizontal_alignment = 1
 
+# AMAZING! — rainbow gradient + deep black shadow (hidden by default)
+# HTML: background-clip text rainbow, filter: drop-shadow(0 6px 0 rgba(0,0,0,0.65))
 [node name="TitleAmazing" type="Label" parent="."]
 visible = false
 layout_mode = 2
 material = SubResource("rainbow_mat")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
-theme_override_constants/outline_size = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.65)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 6
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 42
 text = "AMAZING!"
 horizontal_alignment = 1
 
+# Multiplier (e.g. "x2")
 [node name="Multiplier" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
@@ -64,6 +80,7 @@ theme_override_font_sizes/font_size = 22
 text = "x2"
 horizontal_alignment = 1
 
+# Bonus score (e.g. "+480")
 [node name="Score" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.608, 0.118, 1)

@@ -1,12 +1,24 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
+[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+
+# ===========================================================================
+# ComboCounter — Top-right, below ScoreHUD on 1920×1080
+# Position: x:1748 y:84 → x:1908 y:134 (160×50)
+# Amber pill badge with combo value + label
+# ===========================================================================
+
+# HTML: bg #F5A623, border 3px #D4891A, box-shadow 0 4px 0 #A06810
 [sub_resource type="StyleBoxFlat" id="combo_pill"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 7
+border_width_bottom = 3
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
@@ -16,14 +28,21 @@ content_margin_top = 6.0
 content_margin_right = 16.0
 content_margin_bottom = 6.0
 
+# Separate font resource
+[sub_resource type="LabelSettings" id="combo_settings"]
+font_size = 28
+font_color = Color(1, 1, 1, 1)
+shadow_color = Color(0.627, 0.412, 0.063, 1)
+shadow_offset = Vector2(0, 3)
+
 [node name="ComboCounter" type="PanelContainer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -160.0
-offset_top = 80.0
-offset_right = -20.0
-offset_bottom = 130.0
+offset_left = -172.0
+offset_top = 84.0
+offset_right = -12.0
+offset_bottom = 134.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("combo_pill")
 
@@ -35,13 +54,15 @@ alignment = 1
 [node name="ComboValue" type="Label" parent="HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_shadow_color = Color(0.627, 0.412, 0.063, 1)
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 28
 text = "x5"
 
 [node name="ComboLabel" type="Label" parent="HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.85)
+theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 14
 text = "COMBO"

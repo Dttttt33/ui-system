@@ -1,18 +1,22 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 [ext_resource type="FontFile" path="res://assets/fonts/Fredoka-Medium.ttf" id="font_body"]
-[ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="shader_rainbow"]
+[ext_resource type="Shader" path="res://common/ui/shaders/vertical_gradient_text.gdshader" id="shader_gradient"]
 
-# Outer panel: cream, bold gold border, extra thick bottom
+# Outer panel: cream, bold gold border + separate bottom shadow
+# HTML: bg #FFF5D6, border 5px #C8A848, box-shadow 0 7px 0 #5A4010
 [sub_resource type="StyleBoxFlat" id="outer"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
-border_width_bottom = 12
+border_width_bottom = 5
+shadow_color = Color(0.353, 0.251, 0.063, 1)
+shadow_size = 7
+shadow_offset = Vector2(0, 4)
 corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_left = 30
@@ -22,14 +26,18 @@ content_margin_top = 56.0
 content_margin_right = 28.0
 content_margin_bottom = 28.0
 
-# Title tab: gold "COMPLETE!"
+# Title tab: gold "COMPLETE!" — floats above panel top edge
+# HTML: bg #FFD700, border 4px #B89800, box-shadow 0 4px 0 #7A5200
 [sub_resource type="StyleBoxFlat" id="title_tab"]
 bg_color = Color(1.0, 0.843, 0, 1)
 border_color = Color(0.722, 0.596, 0, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.478, 0.322, 0, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -39,14 +47,17 @@ content_margin_top = 6.0
 content_margin_right = 28.0
 content_margin_bottom = 6.0
 
-# Stat: green
+# Stat: green — bg #6EC531, border 4px #4A9B1E, shadow #2B5E10
 [sub_resource type="StyleBoxFlat" id="stat_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -63,7 +74,10 @@ border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -80,7 +94,10 @@ border_color = Color(0.769, 0.188, 0.157, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 8
+border_width_bottom = 4
+shadow_color = Color(0.545, 0.102, 0.078, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -89,6 +106,19 @@ content_margin_left = 8.0
 content_margin_top = 12.0
 content_margin_right = 8.0
 content_margin_bottom = 12.0
+
+# Gradient shader material for "GREAT JOB!" — static green→amber→red top-to-bottom
+[sub_resource type="ShaderMaterial" id="gradient_mat"]
+shader = ExtResource("shader_gradient")
+shader_parameter/color_top = Color(0.431, 0.773, 0.192, 1)
+shader_parameter/color_mid = Color(0.961, 0.651, 0.137, 1)
+shader_parameter/color_bottom = Color(0.910, 0.271, 0.227, 1)
+shader_parameter/mid_point = 0.6
+
+# ===========================================================================
+# EndPanel — centered on 1920×1080
+# Panel size: 620×560, positioned at center (650, 260) to (1270, 820)
+# ===========================================================================
 
 [node name="EndPanel" type="PanelContainer"]
 anchors_preset = 8
@@ -104,6 +134,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("outer")
 
+# --- Gold "COMPLETE!" tab — centered, 18px above panel top ---
 [node name="TitleTab" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -124,10 +155,11 @@ theme_override_font_sizes/font_size = 20
 text = "COMPLETE!"
 horizontal_alignment = 1
 
+# --- Confetti (40 particles: circles + rotated rects) ---
 [node name="Confetti" type="Control" parent="."]
 layout_mode = 2
 
-[node name="C1" type="ColorRect" parent="Confetti"]
+[node name="C01" type="ColorRect" parent="Confetti"]
 offset_left = 14.0
 offset_top = 10.0
 offset_right = 24.0
@@ -135,14 +167,14 @@ offset_bottom = 14.0
 rotation = -0.35
 color = Color(0.910, 0.271, 0.227, 1)
 
-[node name="C2" type="ColorRect" parent="Confetti"]
+[node name="C02" type="ColorRect" parent="Confetti"]
 offset_left = 60.0
 offset_top = 18.0
 offset_right = 68.0
 offset_bottom = 26.0
 color = Color(1, 0.843, 0, 1)
 
-[node name="C3" type="ColorRect" parent="Confetti"]
+[node name="C03" type="ColorRect" parent="Confetti"]
 offset_left = 500.0
 offset_top = 12.0
 offset_right = 511.0
@@ -150,21 +182,21 @@ offset_bottom = 16.0
 rotation = 0.61
 color = Color(0.431, 0.773, 0.192, 1)
 
-[node name="C4" type="ColorRect" parent="Confetti"]
+[node name="C04" type="ColorRect" parent="Confetti"]
 offset_left = 560.0
 offset_top = 24.0
 offset_right = 567.0
 offset_bottom = 31.0
 color = Color(0.29, 0.62, 0.85, 1)
 
-[node name="C5" type="ColorRect" parent="Confetti"]
+[node name="C05" type="ColorRect" parent="Confetti"]
 offset_left = 18.0
 offset_top = 50.0
 offset_right = 24.0
 offset_bottom = 56.0
 color = Color(0.482, 0.38, 1, 1)
 
-[node name="C6" type="ColorRect" parent="Confetti"]
+[node name="C06" type="ColorRect" parent="Confetti"]
 offset_left = 48.0
 offset_top = 48.0
 offset_right = 57.0
@@ -172,7 +204,7 @@ offset_bottom = 51.0
 rotation = 1.05
 color = Color(0.961, 0.651, 0.137, 1)
 
-[node name="C7" type="ColorRect" parent="Confetti"]
+[node name="C07" type="ColorRect" parent="Confetti"]
 offset_left = 530.0
 offset_top = 55.0
 offset_right = 538.0
@@ -180,18 +212,261 @@ offset_bottom = 58.0
 rotation = -0.7
 color = Color(0.910, 0.271, 0.227, 1)
 
-[node name="C8" type="ColorRect" parent="Confetti"]
+[node name="C08" type="ColorRect" parent="Confetti"]
 offset_left = 500.0
 offset_top = 75.0
 offset_right = 506.0
 offset_bottom = 81.0
 color = Color(0.431, 0.773, 0.192, 1)
 
+[node name="C09" type="ColorRect" parent="Confetti"]
+offset_left = 12.0
+offset_top = 90.0
+offset_right = 21.0
+offset_bottom = 93.0
+rotation = 0.44
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C10" type="ColorRect" parent="Confetti"]
+offset_left = 45.0
+offset_top = 100.0
+offset_right = 52.0
+offset_bottom = 107.0
+color = Color(1, 0.843, 0, 1)
+
+[node name="C11" type="ColorRect" parent="Confetti"]
+offset_left = 540.0
+offset_top = 110.0
+offset_right = 550.0
+offset_bottom = 114.0
+rotation = -0.96
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C12" type="ColorRect" parent="Confetti"]
+offset_left = 20.0
+offset_top = 130.0
+offset_right = 27.0
+offset_bottom = 133.0
+rotation = 0.26
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="C13" type="ColorRect" parent="Confetti"]
+offset_left = 555.0
+offset_top = 135.0
+offset_right = 561.0
+offset_bottom = 141.0
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C14" type="ColorRect" parent="Confetti"]
+offset_left = 35.0
+offset_top = 160.0
+offset_right = 43.0
+offset_bottom = 163.0
+rotation = -0.52
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="C15" type="ColorRect" parent="Confetti"]
+offset_left = 520.0
+offset_top = 155.0
+offset_right = 527.0
+offset_bottom = 162.0
+color = Color(1, 0.843, 0, 1)
+
+[node name="C16" type="ColorRect" parent="Confetti"]
+offset_left = 16.0
+offset_top = 190.0
+offset_right = 25.0
+offset_bottom = 193.0
+rotation = 0.87
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C17" type="ColorRect" parent="Confetti"]
+offset_left = 545.0
+offset_top = 185.0
+offset_right = 553.0
+offset_bottom = 188.0
+rotation = -0.35
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C18" type="ColorRect" parent="Confetti"]
+offset_left = 45.0
+offset_top = 210.0
+offset_right = 51.0
+offset_bottom = 216.0
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="C19" type="ColorRect" parent="Confetti"]
+offset_left = 565.0
+offset_top = 200.0
+offset_right = 571.0
+offset_bottom = 206.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="C20" type="ColorRect" parent="Confetti"]
+offset_left = 30.0
+offset_top = 240.0
+offset_right = 36.0
+offset_bottom = 246.0
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C21" type="ColorRect" parent="Confetti"]
+offset_left = 550.0
+offset_top = 235.0
+offset_right = 559.0
+offset_bottom = 238.0
+rotation = 0.70
+color = Color(1, 0.843, 0, 1)
+
+[node name="C22" type="ColorRect" parent="Confetti"]
+offset_left = 248.0
+offset_top = 14.0
+offset_right = 257.0
+offset_bottom = 17.0
+rotation = 0.44
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C23" type="ColorRect" parent="Confetti"]
+offset_left = 370.0
+offset_top = 8.0
+offset_right = 376.0
+offset_bottom = 14.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="C24" type="ColorRect" parent="Confetti"]
+offset_left = 186.0
+offset_top = 35.0
+offset_right = 193.0
+offset_bottom = 38.0
+rotation = -0.79
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C25" type="ColorRect" parent="Confetti"]
+offset_left = 400.0
+offset_top = 40.0
+offset_right = 405.0
+offset_bottom = 45.0
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C26" type="ColorRect" parent="Confetti"]
+offset_left = 70.0
+offset_top = 68.0
+offset_right = 78.0
+offset_bottom = 71.0
+rotation = 0.70
+color = Color(1, 0.843, 0, 1)
+
+[node name="C27" type="ColorRect" parent="Confetti"]
+offset_left = 555.0
+offset_top = 68.0
+offset_right = 561.0
+offset_bottom = 74.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="C28" type="ColorRect" parent="Confetti"]
+offset_left = 35.0
+offset_top = 95.0
+offset_right = 40.0
+offset_bottom = 100.0
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C29" type="ColorRect" parent="Confetti"]
+offset_left = 480.0
+offset_top = 95.0
+offset_right = 489.0
+offset_bottom = 98.0
+rotation = -1.13
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C30" type="ColorRect" parent="Confetti"]
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 67.0
+offset_bottom = 123.0
+rotation = 0.35
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="C31" type="ColorRect" parent="Confetti"]
+offset_left = 460.0
+offset_top = 140.0
+offset_right = 466.0
+offset_bottom = 146.0
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C32" type="ColorRect" parent="Confetti"]
+offset_left = 510.0
+offset_top = 250.0
+offset_right = 518.0
+offset_bottom = 253.0
+rotation = -0.61
+color = Color(1, 0.843, 0, 1)
+
+[node name="C33" type="ColorRect" parent="Confetti"]
+offset_left = 50.0
+offset_top = 260.0
+offset_right = 55.0
+offset_bottom = 265.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="C34" type="ColorRect" parent="Confetti"]
+offset_left = 8.0
+offset_top = 280.0
+offset_right = 17.0
+offset_bottom = 283.0
+rotation = 0.96
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C35" type="ColorRect" parent="Confetti"]
+offset_left = 560.0
+offset_top = 275.0
+offset_right = 567.0
+offset_bottom = 278.0
+rotation = -0.26
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C36" type="ColorRect" parent="Confetti"]
+offset_left = 45.0
+offset_top = 300.0
+offset_right = 51.0
+offset_bottom = 306.0
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="C37" type="ColorRect" parent="Confetti"]
+offset_left = 530.0
+offset_top = 300.0
+offset_right = 538.0
+offset_bottom = 303.0
+rotation = 0.70
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C38" type="ColorRect" parent="Confetti"]
+offset_left = 186.0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 326.0
+color = Color(1, 0.843, 0, 1)
+
+[node name="C39" type="ColorRect" parent="Confetti"]
+offset_left = 420.0
+offset_top = 310.0
+offset_right = 429.0
+offset_bottom = 313.0
+rotation = -0.87
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C40" type="ColorRect" parent="Confetti"]
+offset_left = 300.0
+offset_top = 330.0
+offset_right = 305.0
+offset_bottom = 335.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+# --- Main content ---
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 14
 alignment = 1
 
+# Stars row: 3× 52px stars, 12px gap
 [node name="Stars" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 alignment = 1
@@ -206,6 +481,7 @@ custom_minimum_size = Vector2(52, 52)
 [node name="Star3" type="TextureRect" parent="VBox/Stars"]
 custom_minimum_size = Vector2(52, 52)
 
+# Stats row: 3 colored boxes, each 150px wide min
 [node name="StatsRow" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -223,8 +499,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/ScoreStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_shadow_color = Color(0.169, 0.369, 0.063, 1)
+theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 28
 text = "4,280"
@@ -233,8 +509,8 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/ScoreStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
-theme_override_constants/outline_size = 2
+theme_override_colors/font_shadow_color = Color(0.169, 0.369, 0.063, 1)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_body")
 theme_override_font_sizes/font_size = 13
 text = "SCORE"
@@ -252,8 +528,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/HitStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_shadow_color = Color(0.627, 0.408, 0.063, 1)
+theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 28
 text = "x3"
@@ -262,8 +538,8 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/HitStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
-theme_override_constants/outline_size = 2
+theme_override_colors/font_shadow_color = Color(0.627, 0.408, 0.063, 1)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_body")
 theme_override_font_sizes/font_size = 13
 text = "BEST HIT"
@@ -281,8 +557,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/GoldenStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.545, 0.102, 0.078, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_shadow_color = Color(0.545, 0.102, 0.078, 1)
+theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 28
 text = "5"
@@ -291,30 +567,33 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/GoldenStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.545, 0.102, 0.078, 1)
-theme_override_constants/outline_size = 2
+theme_override_colors/font_shadow_color = Color(0.545, 0.102, 0.078, 1)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_body")
 theme_override_font_sizes/font_size = 13
 text = "GOLDEN"
 horizontal_alignment = 1
 
+# Message shadow: offset 3px down, dark green
 [node name="MessageShadow" type="Label" parent="VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.170, 0.369, 0.063, 1)
+theme_override_colors/font_color = Color(0.169, 0.369, 0.063, 0.8)
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 36
 text = "GREAT JOB!"
 horizontal_alignment = 1
 
+# Message: vertical gradient (green→amber→red) via shader
 [node name="Message" type="Label" parent="VBox"]
 layout_mode = 2
-material = ExtResource("shader_rainbow")
+material = SubResource("gradient_mat")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 36
 text = "GREAT JOB!"
 horizontal_alignment = 1
 
+# Done button: 240×52, centered
 [node name="DoneBtn" type="Button" parent="VBox"]
 layout_mode = 2
 size_flags_horizontal = 4

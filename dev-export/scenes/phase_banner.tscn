@@ -3,14 +3,24 @@
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
-# Amber button-style panel (matches HTML: bg #F5A623, border #D4891A, bottom #A06810)
+# ===========================================================================
+# PhaseBanner — Center of viewport on 1920×1080
+# Position: x:660 y:440 → x:1260 y:640 (600×200 container, auto-sizes to content)
+# Amber button style, centered, auto-fades after 2s
+# ===========================================================================
+
+# Amber button-style panel
+# HTML: bg #F5A623, border 4px #D4891A, box-shadow 0 5px 0 #A06810
 [sub_resource type="StyleBoxFlat" id="banner"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 9
+border_width_bottom = 4
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_left = 16
@@ -20,6 +30,7 @@ content_margin_top = 16.0
 content_margin_right = 40.0
 content_margin_bottom = 16.0
 
+# Centered in viewport
 [node name="PhaseBanner" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,6 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("banner")
 
+# Top shine highlight (HTML: white gradient 35% opacity, top 4px to 35% height)
 [node name="Shine" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -60,9 +72,9 @@ horizontal_alignment = 1
 [node name="Title" type="Label" parent="VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.2)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 24
-text = "ARM BLAST"
+text = "CATCH THE FAR TARGETS!"
 horizontal_alignment = 1

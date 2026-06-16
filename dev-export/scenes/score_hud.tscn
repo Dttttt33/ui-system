@@ -3,14 +3,24 @@
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
-# Outer wrapper = cream panel
+# ===========================================================================
+# ScoreHUD — Top-right of HUD on 1920×1080
+# Position: x:1648 y:10 → x:1908 y:74 (260×64)
+# Structure: cream panel wrapper, two side-by-side badges (amber + green)
+# ===========================================================================
+
+# Outer wrapper = cream panel (smaller padding for HUD density)
+# HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20
 [sub_resource type="StyleBoxFlat" id="outer"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 9
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+shadow_color = Color(0.545, 0.416, 0.125, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
 corner_radius_bottom_left = 18
@@ -21,13 +31,17 @@ content_margin_right = 12.0
 content_margin_bottom = 8.0
 
 # Score badge = amber
+# HTML: bg #F5A623, border 3px #D4891A, box-shadow 0 4px 0 #A06810
 [sub_resource type="StyleBoxFlat" id="badge_amber"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 7
+border_width_bottom = 3
+shadow_color = Color(0.627, 0.408, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -38,13 +52,17 @@ content_margin_right = 14.0
 content_margin_bottom = 6.0
 
 # Caught badge = green
+# HTML: bg #6EC531, border 3px #4A9B1E, box-shadow 0 4px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="badge_green"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 7
+border_width_bottom = 3
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_left = 12
@@ -54,11 +72,12 @@ content_margin_top = 6.0
 content_margin_right = 14.0
 content_margin_bottom = 6.0
 
+# Position: top-right, 12px from right edge, 10px from top
 [node name="ScoreHUD" type="PanelContainer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -260.0
+offset_left = -272.0
 offset_top = 10.0
 offset_right = -12.0
 offset_bottom = 74.0
@@ -70,6 +89,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
+# Amber SCORE badge
 [node name="ScoreBadge" type="PanelContainer" parent="HBox"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("badge_amber")
@@ -94,6 +114,7 @@ theme_override_font_sizes/font_size = 26
 text = "2,480"
 horizontal_alignment = 1
 
+# Green CAUGHT badge
 [node name="CaughtBadge" type="PanelContainer" parent="HBox"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("badge_green")

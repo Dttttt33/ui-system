@@ -2,11 +2,22 @@
 
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
+# ===========================================================================
+# GoldenCountdown — Follows golden pumpkin in world space (billboard)
+# Size: 88×100 (ring 88×88, label below)
+# Ring stroke: 10px, gold (#FFD700) normal → red (#E8453A) when urgent (<1s)
+# Track bg: rgba(0,0,0,0.1)
+# Pumpkin icon: 34×38, centered inside ring
+# Position: set dynamically by script (follows Node3D target in screen space)
+# ===========================================================================
+
 [node name="GoldenCountdown" type="Control"]
 custom_minimum_size = Vector2(88, 100)
 offset_right = 88.0
 offset_bottom = 100.0
 
+# Circular ring progress (TextureProgressBar in radial mode)
+# Fill starts at -90° (top), decreases clockwise as time runs out
 [node name="RingProgress" type="TextureProgressBar" parent="."]
 layout_mode = 1
 offset_right = 88.0
@@ -19,6 +30,7 @@ nine_patch_stretch = true
 tint_progress = Color(1, 0.843, 0, 1)
 tint_under = Color(0, 0, 0, 0.1)
 
+# Pumpkin icon: centered inside the ring (offset = (88-34)/2 = 27, (88-38)/2 = 25)
 [node name="PumpkinIcon" type="TextureRect" parent="."]
 layout_mode = 1
 offset_left = 27.0
@@ -26,6 +38,7 @@ offset_top = 25.0
 offset_right = 61.0
 offset_bottom = 63.0
 
+# Time label below ring
 [node name="TimeLabel" type="Label" parent="."]
 layout_mode = 1
 offset_left = 24.0
@@ -33,6 +46,8 @@ offset_top = 88.0
 offset_right = 64.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3)
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 12
 text = "4s"

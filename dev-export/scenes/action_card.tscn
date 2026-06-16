@@ -3,14 +3,24 @@
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
-# Card panel: cream bg, bold dark-gold border, thick bottom
+# ===========================================================================
+# ActionCard — Left side of HUD on 1920×1080
+# Position: x:24 y:300 → x:244 y:780 (220×480)
+# Internally: 2:3 portrait aspect, name tab on top
+# ===========================================================================
+
+# Card panel: cream bg, bold dark-gold border + shadow
+# HTML: bg #FFF5D6, border 5px #8B6A20, box-shadow 0 6px 0 #5A4010
 [sub_resource type="StyleBoxFlat" id="card"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.545, 0.416, 0.125, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
-border_width_bottom = 11
+border_width_bottom = 5
+shadow_color = Color(0.353, 0.251, 0.063, 1)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 28
 corner_radius_top_right = 28
 corner_radius_bottom_left = 28
@@ -20,14 +30,18 @@ content_margin_top = 22.0
 content_margin_right = 12.0
 content_margin_bottom = 12.0
 
-# Green name tab
+# Green name tab — floats above panel
+# HTML: bg #6EC531, border 3px #4A9B1E, box-shadow 0 3px 0 #2B5E10
 [sub_resource type="StyleBoxFlat" id="name_tab"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 6
+border_width_bottom = 3
+shadow_color = Color(0.169, 0.369, 0.063, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_left = 10
@@ -38,13 +52,17 @@ content_margin_right = 16.0
 content_margin_bottom = 4.0
 
 # Teal hand pill
+# HTML: bg #55c9c9, border 3px #3a9a9a, box-shadow 0 3px 0 #288080
 [sub_resource type="StyleBoxFlat" id="hand_pill"]
 bg_color = Color(0.333, 0.788, 0.788, 1)
 border_color = Color(0.227, 0.604, 0.604, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
-border_width_bottom = 6
+border_width_bottom = 3
+shadow_color = Color(0.157, 0.502, 0.502, 1)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
@@ -54,16 +72,18 @@ content_margin_top = 3.0
 content_margin_right = 8.0
 content_margin_bottom = 3.0
 
+# Root: left-center anchored, 220×480
 [node name="ActionCard" type="Control"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 10.0
+offset_left = 24.0
 offset_top = -240.0
-offset_right = 230.0
+offset_right = 244.0
 offset_bottom = 240.0
 grow_vertical = 2
 
+# Panel: fills root minus name tab overflow space
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -77,12 +97,15 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
+# Exercise illustration area: 2:3 aspect ratio
+# At 196px width (card width - padding), height = 294px
 [node name="IconArea" type="TextureRect" parent="Panel/VBox"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 280)
 stretch_mode = 5
 expand_mode = 1
 
+# Hand side indicator: teal pill
 [node name="HandPill" type="PanelContainer" parent="Panel/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -96,72 +119,49 @@ theme_override_font_sizes/font_size = 11
 text = "Left hand"
 horizontal_alignment = 1
 
+# Rep progress blocks: gold (done) + grey (pending) + count
 [node name="RepRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 3
 alignment = 1
 
-[node name="Done1" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Done1" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="D1Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done1"]
 layout_mode = 2
 color = Color(1, 0.843, 0, 1)
 
-[node name="Done2" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Done2" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="D2Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done2"]
 layout_mode = 2
 color = Color(1, 0.843, 0, 1)
 
-[node name="Done3" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Done3" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="D3Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done3"]
 layout_mode = 2
 color = Color(1, 0.843, 0, 1)
 
-[node name="Done4" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Done4" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="D4Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done4"]
 layout_mode = 2
 color = Color(1, 0.843, 0, 1)
 
-[node name="Done5" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Done5" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="D5Rect" type="ColorRect" parent="Panel/VBox/RepRow/Done5"]
 layout_mode = 2
 color = Color(1, 0.843, 0, 1)
 
-[node name="Pending1" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Pending1" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="P1Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending1"]
 layout_mode = 2
 color = Color(0.910, 0.875, 0.753, 1)
 
-[node name="Pending2" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Pending2" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="P2Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending2"]
 layout_mode = 2
 color = Color(0.910, 0.875, 0.753, 1)
 
-[node name="Pending3" type="PanelContainer" parent="Panel/VBox/RepRow"]
+[node name="Pending3" type="ColorRect" parent="Panel/VBox/RepRow"]
 custom_minimum_size = Vector2(13, 15)
-layout_mode = 2
-
-[node name="P3Rect" type="ColorRect" parent="Panel/VBox/RepRow/Pending3"]
 layout_mode = 2
 color = Color(0.910, 0.875, 0.753, 1)
 
@@ -171,6 +171,7 @@ theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 14
 text = "5/8"
 
+# Name tab: floats above card panel, centered
 [node name="NameTab" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
