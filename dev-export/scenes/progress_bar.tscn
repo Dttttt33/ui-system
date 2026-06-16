@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=5 format=3]
 
 [sub_resource type="StyleBoxFlat" id="track_panel"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
@@ -12,12 +12,36 @@ corner_radius_top_right = 12
 corner_radius_bottom_left = 12
 corner_radius_bottom_right = 12
 
-[sub_resource type="StyleBoxFlat" id="fill_style"]
+[sub_resource type="StyleBoxFlat" id="fill_gradient"]
 bg_color = Color(0.494, 0.859, 0.400, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="milestone_done_action"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+
+[sub_resource type="StyleBoxFlat" id="milestone_done_hand"]
+bg_color = Color(0.333, 0.788, 0.788, 1)
+border_color = Color(0.227, 0.667, 0.667, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 5
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
 
 [node name="ProgressBar" type="PanelContainer"]
 custom_minimum_size = Vector2(800, 52)
@@ -31,10 +55,14 @@ offset_bottom = 72.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("track_panel")
 
-[node name="Shine" type="ColorRect" parent="."]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 18)
-size_flags_vertical = 0
+[node name="TopShine" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = -6.0
+offset_bottom = 18.0
 color = Color(1, 1, 1, 0.3)
 
 [node name="FillClip" type="Control" parent="."]
@@ -42,35 +70,92 @@ layout_mode = 2
 clip_children = 1
 
 [node name="Fill" type="Panel" parent="FillClip"]
+offset_left = 3.0
+offset_top = 3.0
 offset_right = 400.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("fill_style")
+offset_bottom = 43.0
+theme_override_styles/panel = SubResource("fill_gradient")
 
-[node name="Milestones" type="HBoxContainer" parent="."]
+[node name="FillShine" type="ColorRect" parent="FillClip/Fill"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 14.0
+color = Color(1, 1, 1, 0.25)
+
+[node name="Milestones" type="Control" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 3
 
-[node name="ActionDone" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(36, 36)
-color = Color(0.431, 0.773, 0.192, 1)
+[node name="M1_ActionDone" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = -8.0
+offset_right = 96.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("milestone_done_action")
 
-[node name="HandDone" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(28, 28)
-color = Color(0.333, 0.788, 0.788, 1)
+[node name="Check1" type="Label" parent="Milestones/M1_ActionDone"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ActionDone2" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(36, 36)
-color = Color(0.431, 0.773, 0.192, 1)
+[node name="M2_HandDone" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 180.0
+offset_top = -4.0
+offset_right = 208.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("milestone_done_hand")
 
-[node name="ActionPending" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(36, 36)
-color = Color(0.910, 0.875, 0.784, 1)
+[node name="Check2" type="Label" parent="Milestones/M2_HandDone"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HandPending" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(28, 28)
-color = Color(0.847, 0.941, 0.941, 1)
+[node name="M3_ActionDone" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 300.0
+offset_top = -8.0
+offset_right = 336.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("milestone_done_action")
 
-[node name="ActionPending2" type="ColorRect" parent="Milestones"]
-custom_minimum_size = Vector2(36, 36)
-color = Color(0.910, 0.875, 0.784, 1)
+[node name="Check3" type="Label" parent="Milestones/M3_ActionDone"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="M4_ActionPending" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 440.0
+offset_top = -8.0
+offset_right = 476.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("milestone_done_action")
+
+[node name="M5_HandPending" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 560.0
+offset_top = -4.0
+offset_right = 588.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("milestone_done_hand")
+
+[node name="M6_ActionPending" type="PanelContainer" parent="Milestones"]
+layout_mode = 1
+offset_left = 680.0
+offset_top = -8.0
+offset_right = 716.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("milestone_done_action")

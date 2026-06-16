@@ -1,4 +1,11 @@
-[gd_scene load_steps=1 format=3]
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="1"]
+
+[sub_resource type="ShaderMaterial" id="rainbow_mat"]
+shader = ExtResource("1")
+shader_parameter/speed = 1.5
+shader_parameter/scale = 2.0
 
 [node name="MultiHitResult" type="VBoxContainer"]
 anchors_preset = 8
@@ -19,21 +26,42 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.961, 0.651, 0.137, 1)
 theme_override_colors/font_outline_color = Color(0.478, 0.290, 0.031, 1)
-theme_override_constants/outline_size = 6
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 42
 text = "DOUBLE!"
+horizontal_alignment = 1
+
+[node name="TitleTriple" type="Label" parent="."]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.910, 0.271, 0.227, 1)
+theme_override_colors/font_outline_color = Color(0.353, 0.039, 0.031, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 42
+text = "TRIPLE!"
+horizontal_alignment = 1
+
+[node name="TitleAmazing" type="Label" parent="."]
+visible = false
+layout_mode = 2
+material = SubResource("rainbow_mat")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 42
+text = "AMAZING!"
 horizontal_alignment = 1
 
 [node name="Multiplier" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "x2"
 horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.608, 0.118, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "+480"
 horizontal_alignment = 1

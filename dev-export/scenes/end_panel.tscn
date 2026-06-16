@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="outer_panel"]
 bg_color = Color(1, 0.96, 0.84, 1)
@@ -102,7 +104,7 @@ anchor_right = 0.5
 offset_left = -80.0
 offset_top = -18.0
 offset_right = 80.0
-offset_bottom = 22.0
+offset_bottom = 24.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("title_tab")
 
@@ -112,6 +114,54 @@ theme_override_colors/font_color = Color(0.353, 0.227, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "COMPLETE!"
 horizontal_alignment = 1
+
+[node name="Confetti" type="Control" parent="."]
+layout_mode = 2
+
+[node name="C1" type="ColorRect" parent="Confetti"]
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 24.0
+offset_bottom = 14.0
+rotation = -0.35
+color = Color(0.910, 0.271, 0.227, 1)
+
+[node name="C2" type="ColorRect" parent="Confetti"]
+offset_left = 60.0
+offset_top = 18.0
+offset_right = 68.0
+offset_bottom = 26.0
+color = Color(1, 0.843, 0, 1)
+
+[node name="C3" type="ColorRect" parent="Confetti"]
+offset_left = 550.0
+offset_top = 12.0
+offset_right = 561.0
+offset_bottom = 16.0
+rotation = 0.61
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="C4" type="ColorRect" parent="Confetti"]
+offset_left = 620.0
+offset_top = 24.0
+offset_right = 627.0
+offset_bottom = 31.0
+color = Color(0.29, 0.62, 0.85, 1)
+
+[node name="C5" type="ColorRect" parent="Confetti"]
+offset_left = 18.0
+offset_top = 50.0
+offset_right = 24.0
+offset_bottom = 56.0
+color = Color(0.482, 0.38, 1, 1)
+
+[node name="C6" type="ColorRect" parent="Confetti"]
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 57.0
+offset_bottom = 51.0
+rotation = 1.05
+color = Color(0.961, 0.651, 0.137, 1)
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -149,6 +199,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/ScoreStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 28
 text = "4,280"
 horizontal_alignment = 1
@@ -156,6 +208,8 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/ScoreStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 text = "SCORE"
 horizontal_alignment = 1
@@ -172,6 +226,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/HitStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 28
 text = "x3"
 horizontal_alignment = 1
@@ -179,6 +235,8 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/HitStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 text = "BEST HIT"
 horizontal_alignment = 1
@@ -195,6 +253,8 @@ alignment = 1
 [node name="Value" type="Label" parent="VBox/StatsRow/GoldenStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.545, 0.102, 0.078, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 28
 text = "5"
 horizontal_alignment = 1
@@ -202,13 +262,23 @@ horizontal_alignment = 1
 [node name="Caption" type="Label" parent="VBox/StatsRow/GoldenStat/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.545, 0.102, 0.078, 1)
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 text = "GOLDEN"
 horizontal_alignment = 1
 
-[node name="Message" type="Label" parent="VBox"]
+[node name="MessageShadow" type="Label" parent="VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.170, 0.369, 0.063, 1)
+theme_override_font_sizes/font_size = 36
+text = "GREAT JOB!"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="VBox"]
+layout_mode = 2
+material = ExtResource("1")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 text = "GREAT JOB!"
 horizontal_alignment = 1
@@ -219,3 +289,13 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(240, 52)
 theme_override_font_sizes/font_size = 20
 text = "DONE"
+
+[node name="BtnShine" type="ColorRect" parent="VBox/DoneBtn"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = 20.0
+color = Color(1, 1, 1, 0.4)

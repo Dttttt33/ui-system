@@ -1,9 +1,16 @@
-[gd_scene load_steps=1 format=3]
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://common/ui/shaders/rainbow_text.gdshader" id="1"]
+
+[sub_resource type="ShaderMaterial" id="rainbow_mat"]
+shader = ExtResource("1")
+shader_parameter/speed = 1.5
+shader_parameter/scale = 2.0
 
 [node name="RainbowFullscreen" type="CanvasLayer"]
 layer = 20
 
-[node name="Overlay" type="ColorRect" parent="."]
+[node name="WhiteFlash" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,7 +35,8 @@ alignment = 1
 
 [node name="Title" type="Label" parent="Center"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.843, 0, 1)
+material = SubResource("rainbow_mat")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.2)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 56

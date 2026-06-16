@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3]
 
-[sub_resource type="StyleBoxFlat" id="score_panel"]
-bg_color = Color(0.431, 0.773, 0.192, 1)
-border_color = Color(0.290, 0.608, 0.118, 1)
+[sub_resource type="StyleBoxFlat" id="timer_panel"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -11,18 +11,21 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_left = 14
 corner_radius_bottom_right = 14
-content_margin_left = 20.0
+content_margin_left = 16.0
 content_margin_top = 6.0
-content_margin_right = 20.0
+content_margin_right = 16.0
 content_margin_bottom = 6.0
 
-[node name="ScoreHUD" type="PanelContainer"]
-anchors_preset = 0
-offset_left = 20.0
+[node name="TimerHUD" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
 offset_top = 20.0
-offset_right = 200.0
+offset_right = -20.0
 offset_bottom = 72.0
-theme_override_styles/panel = SubResource("score_panel")
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("timer_panel")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -30,16 +33,16 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Icon" type="TextureRect" parent="HBox"]
-custom_minimum_size = Vector2(28, 28)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 
 [node name="Value" type="Label" parent="HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.170, 0.369, 0.063, 1)
+theme_override_colors/font_outline_color = Color(0.627, 0.412, 0.063, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 28
-text = "2,480"
+text = "2:45"
 
 [node name="Shine" type="ColorRect" parent="."]
 layout_mode = 1
