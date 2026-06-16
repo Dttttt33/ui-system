@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="StyleBoxFlat" id="outer_panel"]
+bg_color = Color(1, 0.96, 0.84, 1)
+border_color = Color(0.831, 0.659, 0.294, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="score_badge"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="caught_badge"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[node name="ScoreHUD" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 70.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("outer_panel")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScoreBadge" type="PanelContainer" parent="HBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("score_badge")
+
+[node name="VBox" type="VBoxContainer" parent="HBox/ScoreBadge"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="HBox/ScoreBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
+theme_override_font_sizes/font_size = 9
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="HBox/ScoreBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
+theme_override_font_sizes/font_size = 26
+text = "0"
+horizontal_alignment = 1
+
+[node name="CaughtBadge" type="PanelContainer" parent="HBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("caught_badge")
+
+[node name="VBox" type="VBoxContainer" parent="HBox/CaughtBadge"]
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="HBox/CaughtBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "CAUGHT"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="HBox/CaughtBadge/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "0"
+horizontal_alignment = 1

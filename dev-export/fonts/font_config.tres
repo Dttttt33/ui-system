@@ -1,0 +1,31 @@
+[gd_resource type="FontFile" format=3]
+
+# ===========================================================================
+# Font Configuration Reference
+# ===========================================================================
+#
+# This project uses two font families:
+#
+# 1. LuckiestGuy-Regular.ttf  (Display / HUD / Scores / Headlines)
+#    - Download: https://fonts.google.com/specimen/Luckiest+Guy
+#    - Use for: score numbers, phase titles, hit feedback text, button labels
+#    - Sizes: 42px (hit feedback), 32px (phase title), 28px (score), 22px (HUD)
+#
+# 2. Fredoka-Medium.ttf  (Body / UI / Labels / Captions)
+#    - Download: https://fonts.google.com/specimen/Fredoka
+#    - Weight: Medium (500)
+#    - Use for: card names, stat captions, instructions, subtitles
+#    - Sizes: 18px (body), 14px (subtitle), 12px (caption), 10px (tiny)
+#
+# SETUP:
+# 1. Download both .ttf files from Google Fonts
+# 2. Place them in res://common/ui/fonts/
+# 3. Godot will auto-import them using the .import files provided
+# 4. The theme references them by path
+#
+# To apply globally, set in Project Settings:
+#   gui/theme/custom_font = res://common/ui/fonts/Fredoka-Medium.ttf
+#
+# ===========================================================================
+
+[resource]

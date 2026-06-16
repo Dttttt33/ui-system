@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Theme" path="res://common/ui/theme/ui_theme.tres" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="pill_style"]
+bg_color = Color(0.431, 0.773, 0.192, 1)
+border_color = Color(0.290, 0.608, 0.118, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+content_margin_left = 18.0
+content_margin_top = 6.0
+content_margin_right = 18.0
+content_margin_bottom = 6.0
+
+[node name="RepCounter" type="PanelContainer"]
+offset_right = 140.0
+offset_bottom = 44.0
+theme_override_styles/panel = SubResource("pill_style")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "REP 0/36"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RepCounter" type="PanelContainer" parent="." groups=["ui"]]
+script = ExtResource("rep_counter_script")
