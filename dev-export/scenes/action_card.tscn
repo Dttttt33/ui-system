@@ -3,65 +3,65 @@
 [sub_resource type="StyleBoxFlat" id="card_panel"]
 bg_color = Color(1, 0.96, 0.84, 1)
 border_color = Color(0.545, 0.416, 0.125, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 12
-corner_radius_top_left = 28
-corner_radius_top_right = 28
-corner_radius_bottom_left = 28
-corner_radius_bottom_right = 28
-content_margin_left = 16.0
-content_margin_top = 24.0
-content_margin_right = 16.0
-content_margin_bottom = 16.0
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 10
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+content_margin_left = 12.0
+content_margin_top = 20.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxFlat" id="name_tab"]
 bg_color = Color(0.431, 0.773, 0.192, 1)
 border_color = Color(0.290, 0.608, 0.118, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 7
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 20.0
-content_margin_top = 6.0
-content_margin_right = 20.0
-content_margin_bottom = 6.0
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 5
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+content_margin_left = 12.0
+content_margin_top = 2.0
+content_margin_right = 12.0
+content_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="hand_pill"]
 bg_color = Color(0.333, 0.788, 0.788, 1)
 border_color = Color(0.227, 0.604, 0.604, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 7
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
-content_margin_left = 16.0
-content_margin_top = 4.0
-content_margin_right = 16.0
-content_margin_bottom = 4.0
+content_margin_left = 10.0
+content_margin_top = 2.0
+content_margin_right = 10.0
+content_margin_bottom = 2.0
 
 [node name="ActionCard" type="PanelContainer"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -280.0
-offset_right = 320.0
-offset_bottom = 280.0
+offset_left = 20.0
+offset_top = -240.0
+offset_right = 300.0
+offset_bottom = 240.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("card_panel")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="NameTab" type="PanelContainer" parent="VBox"]
@@ -72,13 +72,13 @@ theme_override_styles/panel = SubResource("name_tab")
 [node name="NameLabel" type="Label" parent="VBox/NameTab"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 14
 text = "Bicep Curl"
 horizontal_alignment = 1
 
 [node name="IconArea" type="TextureRect" parent="VBox"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 280)
 stretch_mode = 5
 expand_mode = 1
 
@@ -90,8 +90,8 @@ theme_override_styles/panel = SubResource("hand_pill")
 [node name="HandLabel" type="Label" parent="VBox/HandPill"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = "Right hand"
+theme_override_font_sizes/font_size = 11
+text = "Left hand"
 horizontal_alignment = 1
 
 [node name="RepBlocks" type="HBoxContainer" parent="VBox"]
@@ -99,9 +99,24 @@ layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="RepLabel" type="Label" parent="VBox"]
+[node name="Done1" type="ColorRect" parent="VBox/RepBlocks"]
+custom_minimum_size = Vector2(22, 26)
+color = Color(1, 0.843, 0, 1)
+
+[node name="Done2" type="ColorRect" parent="VBox/RepBlocks"]
+custom_minimum_size = Vector2(22, 26)
+color = Color(1, 0.843, 0, 1)
+
+[node name="Pending1" type="ColorRect" parent="VBox/RepBlocks"]
+custom_minimum_size = Vector2(22, 26)
+color = Color(0.910, 0.875, 0.753, 1)
+
+[node name="Pending2" type="ColorRect" parent="VBox/RepBlocks"]
+custom_minimum_size = Vector2(22, 26)
+color = Color(0.910, 0.875, 0.753, 1)
+
+[node name="CountLabel" type="Label" parent="VBox/RepBlocks"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
-theme_override_font_sizes/font_size = 18
-text = "0/12"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+text = "2/4"

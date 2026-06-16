@@ -1,37 +1,62 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
-[sub_resource type="StyleBoxFlat" id="rhythm_track"]
-bg_color = Color(0.831, 0.769, 0.627, 1)
+[sub_resource type="StyleBoxFlat" id="track_style"]
+bg_color = Color(0.831, 0.792, 0.627, 1)
 border_color = Color(0.545, 0.478, 0.353, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+
+[sub_resource type="StyleBoxFlat" id="ideal_zone"]
+bg_color = Color(0.431, 0.773, 0.192, 0.5)
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
 
 [node name="ReturnRhythmBar" type="VBoxContainer"]
-custom_minimum_size = Vector2(400, 80)
-offset_right = 400.0
-offset_bottom = 80.0
-theme_override_constants/separation = 8
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
-theme_override_font_sizes/font_size = 18
-text = "Return to start"
-horizontal_alignment = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -60.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
 
 [node name="Track" type="PanelContainer" parent="."]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 28)
-theme_override_styles/panel = SubResource("rhythm_track")
+custom_minimum_size = Vector2(400, 20)
+theme_override_styles/panel = SubResource("track_style")
 
-[node name="Indicator" type="ColorRect" parent="Track"]
+[node name="IdealZone" type="Panel" parent="Track"]
+layout_mode = 1
+offset_left = 160.0
+offset_top = 2.0
+offset_right = 280.0
+offset_bottom = 18.0
+theme_override_styles/panel = SubResource("ideal_zone")
+
+[node name="Cursor" type="ColorRect" parent="Track"]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 6.0
+offset_bottom = 20.0
+color = Color(0.961, 0.651, 0.137, 1)
+
+[node name="ResultLabel" type="Label" parent="."]
 layout_mode = 2
-custom_minimum_size = Vector2(20, 20)
-size_flags_horizontal = 0
-color = Color(0.431, 0.773, 0.192, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1

@@ -3,12 +3,12 @@
 [ext_resource type="Shader" path="res://common/ui/shaders/progress_fill.gdshader" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="track_bg"]
-bg_color = Color(0.831, 0.769, 0.627, 1)
+bg_color = Color(0.831, 0.792, 0.627, 1)
 border_color = Color(0.545, 0.478, 0.353, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 corner_radius_top_left = 999
 corner_radius_top_right = 999
 corner_radius_bottom_left = 999
@@ -16,29 +16,41 @@ corner_radius_bottom_right = 999
 
 [sub_resource type="ShaderMaterial" id="fill_mat"]
 shader = ExtResource("1")
-shader_parameter/color_start = Color(0.961, 0.651, 0.137, 1)
-shader_parameter/color_end = Color(0.831, 0.537, 0.102, 1)
-shader_parameter/color_full_start = Color(1, 0.843, 0, 1)
-shader_parameter/color_full_end = Color(1, 0.757, 0, 1)
+shader_parameter/color_start = Color(0.431, 0.773, 0.192, 1)
+shader_parameter/color_end = Color(0.733, 0.894, 0.294, 1)
+shader_parameter/color_full_start = Color(0.961, 0.722, 0.0, 1)
+shader_parameter/color_full_end = Color(1, 0.843, 0, 1)
 shader_parameter/progress = 0.0
 shader_parameter/is_full = false
-shader_parameter/shine_height = 0.35
-shader_parameter/shine_opacity = 0.4
+shader_parameter/shine_height = 0.45
+shader_parameter/shine_opacity = 0.45
 
-[node name="ChargeBar" type="PanelContainer"]
-custom_minimum_size = Vector2(300, 36)
-offset_right = 300.0
-offset_bottom = 36.0
-theme_override_styles/panel = SubResource("track_bg")
-
-[node name="Fill" type="ColorRect" parent="."]
-layout_mode = 2
-material = SubResource("fill_mat")
+[node name="ChargeBar" type="VBoxContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 4
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 12
 text = "CHARGE"
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Track" type="PanelContainer" parent="."]
+layout_mode = 2
+custom_minimum_size = Vector2(320, 22)
+theme_override_styles/panel = SubResource("track_bg")
+
+[node name="Fill" type="ColorRect" parent="Track"]
+layout_mode = 2
+material = SubResource("fill_mat")

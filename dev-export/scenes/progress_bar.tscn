@@ -1,44 +1,76 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Shader" path="res://common/ui/shaders/progress_fill.gdshader" id="1"]
+[sub_resource type="StyleBoxFlat" id="track_panel"]
+bg_color = Color(0.961, 0.651, 0.137, 1)
+border_color = Color(0.831, 0.537, 0.102, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 7
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
 
-[sub_resource type="StyleBoxFlat" id="track_bg"]
-bg_color = Color(0.831, 0.769, 0.627, 1)
-border_color = Color(0.545, 0.478, 0.353, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 999
-corner_radius_top_right = 999
-corner_radius_bottom_left = 999
-corner_radius_bottom_right = 999
-
-[sub_resource type="ShaderMaterial" id="fill_mat"]
-shader = ExtResource("1")
-shader_parameter/color_start = Color(0.431, 0.773, 0.192, 1)
-shader_parameter/color_end = Color(0.290, 0.608, 0.118, 1)
-shader_parameter/color_full_start = Color(1, 0.843, 0, 1)
-shader_parameter/color_full_end = Color(0.961, 0.651, 0.137, 1)
-shader_parameter/progress = 0.6
-shader_parameter/is_full = false
-shader_parameter/shine_height = 0.35
-shader_parameter/shine_opacity = 0.4
+[sub_resource type="StyleBoxFlat" id="fill_style"]
+bg_color = Color(0.494, 0.859, 0.400, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
 [node name="ProgressBar" type="PanelContainer"]
-custom_minimum_size = Vector2(400, 40)
+custom_minimum_size = Vector2(800, 52)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("track_panel")
+
+[node name="Shine" type="ColorRect" parent="."]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 18)
+size_flags_vertical = 0
+color = Color(1, 1, 1, 0.3)
+
+[node name="FillClip" type="Control" parent="."]
+layout_mode = 2
+clip_children = 1
+
+[node name="Fill" type="Panel" parent="FillClip"]
 offset_right = 400.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("track_bg")
+theme_override_styles/panel = SubResource("fill_style")
 
-[node name="Fill" type="ColorRect" parent="."]
+[node name="Milestones" type="HBoxContainer" parent="."]
 layout_mode = 2
-material = SubResource("fill_mat")
+theme_override_constants/separation = 0
+alignment = 3
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
-text = "12 / 20"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ActionDone" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(36, 36)
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="HandDone" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(28, 28)
+color = Color(0.333, 0.788, 0.788, 1)
+
+[node name="ActionDone2" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(36, 36)
+color = Color(0.431, 0.773, 0.192, 1)
+
+[node name="ActionPending" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(36, 36)
+color = Color(0.910, 0.875, 0.784, 1)
+
+[node name="HandPending" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(28, 28)
+color = Color(0.847, 0.941, 0.941, 1)
+
+[node name="ActionPending2" type="ColorRect" parent="Milestones"]
+custom_minimum_size = Vector2(36, 36)
+color = Color(0.910, 0.875, 0.784, 1)
