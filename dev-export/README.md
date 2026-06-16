@@ -1,19 +1,12 @@
 # Farm Ring Toss — UI Package (Godot 4.3+)
 
-即插即用 UI 资源包。复制 `common/` 到项目根目录即可使用，零配置。
+即插即用 UI 资源包。**字体已包含**，复制整个文件夹到项目即可使用，零配置、零下载。
 
 ---
 
-## Quick Start（3 步搞定）
+## Quick Start（2 步搞定）
 
-### 1. 下载字体
-
-从 Google Fonts 下载，放入 `common/ui/fonts/`：
-
-- [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy) → `LuckiestGuy-Regular.ttf`
-- [Fredoka](https://fonts.google.com/specimen/Fredoka) (Medium weight) → `Fredoka-Medium.ttf`
-
-### 2. 复制到项目
+### 1. 复制到项目
 
 ```
 your-godot-project/
@@ -43,8 +36,8 @@ your-godot-project/
 │       │   ├── score_hud.tscn
 │       │   └── switch_hand.tscn
 │       ├── fonts/
-│       │   ├── LuckiestGuy-Regular.ttf   ← 你下载的
-│       │   ├── Fredoka-Medium.ttf         ← 你下载的
+│       │   ├── LuckiestGuy-Regular.ttf   ← 已包含 (Display/HUD)
+│       │   ├── Fredoka-Medium.ttf         ← 已包含 (Body/UI)
 │       │   └── font_config.tres           ← 配置参考
 │       └── textures/
 │           └── placeholders/              ← 开发用占位贴图
@@ -59,7 +52,7 @@ your-godot-project/
 │               └── farm_bg.tres
 ```
 
-### 3. 配置项目设置
+### 2. 配置项目设置
 
 在 `Project > Project Settings` 中设置：
 
@@ -143,6 +136,25 @@ $Root.theme = preload("res://common/ui/theme/ui_theme.tres")
 | 颜色 | Green #6EC531, Amber #F5A623, Red #E8453A, Gold #FFD700, Cream #FFF5D6 |
 | 深色描边 | 比 bg 暗 25-30% |
 | 字体 | Luckiest Guy (display), Fredoka Medium (body) |
+
+---
+
+## 字体 (Fonts)
+
+已包含在 `fonts/` 目录中，Godot 打开项目时自动导入。
+
+| 字体 | 文件 | 用途 | 字号 |
+|------|------|------|------|
+| Luckiest Guy | `LuckiestGuy-Regular.ttf` | Display / HUD / 分数 / 标题 | 42 (反馈), 32 (phase), 28 (score), 22 (HUD) |
+| Fredoka Medium | `Fredoka-Medium.ttf` | Body / UI / 标签 / 说明 | 18 (body), 14 (subtitle), 12 (caption), 10 (tiny) |
+
+字体来源：[Google Fonts](https://fonts.google.com) (OFL License)
+
+在 GDScript 中加载字体：
+```gdscript
+var display_font = preload("res://common/ui/fonts/LuckiestGuy-Regular.ttf")
+var body_font = preload("res://common/ui/fonts/Fredoka-Medium.ttf")
+```
 
 ---
 
