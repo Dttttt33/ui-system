@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 [ext_resource type="FontFile" path="res://assets/fonts/Fredoka-Medium.ttf" id="font_body"]
+[ext_resource type="Script" path="res://scripts/motion_feedback.gd" id="script"]
 
 # Stage background border (green game field)
 [sub_resource type="StyleBoxFlat" id="stage_bg"]
@@ -52,6 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("script")
 
 [node name="StagePanel" type="PanelContainer" parent="."]
 layout_mode = 1
