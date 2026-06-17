@@ -1,0 +1,1527 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farm Ring Toss - Dynamic CoP ROM UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #6EC531;
+      --green-dark: #4A9B1E;
+      --green-deep: #2B5E10;
+      --amber: #F5A623;
+      --amber-dark: #D4891A;
+      --amber-deep: #A06810;
+      --red: #E8453A;
+      --red-dark: #C43028;
+      --red-deep: #8B1A14;
+      --gold: #FFD700;
+      --blue: #4A9DD9;
+      --blue-dark: #2D7AB8;
+      --panel-fill: #FFF5D6;
+      --panel-inner: #FFF9E8;
+      --panel-border: #D4A84B;
+      --panel-border-deep: #A07830;
+      --card-row: #F5E8C0;
+      --text-dark: #4A3728;
+      --text-med: #6B5540;
+      --text-light: #8B7A60;
+      --ground-fill: #E7F1D2;
+      --ground-line: #B7CBA8;
+      --body: #245847;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 40px;
+      color: var(--text-dark);
+      font-family: "Fredoka", "PingFang SC", system-ui, sans-serif;
+      letter-spacing: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.38), rgba(255,255,255,0) 26%),
+        linear-gradient(180deg, #87CEEB 0%, #A8D8A8 52%, #6EC531 100%);
+    }
+
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    h1,
+    h2,
+    .panel-tab,
+    .metric-num,
+    .metric-label,
+    .hold-text {
+      font-family: "Luckiest Guy", "Fredoka", sans-serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin-bottom: 32px;
+      color: #fff;
+      font-size: clamp(32px, 4vw, 44px);
+      line-height: 1;
+      text-shadow: 0 3px 0 var(--green-deep), 0 0 18px rgba(0,0,0,.22);
+    }
+
+    .versions {
+      display: grid;
+      gap: 42px;
+    }
+
+    .action-heading {
+      margin: 8px 0 -12px;
+      color: #fff;
+      font-family: "Luckiest Guy", "Fredoka", sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      text-shadow: 0 3px 0 var(--green-deep);
+    }
+
+    .version-panel {
+      position: relative;
+      padding: 30px;
+      background: var(--panel-fill);
+      border: 4px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: 0 6px 0 #7A5A1A;
+    }
+
+    .version-panel::before,
+    .stage-shell::before,
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 6px;
+      height: 36%;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    .panel-tab {
+      position: absolute;
+      left: 50%;
+      top: -18px;
+      z-index: 5;
+      transform: translateX(-50%);
+      padding: 5px 22px;
+      color: #fff !important;
+      font-family: "Luckiest Guy", "Fredoka", sans-serif;
+      font-size: 16px;
+      line-height: 1;
+      white-space: nowrap;
+      text-shadow: 0 2px 0 var(--green-deep);
+      background: var(--green);
+      border: 3px solid var(--green-dark);
+      border-radius: 10px;
+      box-shadow: 0 3px 0 var(--green-deep);
+    }
+
+    .panel-tab.amber {
+      color: var(--text-dark);
+      text-shadow: none;
+      background: var(--amber);
+      border-color: var(--amber-dark);
+      box-shadow: 0 3px 0 var(--amber-deep);
+    }
+
+    .panel-tab.blue {
+      background: var(--blue);
+      border-color: var(--blue-dark);
+      box-shadow: 0 3px 0 #1A5A88;
+      text-shadow: 0 2px 0 #1A5A88;
+    }
+
+    .layout-a,
+    .layout-b,
+    .layout-c {
+      display: grid;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .layout-a {
+      grid-template-columns: 1fr;
+    }
+
+    .layout-b {
+      grid-template-columns: minmax(0, 1fr) 220px;
+    }
+
+    .layout-c {
+      grid-template-columns: 220px minmax(0, 1fr);
+    }
+
+    .stage-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 38%),
+        linear-gradient(180deg, #87CEEB 0%, #B8D888 58%, #78B838 100%);
+      border: 4px solid #3D8B20;
+      border-radius: 24px;
+      box-shadow: 0 6px 0 #1A3308;
+    }
+
+    .stage-shell.compact {
+      min-height: 470px;
+    }
+
+    .motion-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .side-metrics {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .metric-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 158px;
+      padding: 18px 16px;
+      background: var(--panel-inner);
+      border: 4px solid var(--panel-border);
+      border-radius: 20px;
+      box-shadow: 0 5px 0 var(--panel-border-deep);
+    }
+
+    .metric-label {
+      display: inline-block;
+      padding: 4px 12px;
+      color: #fff;
+      font-size: 13px;
+      line-height: 1;
+      text-shadow: 0 2px 0 var(--green-deep);
+      background: var(--green);
+      border: 3px solid var(--green-dark);
+      border-radius: 10px;
+      box-shadow: 0 3px 0 var(--green-deep);
+    }
+
+    .metric-label.blue {
+      background: var(--blue);
+      border-color: var(--blue-dark);
+      box-shadow: 0 3px 0 #1A5A88;
+      text-shadow: 0 2px 0 #1A5A88;
+    }
+
+    .metric-label.amber {
+      color: var(--text-dark);
+      text-shadow: none;
+      background: var(--amber);
+      border-color: var(--amber-dark);
+      box-shadow: 0 3px 0 var(--amber-deep);
+    }
+
+    .metric-num {
+      margin: 14px 0 8px;
+      color: var(--text-dark);
+      font-size: 42px;
+      line-height: .9;
+    }
+
+    .meter-track {
+      position: relative;
+      height: 24px;
+      overflow: hidden;
+      background: #D4C4A0;
+      border: 3px solid #8B7A5A;
+      border-radius: 12px;
+      box-shadow: inset 0 3px 6px rgba(0,0,0,.24);
+    }
+
+    .meter-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 70%;
+      border-radius: 9px;
+      background: linear-gradient(90deg, var(--green), #B8E44B);
+      animation: fillBreath 2.1s ease-in-out infinite;
+    }
+
+    .meter-fill.blue {
+      background: linear-gradient(90deg, var(--blue), #7BC3E8);
+    }
+
+    .meter-fill.amber {
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+    }
+
+    .meter-fill::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      top: 3px;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.48);
+    }
+
+    .body-line {
+      fill: none;
+      stroke: var(--body);
+      stroke-width: 15;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .body-head {
+      fill: var(--body);
+    }
+
+    .handle-dot {
+      fill: #314e55;
+      stroke: none;
+      stroke-width: 0;
+      filter: drop-shadow(0 3px 0 rgba(74,55,40,.2));
+    }
+
+    .athlete-frame {
+      pointer-events: none;
+      filter: drop-shadow(0 9px 10px rgba(74,55,40,.18));
+    }
+
+    .ground {
+      display: none;
+      stroke: rgba(183,203,168,.9);
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .ground-fill {
+      display: none;
+      fill: rgba(231,241,210,.82);
+    }
+
+    .field-line {
+      display: none;
+      fill: none;
+      stroke: rgba(183,203,168,.82);
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .rom-path {
+      fill: none;
+      stroke: #87CEEB;
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 4 14;
+    }
+
+    .rom-path-active {
+      fill: none;
+      stroke: rgba(255,255,255,.88);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 4 14;
+      pointer-events: none;
+    }
+
+    .rom-progress-mask {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 54;
+      stroke-linecap: round;
+    }
+
+    .rom-zone {
+      fill: none;
+      stroke: rgba(110,197,49,.82);
+      stroke-width: 58;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 14px rgba(110,197,49,.5));
+      animation: targetGlow 1.25s ease-in-out infinite;
+    }
+
+    .rom-progress {
+      fill: none;
+      stroke: #4A9DD9;
+      stroke-width: 42;
+      stroke-linecap: round;
+      opacity: .5;
+      filter: drop-shadow(0 6px 0 var(--blue-dark));
+    }
+
+    .rom-marker {
+      filter: drop-shadow(0 6px 0 rgba(74,55,40,.2));
+    }
+
+    .rom-marker .marker-shadow {
+      fill: rgba(74,55,40,.24);
+    }
+
+    .rom-marker .outer {
+      fill: var(--red-dark);
+      stroke: none;
+      transition: fill .16s ease;
+    }
+
+    .rom-marker .middle {
+      fill: var(--red);
+      transition: fill .16s ease;
+    }
+
+    .rom-marker.in-zone .outer {
+      fill: var(--green-dark);
+    }
+
+    .rom-marker.in-zone .middle {
+      fill: var(--green);
+    }
+
+    .rom-marker .inner {
+      display: none;
+      stroke: none;
+    }
+
+    .rom-marker .spark {
+      display: none;
+    }
+
+    .rom-marker.marker-b .outer {
+      fill: var(--red-dark);
+      stroke: none;
+    }
+
+    .rom-marker.marker-b .middle {
+      fill: var(--red);
+    }
+
+    .rom-marker.marker-c .outer {
+      fill: var(--red-dark);
+      stroke: none;
+    }
+
+    .rom-marker.marker-c .middle {
+      fill: var(--red);
+    }
+
+    .rom-marker.marker-c .inner {
+      fill: var(--body);
+    }
+
+    .rom-marker.marker-b.in-zone .outer,
+    .rom-marker.marker-c.in-zone .outer {
+      fill: var(--green-dark);
+    }
+
+    .rom-marker.marker-b.in-zone .middle,
+    .rom-marker.marker-c.in-zone .middle {
+      fill: var(--green);
+    }
+
+    .rom-arrow path {
+      fill: var(--amber);
+      stroke: none;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 8px 6px rgba(74,55,40,.26));
+      animation: arrowBounce .72s ease-in-out infinite;
+    }
+
+    .rom-arrow .arrow-base {
+      fill: var(--blue-dark);
+    }
+
+    .rom-arrow .arrow-top {
+      fill: #87CEEB;
+    }
+
+    .rom-arrow .arrow-shine {
+      fill: rgba(255,255,255,.38);
+    }
+
+    .rom-arrow,
+    .hold-text {
+      transition: opacity .16s ease;
+    }
+
+    .rom-arrow.hide {
+      opacity: 0;
+    }
+
+    .hold-text {
+      opacity: 0;
+      fill: #fff;
+      font-size: 36px;
+      text-anchor: middle;
+      dominant-baseline: central;
+      stroke: none;
+      filter: drop-shadow(0 4px 0 rgba(43,94,16,.45));
+      pointer-events: none;
+    }
+
+    .hold-text.show {
+      opacity: 1;
+    }
+
+    .hold-text.hold-b {
+      fill: var(--gold);
+      filter: drop-shadow(0 4px 0 var(--amber-deep));
+    }
+
+    .hold-text.hold-c {
+      fill: var(--amber);
+      filter: drop-shadow(0 4px 0 var(--red-deep));
+    }
+
+    .hold-ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 8;
+      stroke-dasharray: 10 14;
+      opacity: 0;
+      animation: holdPulse 1.05s ease-in-out infinite;
+    }
+
+    .hold-ring.show {
+      opacity: .84;
+    }
+
+    .hold-fill-ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 10;
+      stroke-linecap: round;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+    }
+
+    .motion-svg[data-hold-visuals="off"] .hold-ring,
+    .motion-svg[data-hold-visuals="off"] .hold-fill-ring,
+    .motion-svg[data-hold-visuals="off"] .hold-text {
+      display: none;
+    }
+
+    .cop-plate {
+      fill: rgba(238,241,232,.74);
+      stroke: rgba(72,83,68,.56);
+      stroke-width: 5;
+    }
+
+    .cop-safe {
+      fill: rgba(110,197,49,.17);
+      stroke: rgba(74,155,30,.62);
+      stroke-width: 4;
+      stroke-dasharray: 8 8;
+      animation: dashMove 1.35s linear infinite, safePulse 1.8s ease-in-out infinite;
+    }
+
+    .cop-cross {
+      stroke: rgba(74,55,40,.16);
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .cop-trail {
+      fill: none;
+      stroke: rgba(74,155,30,.32);
+      stroke-width: 9;
+      stroke-linecap: round;
+    }
+
+    .cop-ping {
+      fill: none;
+      stroke: rgba(110,197,49,.58);
+      stroke-width: 4;
+      animation: copPing 1.1s ease-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .cop-dot {
+      fill: var(--green-dark);
+      stroke: none;
+      stroke-width: 0;
+      filter: drop-shadow(0 4px 0 rgba(74,55,40,.18));
+    }
+
+    @keyframes dashMove {
+      to {
+        stroke-dashoffset: -16;
+      }
+    }
+
+    @keyframes safePulse {
+      0%, 100% {
+        opacity: .86;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes targetGlow {
+      0%, 100% {
+        opacity: .72;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes holdPulse {
+      0%, 100% {
+        opacity: .55;
+        stroke-width: 6;
+      }
+
+      50% {
+        opacity: 1;
+        stroke-width: 11;
+      }
+    }
+
+    @keyframes copPing {
+      0% {
+        opacity: .72;
+        transform: scale(.55);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.85);
+      }
+    }
+
+    @keyframes arrowBounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-5px) scale(1.04);
+      }
+    }
+
+    @keyframes fillBreath {
+      0%, 100% {
+        width: 66%;
+      }
+
+      50% {
+        width: 86%;
+      }
+    }
+
+    @media (max-width: 980px) {
+      body {
+        padding: 22px;
+      }
+
+      .version-panel {
+        padding: 24px 14px 16px;
+      }
+
+      .layout-b,
+      .layout-c {
+        grid-template-columns: 1fr;
+      }
+
+      .side-metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stage-shell {
+        min-height: 440px;
+      }
+
+      .stage-shell.compact {
+        min-height: 390px;
+      }
+
+      .side-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>7 ACTION ROM + COP UI</h1>
+
+    <div class="versions"></div>
+  </main>
+
+  <script>
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const easeInOut = value => value < 0.5
+      ? 2 * value * value
+      : 1 - Math.pow(-2 * value + 2, 2) / 2;
+
+    function getPoint(path, length, progress) {
+      return path.getPointAtLength(clamp(progress, 0, 1) * length);
+    }
+
+    function setCop(svg, now, index) {
+      const [baseX, baseY] = (svg.dataset.cop || "350,470").split(",").map(Number);
+      const time = now / 1000 + index * .7;
+      const x = baseX + Math.sin(time * 1.35) * 34 + Math.sin(time * 2.8) * 9;
+      const y = baseY + Math.cos(time * 1.15) * 8 + Math.sin(time * 3.2) * 3;
+      const trailX = baseX + Math.sin(time * 1.35 - .65) * 18;
+      const trailY = baseY + Math.cos(time * 1.15 - .65) * 5;
+
+      svg.querySelector(".cop-dot").setAttribute("cx", x.toFixed(1));
+      svg.querySelector(".cop-dot").setAttribute("cy", y.toFixed(1));
+      svg.querySelector(".cop-ping").setAttribute("cx", x.toFixed(1));
+      svg.querySelector(".cop-ping").setAttribute("cy", y.toFixed(1));
+      svg.querySelector(".cop-trail").setAttribute("d", `M${baseX} ${baseY}Q${trailX.toFixed(1)} ${trailY.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+
+    function setFigure(svg, point, progress) {
+      const pose = svg.dataset.pose;
+      const head = svg.querySelector(".body-head");
+      const torso = svg.querySelector(".torso");
+      const armLeft = svg.querySelector(".arm-left");
+      const armRight = svg.querySelector(".arm-right");
+      const legLeft = svg.querySelector(".leg-left");
+      const legRight = svg.querySelector(".leg-right");
+      const handle = svg.querySelector(".handle-dot");
+
+      if (!head) return;
+
+      let headX = 330;
+      let headY = 150;
+      let shoulderX = 335;
+      let shoulderY = 220;
+      let hipX = 335;
+      let hipY = 302;
+      let leftFootX = 284;
+      let leftFootY = 444;
+      let rightFootX = 419;
+      let rightFootY = 438;
+      let freeArmSign = -1;
+
+      if (pose === "raise") {
+        headX = 300; headY = 150; shoulderX = 312; shoulderY = 220; hipX = 318; hipY = 302;
+        leftFootX = 266; rightFootX = 404;
+      }
+
+      if (pose === "row") {
+        headX = 306; headY = 168; shoulderX = 330; shoulderY = 230; hipX = 360; hipY = 318;
+        leftFootX = 258; leftFootY = 445; rightFootX = 448; rightFootY = 438;
+      }
+
+      if (pose === "swingMirror") {
+        headX = 595; headY = 162; shoulderX = 566; shoulderY = 230; hipX = 550; hipY = 318;
+        leftFootX = 454; leftFootY = 444; rightFootX = 622; rightFootY = 438;
+        freeArmSign = 1;
+      }
+
+      if (pose === "press") {
+        headX = 315; headY = 170; shoulderX = 330; shoulderY = 228; hipX = 340; hipY = 310;
+        leftFootX = 290; rightFootX = 425; leftFootY = 445;
+      }
+
+      if (pose === "pressMirror") {
+        headX = 590; headY = 170; shoulderX = 560; shoulderY = 228; hipX = 548; hipY = 310;
+        leftFootX = 460; rightFootX = 622; leftFootY = 445; rightFootY = 438;
+        freeArmSign = 1;
+      }
+
+      if (pose === "squat") {
+        const squat = 1 - progress;
+        headY = 150 + squat * 74;
+        shoulderY = 220 + squat * 58;
+        hipY = 302 + squat * 40;
+        leftFootX = 284 - squat * 34;
+        rightFootX = 419 + squat * 34;
+      }
+
+      if (pose === "highpull") {
+        const pull = progress;
+        headX = 330; headY = 158 - pull * 8; shoulderX = 338; shoulderY = 226 - pull * 14; hipX = 340; hipY = 318 - pull * 8;
+        leftFootX = 278; leftFootY = 445; rightFootX = 428; rightFootY = 438;
+      }
+
+      if (pose === "upright") {
+        const pull = progress;
+        headX = 330; headY = 150; shoulderX = 338; shoulderY = 220 - pull * 8; hipX = 338; hipY = 306;
+        leftFootX = 280; leftFootY = 445; rightFootX = 424; rightFootY = 438;
+      }
+
+      head.setAttribute("cx", headX.toFixed(1));
+      head.setAttribute("cy", headY.toFixed(1));
+      torso.setAttribute("d", `M${headX} ${(headY + 31).toFixed(1)}L${hipX} ${hipY.toFixed(1)}`);
+      armLeft.setAttribute("d", `M${shoulderX} ${shoulderY.toFixed(1)}L${(shoulderX + freeArmSign * 58).toFixed(1)} ${(shoulderY + 28).toFixed(1)}`);
+      armRight.setAttribute("d", `M${shoulderX} ${shoulderY.toFixed(1)}L${point.x.toFixed(1)} ${point.y.toFixed(1)}`);
+      legLeft.setAttribute("d", `M${hipX} ${hipY.toFixed(1)}L${leftFootX.toFixed(1)} ${leftFootY}`);
+      legRight.setAttribute("d", `M${hipX} ${hipY.toFixed(1)}L${rightFootX.toFixed(1)} ${rightFootY}`);
+      handle.setAttribute("cx", point.x.toFixed(1));
+      handle.setAttribute("cy", point.y.toFixed(1));
+    }
+
+    function setupSvg(svg, index) {
+      const path = svg.querySelector(".rom-path");
+      const zone = svg.querySelector(".rom-zone");
+      const progress = svg.querySelector(".rom-progress");
+      const activePath = svg.querySelector(".rom-path-active");
+      const activeMask = svg.querySelector(".rom-progress-mask");
+      const marker = svg.querySelector(".rom-marker");
+      const arrow = svg.querySelector(".rom-arrow");
+      const holdText = svg.querySelector(".hold-text");
+      const holdRing = svg.querySelector(".hold-ring");
+      const holdFill = svg.querySelector(".hold-fill-ring");
+      const frame = svg.querySelector(".athlete-frame");
+      const length = path.getTotalLength();
+      const holdRadius = Number(holdFill.getAttribute("r"));
+      const holdLength = Math.PI * 2 * holdRadius;
+      const pathData = path.getAttribute("d");
+
+      zone.setAttribute("d", pathData);
+      progress.setAttribute("d", pathData);
+      activePath.setAttribute("d", pathData);
+      activeMask.setAttribute("d", pathData);
+      progress.style.strokeDasharray = `0 ${length}`;
+      progress.style.strokeDashoffset = "0";
+      activeMask.style.strokeDasharray = `0 ${length}`;
+      activeMask.style.strokeDashoffset = "0";
+      zone.style.strokeDasharray = `${length * .2} ${length}`;
+      holdFill.style.strokeDasharray = `0 ${holdLength}`;
+      holdFill.style.strokeDashoffset = "0";
+
+      return {
+        svg,
+        path,
+        zone,
+        progress,
+        activePath,
+        activeMask,
+        marker,
+        arrow,
+        holdText,
+        holdRing,
+        holdFill,
+        frame,
+        frameBase: frame?.dataset.frameBase || "",
+        framePrefix: frame?.dataset.framePrefix || "",
+        frameCount: Number(frame?.dataset.frameCount || 0),
+        frameFps: Number(frame?.dataset.frameFps || 30),
+        standardSpeed: standardCableSpeedByActionKey[svg.dataset.actionKey] || null,
+        holdLength,
+        length,
+        index,
+        lastFrameIndex: -1
+      };
+    }
+
+    const standardCableSpeedRange = {
+      unit: "m/s",
+      exercises: [
+        {
+          exercise: "Single-Arm Lunge Row",
+          repDuration: 5.0,
+          pullOutSpeed: {
+            min: 0.18,
+            max: 0.23
+          },
+          returnInSpeed: {
+            min: 0.12,
+            max: 0.15
+          }
+        },
+        {
+          exercise: "Squat Swing",
+          repDuration: 2.5,
+          pullOutSpeed: {
+            min: 0.45,
+            max: 0.65
+          },
+          returnInSpeed: {
+            min: 0.30,
+            max: 0.43
+          }
+        },
+        {
+          exercise: "Single-Arm Incline Chest Press",
+          repDuration: 7.0,
+          pullOutSpeed: {
+            min: 0.13,
+            max: 0.18
+          },
+          returnInSpeed: {
+            min: 0.08,
+            max: 0.12
+          }
+        },
+        {
+          exercise: "Single-Arm Lateral Raise",
+          repDuration: 4.0,
+          pullOutSpeed: {
+            min: 0.28,
+            max: 0.38
+          },
+          returnInSpeed: {
+            min: 0.19,
+            max: 0.25
+          }
+        },
+        {
+          exercise: "Squat",
+          repDuration: 6.0,
+          pullOutSpeed: {
+            min: 0.15,
+            max: 0.21
+          },
+          returnInSpeed: {
+            min: 0.10,
+            max: 0.14
+          }
+        },
+        {
+          exercise: "Deadlift to High Pull",
+          repDuration: 6.3,
+          pullOutSpeed: {
+            min: 0.28,
+            max: 0.38
+          },
+          returnInSpeed: {
+            min: 0.19,
+            max: 0.25
+          }
+        },
+        {
+          exercise: "Upright Pull",
+          repDuration: 5.2,
+          pullOutSpeed: {
+            min: 0.24,
+            max: 0.34
+          },
+          returnInSpeed: {
+            min: 0.16,
+            max: 0.22
+          }
+        }
+      ]
+    };
+
+    const standardCableSpeedByActionKey = {
+      row: standardCableSpeedRange.exercises.find(item => item.exercise === "Single-Arm Lunge Row"),
+      swing: standardCableSpeedRange.exercises.find(item => item.exercise === "Squat Swing"),
+      press: standardCableSpeedRange.exercises.find(item => item.exercise === "Single-Arm Incline Chest Press"),
+      raise: standardCableSpeedRange.exercises.find(item => item.exercise === "Single-Arm Lateral Raise"),
+      squat: standardCableSpeedRange.exercises.find(item => item.exercise === "Squat"),
+      highpull: standardCableSpeedRange.exercises.find(item => item.exercise === "Deadlift to High Pull"),
+      upright: standardCableSpeedRange.exercises.find(item => item.exercise === "Upright Pull")
+    };
+
+    function getStandardSpeedZone(standard, cycle) {
+      const forward = cycle < .5;
+      const halfPhase = forward ? cycle * 2 : (cycle - .5) * 2;
+      const range = forward ? standard.pullOutSpeed : standard.returnInSpeed;
+      const averageSpeed = (range.min + range.max) / 2;
+      const minProgress = averageSpeed > 0 ? (range.min / averageSpeed) * halfPhase : halfPhase;
+      const maxProgress = averageSpeed > 0 ? (range.max / averageSpeed) * halfPhase : halfPhase;
+      let start = forward
+        ? Math.min(minProgress, maxProgress)
+        : Math.min(1 - maxProgress, 1 - minProgress);
+      let end = forward
+        ? Math.max(minProgress, maxProgress)
+        : Math.max(1 - maxProgress, 1 - minProgress);
+      const center = forward ? halfPhase : 1 - halfPhase;
+      const minSpan = .14;
+
+      start = clamp(start, 0, 1);
+      end = clamp(end, 0, 1);
+
+      if (end - start < minSpan) {
+        start = center - minSpan / 2;
+        end = center + minSpan / 2;
+      }
+
+      if (start < 0) {
+        end -= start;
+        start = 0;
+      }
+
+      if (end > 1) {
+        start -= end - 1;
+        end = 1;
+      }
+
+      return {
+        start: clamp(start, 0, 1 - minSpan),
+        end: clamp(end, minSpan, 1)
+      };
+    }
+
+    const actionDefs = [
+      {
+        key: "row",
+        name: "LUNGE SINGLE-ARM ROW",
+        pose: "row",
+        ticket: "PULL TO BODY",
+        cop: "205,430",
+        copX: 205,
+        copY: 430,
+        copW: 260,
+        copH: 145,
+        copSafeW: 200,
+        copSafeH: 92,
+        romPath: "M500 330L555 235",
+        holdX: 555,
+        holdY: 235,
+        ground: "M0 478C162 456 315 450 478 461C634 471 762 468 900 448V580H0Z",
+        field: "M120 505Q450 410 780 505M170 505Q450 445 730 505",
+        athlete: {
+          head: [306, 168],
+          torso: "M306 199L360 318",
+          armLeft: "M330 230L272 258",
+          armRight: "M330 230L500 330",
+          legLeft: "M360 318L258 445",
+          legRight: "M360 318L448 438",
+          handle: [500, 330]
+        },
+        frames: {
+          base: "../assets/motion/row",
+          prefix: "row",
+          count: 134,
+          x: 360,
+          y: 24,
+          width: 390,
+          height: 520
+        }
+      },
+      {
+        key: "raise",
+        name: "SINGLE-ARM LATERAL RAISE",
+        pose: "raise",
+        ticket: "RAISE TO SHOULDER",
+        cop: "150,430",
+        copX: 150,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        romPath: "M405 390Q540 350 602 225",
+        holdX: 602,
+        holdY: 225,
+        ground: "M0 478C170 456 318 452 478 462C644 473 770 468 900 448V580H0Z",
+        field: "M105 505Q448 414 795 505M174 505Q450 446 730 505",
+        athlete: {
+          head: [300, 150],
+          torso: "M300 181L318 302",
+          armLeft: "M312 220L250 248",
+          armRight: "M312 220L405 390",
+          legLeft: "M318 302L266 444",
+          legRight: "M318 302L404 438",
+          handle: [405, 390]
+        },
+        frames: {
+          base: "../assets/motion/raise",
+          prefix: "raise",
+          count: 147,
+          x: 226,
+          y: 18,
+          width: 410,
+          height: 545
+        }
+      },
+      {
+        key: "swing",
+        name: "SQUAT SWING",
+        pose: "swingMirror",
+        ticket: "SWING UP",
+        cop: "140,430",
+        copX: 140,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        romPath: "M540 430Q395 360 345 195",
+        holdX: 345,
+        holdY: 195,
+        ground: "M0 478C140 458 305 454 470 463C633 473 780 468 900 450V580H0Z",
+        field: "M105 505Q450 414 795 505M174 505Q450 446 730 505",
+        athlete: {
+          head: [595, 162],
+          torso: "M595 193L550 318",
+          armLeft: "M566 230L624 258",
+          armRight: "M566 230L540 430",
+          legLeft: "M550 318L454 444",
+          legRight: "M550 318L622 438",
+          handle: [540, 430]
+        },
+        frames: {
+          base: "../assets/motion/swing",
+          prefix: "swing",
+          count: 120,
+          x: 226,
+          y: -18,
+          width: 450,
+          height: 600
+        }
+      },
+      {
+        key: "press",
+        name: "SINGLE-ARM INCLINE CHEST PRESS",
+        pose: "pressMirror",
+        ticket: "PRESS FORWARD",
+        cop: "150,430",
+        copX: 150,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        romPath: "M430 405L330 145",
+        holdX: 330,
+        holdY: 145,
+        ground: "M0 478C158 458 310 453 476 463C632 472 760 469 900 450V580H0Z",
+        field: "M120 505Q450 410 780 505M170 505Q450 445 730 505",
+        athlete: {
+          head: [590, 170],
+          torso: "M590 201L548 310",
+          armLeft: "M560 228L618 256",
+          armRight: "M560 228L430 405",
+          legLeft: "M548 310L460 445",
+          legRight: "M548 310L622 438",
+          handle: [430, 405]
+        },
+        frames: {
+          base: "../assets/motion/press",
+          prefix: "press",
+          count: 182,
+          x: 285,
+          y: 38,
+          width: 390,
+          height: 520
+        }
+      },
+      {
+        key: "squat",
+        name: "SQUAT",
+        pose: "squat",
+        ticket: "STAND TALL",
+        cop: "150,430",
+        copX: 150,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        romPath: "M535 440L535 125",
+        holdX: 535,
+        holdY: 125,
+        ground: "M0 478C160 456 309 450 470 460C625 470 761 468 900 448V580H0Z",
+        field: "M120 505Q450 410 780 505M170 505Q450 445 730 505",
+        athlete: {
+          head: [330, 150],
+          torso: "M330 181L335 302",
+          armLeft: "M334 220L275 246",
+          armRight: "M335 220L535 440",
+          legLeft: "M335 302L284 444",
+          legRight: "M335 302L419 438",
+          handle: [535, 440]
+        },
+        frames: {
+          base: "../assets/motion/squat",
+          prefix: "squat",
+          count: 133,
+          x: 250,
+          y: 28,
+          width: 390,
+          height: 520
+        }
+      },
+      {
+        key: "highpull",
+        name: "DEADLIFT TO HIGH PULL",
+        pose: "highpull",
+        ticket: "PULL HIGH",
+        cop: "150,430",
+        copX: 150,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        romPath: "M535 440L535 125",
+        holdX: 535,
+        holdY: 125,
+        ground: "M0 478C160 456 309 450 470 460C625 470 761 468 900 448V580H0Z",
+        field: "M120 505Q450 410 780 505M170 505Q450 445 730 505",
+        athlete: {
+          head: [330, 158],
+          torso: "M330 189L340 318",
+          armLeft: "M338 226L280 254",
+          armRight: "M338 226L535 440",
+          legLeft: "M340 318L278 445",
+          legRight: "M340 318L428 438",
+          handle: [535, 440]
+        },
+        frames: {
+          base: "../assets/motion/highpull",
+          prefix: "highpull",
+          count: 136,
+          x: 250,
+          y: 28,
+          width: 390,
+          height: 520
+        }
+      },
+      {
+        key: "upright",
+        name: "UPRIGHT PULL",
+        pose: "upright",
+        ticket: "ELBOWS UP",
+        cop: "150,430",
+        copX: 150,
+        copY: 430,
+        copW: 250,
+        copH: 145,
+        copSafeW: 192,
+        copSafeH: 92,
+        offZoneDemo: false,
+        romPath: "M535 440L535 125",
+        holdX: 535,
+        holdY: 125,
+        ground: "M0 478C160 456 309 450 470 460C625 470 761 468 900 448V580H0Z",
+        field: "M120 505Q450 410 780 505M170 505Q450 445 730 505",
+        athlete: {
+          head: [330, 150],
+          torso: "M330 181L338 306",
+          armLeft: "M338 220L280 248",
+          armRight: "M338 220L535 440",
+          legLeft: "M338 306L280 445",
+          legRight: "M338 306L424 438",
+          handle: [535, 440]
+        },
+        frames: {
+          base: "../assets/motion/upright",
+          prefix: "upright",
+          count: 149,
+          x: 250,
+          y: 28,
+          width: 390,
+          height: 520
+        }
+      }
+    ];
+
+    const styleDefs = [
+      { key: "a", label: "STYLE 1 - GAME HUD", tab: "", layout: "layout-a", marker: "marker-a", hold: "hold-a", stage: "" }
+    ];
+
+    const visibleActionKeys = ["row", "raise", "swing", "press", "squat", "highpull", "upright"];
+
+    function frameUrl(action, frameIndex) {
+      if (!action.frames) return "";
+      const padded = String(frameIndex).padStart(5, "0");
+      return encodeURI(`${action.frames.base}/${action.frames.prefix}_${padded}.png`);
+    }
+
+    function athleteMarkup(action) {
+      const a = action.athlete;
+
+      if (action.frames) {
+        const f = action.frames;
+        return `
+          <image
+            class="athlete-frame"
+            data-frame-base="${f.base}"
+            data-frame-prefix="${f.prefix}"
+            data-frame-count="${f.count}"
+            data-frame-fps="${f.fps || 30}"
+            x="${f.x}"
+            y="${f.y}"
+            width="${f.width}"
+            height="${f.height}"
+            preserveAspectRatio="xMidYMid meet"
+            href="${frameUrl(action, 0)}"
+          />
+        `;
+      }
+
+      return `
+        <g class="athlete">
+          <circle class="body-head" cx="${a.head[0]}" cy="${a.head[1]}" r="26"/>
+          <path class="body-line torso" d="${a.torso}"/>
+          <path class="body-line arm-left" d="${a.armLeft}"/>
+          <path class="body-line arm-right" d="${a.armRight}"/>
+          <path class="body-line leg-left" d="${a.legLeft}"/>
+          <path class="body-line leg-right" d="${a.legRight}"/>
+          <circle class="handle-dot" cx="${a.handle[0]}" cy="${a.handle[1]}" r="10"/>
+        </g>
+      `;
+    }
+
+    function markerMarkup(markerClass) {
+      return `
+        <g class="rom-marker ${markerClass}" transform="translate(0 0)">
+          <ellipse class="marker-shadow" cx="4" cy="10" rx="25" ry="11"/>
+          <circle class="outer" r="24"/>
+          <circle class="middle" r="16"/>
+        </g>
+      `;
+    }
+
+    function arrowMarkup() {
+      return `
+        <g class="rom-arrow" transform="translate(0 0)">
+          <path class="arrow-base" d="M0 -33Q5 -33 8 -29L35 4Q40 10 32 10H19V43Q19 50 12 50H-12Q-19 50 -19 43V10H-32Q-40 10 -35 4L-8 -29Q-5 -33 0 -33Z"/>
+          <path class="arrow-top" d="M0 -27Q4 -27 6 -24L27 2Q31 7 24 7H14V37Q14 43 8 43H-8Q-14 43 -14 37V7H-24Q-31 7 -27 2L-6 -24Q-4 -27 0 -27Z"/>
+          <path class="arrow-shine" d="M-1 -20Q2 -20 4 -17L15 -4Q18 0 12 0H-12Q-18 0 -15 -4L-4 -17Q-3 -20 -1 -20Z"/>
+        </g>
+      `;
+    }
+
+    function metricsMarkup() {
+      return `
+        <aside class="side-metrics">
+          <div class="metric-card"><span class="metric-label blue">ROM</span><div class="metric-num">68%</div><div class="meter-track"><div class="meter-fill blue"></div></div></div>
+          <div class="metric-card"><span class="metric-label">PACE</span><div class="metric-num">GOOD</div><div class="meter-track"><div class="meter-fill"></div></div></div>
+          <div class="metric-card"><span class="metric-label amber">COP</span><div class="metric-num">82%</div><div class="meter-track"><div class="meter-fill amber"></div></div></div>
+        </aside>
+      `;
+    }
+
+    function stageMarkup(action, style, panelIndex) {
+      const progressMaskId = `romProgressMask${panelIndex}`;
+      const copW = action.copW || action.copRx * 2;
+      const copH = action.copH || 72;
+      const copSafeW = action.copSafeW || action.copSafeRx * 2;
+      const copSafeH = action.copSafeH || 40;
+      const copLeft = action.copX - copW / 2;
+      const copTop = action.copY - copH / 2;
+      const copSafeLeft = action.copX - copSafeW / 2;
+      const copSafeTop = action.copY - copSafeH / 2;
+      const copRadius = action.copRadius || 36;
+      const copSafeRadius = action.copSafeRadius || 28;
+
+      return `
+        <div class="stage-shell ${style.stage}">
+          <svg class="motion-svg" data-action-key="${action.key}" data-pose="${action.pose}" data-cop="${action.cop}" data-off-zone-demo="${action.offZoneDemo ? "true" : "false"}" data-hold-every="3" data-hold-visuals="off" viewBox="0 0 900 580" aria-label="${action.name} dynamic ROM and CoP">
+            <defs>
+              <mask id="${progressMaskId}" maskUnits="userSpaceOnUse">
+                <path class="rom-progress-mask" d="${action.romPath}"/>
+              </mask>
+            </defs>
+            <path class="ground-fill" d="${action.ground}"/>
+            <path class="ground" d="M90 505H810"/>
+            <path class="field-line" d="${action.field}"/>
+            ${athleteMarkup(action)}
+            <g class="cop-widget">
+              <rect class="cop-plate" x="${copLeft}" y="${copTop}" width="${copW}" height="${copH}" rx="${copRadius}" ry="${copRadius}"/>
+              <rect class="cop-safe" x="${copSafeLeft}" y="${copSafeTop}" width="${copSafeW}" height="${copSafeH}" rx="${copSafeRadius}" ry="${copSafeRadius}"/>
+              <path class="cop-cross" d="M${copLeft} ${action.copY}H${copLeft + copW}M${action.copX} ${copTop}V${copTop + copH}"/>
+              <path class="cop-trail" d="M${action.copX} ${action.copY}Q${action.copX} ${action.copY} ${action.copX} ${action.copY}"/>
+              <circle class="cop-ping" cx="${action.copX}" cy="${action.copY}" r="15"/>
+              <circle class="cop-dot" cx="${action.copX}" cy="${action.copY}" r="10"/>
+            </g>
+            <path class="rom-path" d="${action.romPath}"/>
+            <path class="rom-zone" d="${action.romPath}"/>
+            <path class="rom-progress" d="${action.romPath}"/>
+            <path class="rom-path-active" mask="url(#${progressMaskId})" d="${action.romPath}"/>
+            <circle class="hold-ring" cx="${action.holdX}" cy="${action.holdY}" r="34"/>
+            <circle class="hold-fill-ring" cx="${action.holdX}" cy="${action.holdY}" r="34" transform="rotate(-90 ${action.holdX} ${action.holdY})"/>
+            ${markerMarkup(style.marker)}
+            ${arrowMarkup()}
+            <text class="hold-text ${style.hold}" x="${action.holdX + 62}" y="${action.holdY}">HOLD</text>
+          </svg>
+        </div>
+      `;
+    }
+
+    function panelMarkupLegacy(action, style, index) {
+      const stage = stageMarkup(action, style, index);
+      const metrics = metricsMarkup();
+      const content = style.key === "b"
+        ? `${stage}${metrics}`
+        : style.key === "c"
+          ? `${metrics}${stage}`
+          : stage;
+
+      return `
+        <section class="version-panel">
+          <div class="panel-tab ${style.tab}">${action.name} · ${style.label}</div>
+          <div class="${style.layout}">${content}</div>
+        </section>
+      `;
+    }
+
+    function panelMarkup(action, style, index) {
+      const stage = stageMarkup(action, style, index);
+
+      return `
+        <section class="version-panel">
+          <div class="panel-tab ${style.tab}">${action.name}</div>
+          <div class="${style.layout}">${stage}</div>
+        </section>
+      `;
+    }
+
+    function renderDesignVariants() {
+      let index = 0;
+      document.querySelector(".versions").innerHTML = actionDefs
+        .filter(action => visibleActionKeys.includes(action.key))
+        .map(action => panelMarkup(action, styleDefs[0], ++index))
+        .join("");
+    }
+
+    renderDesignVariants();
+
+    const components = Array.from(document.querySelectorAll(".motion-svg")).map(setupSvg);
+
+    function render(now) {
+      components.forEach(component => {
+        const {
+          svg,
+          path,
+          zone,
+          progress,
+          activeMask,
+          marker,
+          arrow,
+          holdText,
+          holdRing,
+          holdFill,
+          frame,
+          frameBase,
+          framePrefix,
+          frameCount,
+          frameFps,
+          standardSpeed,
+          holdLength,
+          length,
+          index
+        } = component;
+        const holdEvery = Number(svg.dataset.holdEvery || 3);
+        const frameDriven = Boolean(frame && frameCount > 1);
+        const holdVisualsEnabled = svg.dataset.holdVisuals !== "off";
+        const repDuration = standardSpeed
+          ? standardSpeed.repDuration * 1000
+          : frameDriven ? (frameCount / frameFps) * 1000 : 3300;
+        const elapsed = (now + index * 360) % (repDuration * holdEvery);
+        const repIndex = Math.floor(elapsed / repDuration);
+        const cycle = (elapsed % repDuration) / repDuration;
+        const holdThisRep = holdVisualsEnabled && repIndex === holdEvery - 1;
+        const isHold = holdThisRep && cycle >= .48 && cycle < .68;
+        const holdProgress = isHold ? clamp((cycle - .48) / .2, 0, 1) : 0;
+        const forward = holdThisRep ? cycle < .68 : cycle < .5;
+        const phase = holdThisRep
+          ? cycle < .48 ? cycle / .48 : isHold ? 1 : (1 - cycle) / .32
+          : cycle < .5 ? cycle / .5 : (1 - cycle) / .5;
+        const rom = clamp(easeInOut(phase), .02, 1);
+        let motionRom = rom;
+        let frameIndex = -1;
+
+        if (frameDriven) {
+          const framePhase = clamp(cycle, 0, 1);
+          frameIndex = Math.round(framePhase * (frameCount - 1));
+          const frameMotion = frameIndex / (frameCount - 1);
+          motionRom = frameMotion <= .5
+            ? frameMotion / .5
+            : (1 - frameMotion) / .5;
+          motionRom = clamp(motionRom, .02, 1);
+        }
+
+        const direction = forward ? 1 : -1;
+        const distance = length * motionRom;
+        const motionPoint = path.getPointAtLength(distance);
+        const target = clamp(motionRom + direction * .14, .1, .9);
+        const fallbackZoneSize = .22;
+        const standardZone = standardSpeed ? getStandardSpeedZone(standardSpeed, cycle) : null;
+        let zoneStart = standardZone
+          ? standardZone.start
+          : clamp(target - fallbackZoneSize / 2, 0, 1 - fallbackZoneSize);
+        let zoneEnd = standardZone
+          ? standardZone.end
+          : zoneStart + fallbackZoneSize;
+        const zoneSize = clamp(zoneEnd - zoneStart, .01, 1);
+        let markerRom = motionRom;
+        if (svg.dataset.offZoneDemo === "true") {
+          const edgeWobble = Math.sin(now / 360) * .035;
+          let edge = forward ? zoneStart : zoneEnd;
+          let insideDirection = forward ? 1 : -1;
+          if (zoneStart < .04) {
+            edge = zoneEnd;
+            insideDirection = -1;
+          } else if (zoneEnd > .96) {
+            edge = zoneStart;
+            insideDirection = 1;
+          }
+          markerRom = clamp(edge + insideDirection * edgeWobble, 0, 1);
+        }
+        const markerDistance = length * markerRom;
+        const markerPoint = path.getPointAtLength(markerDistance);
+        const markerNext = path.getPointAtLength(clamp(markerDistance + direction * 6, 0, length));
+        const angle = Math.atan2(markerNext.y - markerPoint.y, markerNext.x - markerPoint.x) * 180 / Math.PI;
+        const inGreenZone = markerRom >= zoneStart && markerRom <= zoneEnd;
+        const reverseFromTail = !forward;
+
+        if (reverseFromTail) {
+          progress.style.strokeDasharray = `${(length - distance).toFixed(1)} ${length.toFixed(1)}`;
+          progress.style.strokeDashoffset = `${(-distance).toFixed(1)}`;
+          activeMask.style.strokeDasharray = `${(length - distance).toFixed(1)} ${length.toFixed(1)}`;
+          activeMask.style.strokeDashoffset = `${(-distance).toFixed(1)}`;
+        } else {
+          progress.style.strokeDasharray = `${distance.toFixed(1)} ${length.toFixed(1)}`;
+          progress.style.strokeDashoffset = "0";
+          activeMask.style.strokeDasharray = `${distance.toFixed(1)} ${length.toFixed(1)}`;
+          activeMask.style.strokeDashoffset = "0";
+        }
+        zone.style.strokeDasharray = `${length * zoneSize} ${length}`;
+        zone.style.strokeDashoffset = `${-length * zoneStart}`;
+        marker.setAttribute("transform", `translate(${markerPoint.x.toFixed(1)} ${markerPoint.y.toFixed(1)})`);
+        marker.classList.toggle("in-zone", inGreenZone);
+        const cueX = markerPoint.x + 62;
+        const cueY = markerPoint.y;
+        arrow.setAttribute("transform", `translate(${cueX.toFixed(1)} ${cueY.toFixed(1)}) rotate(${(angle + 90).toFixed(1)})`);
+        holdText.setAttribute("x", cueX.toFixed(1));
+        holdText.setAttribute("y", cueY.toFixed(1));
+        const showHoldCue = svg.dataset.holdVisuals !== "off" && isHold;
+        arrow.classList.toggle("hide", showHoldCue);
+        holdText.classList.toggle("show", showHoldCue);
+        holdRing.classList.toggle("show", showHoldCue);
+        holdFill.style.opacity = showHoldCue && holdProgress > 0 ? "1" : "0";
+        holdFill.style.strokeDasharray = `${(holdLength * holdProgress).toFixed(1)} ${holdLength.toFixed(1)}`;
+        holdFill.style.strokeDashoffset = "0";
+
+        if (frame && frameCount > 1) {
+          if (frameIndex !== component.lastFrameIndex) {
+            const padded = String(frameIndex).padStart(5, "0");
+            const url = encodeURI(`${frameBase}/${framePrefix}_${padded}.png`);
+            frame.setAttribute("href", url);
+            frame.setAttributeNS("http://www.w3.org/1999/xlink", "href", url);
+            component.lastFrameIndex = frameIndex;
+          }
+        }
+
+        setFigure(svg, motionPoint, motionRom);
+        setCop(svg, now, index);
+      });
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>

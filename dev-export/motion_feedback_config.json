@@ -22,6 +22,18 @@
         }
       },
       {
+        "exercise": "Single-Arm Lateral Raise",
+        "repDuration": 4.0,
+        "pullOutSpeed": {
+          "min": 0.28,
+          "max": 0.38
+        },
+        "returnInSpeed": {
+          "min": 0.19,
+          "max": 0.25
+        }
+      },
+      {
         "exercise": "Squat Swing",
         "repDuration": 2.5,
         "pullOutSpeed": {
@@ -43,6 +55,42 @@
         "returnInSpeed": {
           "min": 0.08,
           "max": 0.12
+        }
+      },
+      {
+        "exercise": "Squat",
+        "repDuration": 6.0,
+        "pullOutSpeed": {
+          "min": 0.15,
+          "max": 0.21
+        },
+        "returnInSpeed": {
+          "min": 0.10,
+          "max": 0.14
+        }
+      },
+      {
+        "exercise": "Deadlift to High Pull",
+        "repDuration": 6.3,
+        "pullOutSpeed": {
+          "min": 0.28,
+          "max": 0.38
+        },
+        "returnInSpeed": {
+          "min": 0.19,
+          "max": 0.25
+        }
+      },
+      {
+        "exercise": "Upright Pull",
+        "repDuration": 5.2,
+        "pullOutSpeed": {
+          "min": 0.24,
+          "max": 0.34
+        },
+        "returnInSpeed": {
+          "min": 0.16,
+          "max": 0.22
         }
       }
     ]
@@ -71,6 +119,32 @@
         "count": 134,
         "fps": 30,
         "rect": [360, 24, 390, 520]
+      }
+    },
+    "raise": {
+      "displayName": "Single-Arm Lateral Raise",
+      "speedProfileKey": "Single-Arm Lateral Raise",
+      "romPath": {
+        "type": "quadratic",
+        "points": [
+          [405, 390],
+          [540, 350],
+          [602, 225]
+        ]
+      },
+      "copPanel": {
+        "center": [150, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/raise",
+        "prefix": "raise",
+        "count": 147,
+        "fps": 30,
+        "rect": [226, 18, 410, 545]
       }
     },
     "swing": {
@@ -123,7 +197,82 @@
         "fps": 30,
         "rect": [285, 38, 390, 520]
       }
+    },
+    "squat": {
+      "displayName": "Squat",
+      "speedProfileKey": "Squat",
+      "romPath": {
+        "type": "line",
+        "points": [
+          [535, 440],
+          [535, 125]
+        ]
+      },
+      "copPanel": {
+        "center": [150, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/squat",
+        "prefix": "squat",
+        "count": 133,
+        "fps": 30,
+        "rect": [250, 28, 390, 520]
+      }
+    },
+    "highpull": {
+      "displayName": "Deadlift to High Pull",
+      "speedProfileKey": "Deadlift to High Pull",
+      "romPath": {
+        "type": "line",
+        "points": [
+          [535, 440],
+          [535, 125]
+        ]
+      },
+      "copPanel": {
+        "center": [150, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/highpull",
+        "prefix": "highpull",
+        "count": 136,
+        "fps": 30,
+        "rect": [250, 28, 390, 520]
+      }
+    },
+    "upright": {
+      "displayName": "Upright Pull",
+      "speedProfileKey": "Upright Pull",
+      "offZoneDemo": true,
+      "romPath": {
+        "type": "line",
+        "points": [
+          [535, 440],
+          [535, 125]
+        ]
+      },
+      "copPanel": {
+        "center": [150, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/upright",
+        "prefix": "upright",
+        "count": 149,
+        "fps": 30,
+        "rect": [250, 28, 390, 520]
+      }
     }
   }
 }
-

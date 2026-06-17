@@ -1,0 +1,45 @@
+{
+  "designSize": {
+    "width": 900,
+    "height": 580
+  },
+  "fonts": {
+    "display": "Luckiest Guy",
+    "body": "Fredoka"
+  },
+  "colors": {
+    "green": "#6EC531",
+    "greenDark": "#4A9B1E",
+    "greenDeep": "#2B5E10",
+    "amber": "#F5A623",
+    "amberDark": "#D4891A",
+    "amberDeep": "#A06810",
+    "red": "#E8453A",
+    "redDark": "#C43028",
+    "redDeep": "#8B1A14",
+    "blue": "#4A9DD9",
+    "blueLight": "#87CEEB",
+    "panelFill": "#FFF5D6",
+    "panelInner": "#FFF9E8",
+    "panelBorder": "#C8A848",
+    "panelBorderDeep": "#8B6A20",
+    "textDark": "#4A3728",
+    "textMed": "#6B5540",
+    "textLight": "#8B7A60"
+  },
+  "motion": {
+    "romPathDash": {
+      "dash": 4,
+      "gap": 14
+    },
+    "romProgressOpacity": 0.5,
+    "romProgressColor": "#4A9DD9",
+    "romPathColor": "#87CEEB",
+    "romMarkerInColor": "#6EC531",
+    "romMarkerInOuterColor": "#4A9B1E",
+    "romMarkerOutColor": "#E8453A",
+    "romMarkerOutOuterColor": "#C43028",
+    "copZoneColor": "#6EC531",
+    "copOutColor": "#E8453A"
+  }
+}
