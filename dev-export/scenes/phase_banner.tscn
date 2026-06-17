@@ -15,21 +15,21 @@
 [sub_resource type="StyleBoxFlat" id="banner"]
 bg_color = Color(0.961, 0.651, 0.137, 1)
 border_color = Color(0.831, 0.537, 0.102, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 shadow_color = Color(0.627, 0.408, 0.063, 1)
-shadow_size = 5
+shadow_size = 6
 shadow_offset = Vector2(0, 3)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_left = 16
-corner_radius_bottom_right = 16
-content_margin_left = 40.0
-content_margin_top = 16.0
-content_margin_right = 40.0
-content_margin_bottom = 16.0
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_left = 22
+corner_radius_bottom_right = 22
+content_margin_left = 72.0
+content_margin_top = 28.0
+content_margin_right = 72.0
+content_margin_bottom = 28.0
 
 # Top-center area
 [node name="PhaseBanner" type="PanelContainer"]

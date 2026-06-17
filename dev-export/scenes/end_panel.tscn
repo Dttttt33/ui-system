@@ -6,21 +6,21 @@
 [ext_resource type="Shader" path="res://common/ui/shaders/vertical_gradient_text.gdshader" id="shader_gradient"]
 
 # Outer panel: cream, bold gold border + separate bottom shadow
-# HTML: bg #FFF5D6, border 5px #C8A848, box-shadow 0 7px 0 #5A4010
+# HTML: bg #FFF5D6, border 6px #C8A848, box-shadow 0 10px 0 #8B6A20, radius 36
 [sub_resource type="StyleBoxFlat" id="outer"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-shadow_color = Color(0.353, 0.251, 0.063, 1)
-shadow_size = 7
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+shadow_color = Color(0.545, 0.416, 0.125, 1)
+shadow_size = 10
 shadow_offset = Vector2(0, 4)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_left = 30
-corner_radius_bottom_right = 30
+corner_radius_top_left = 36
+corner_radius_top_right = 36
+corner_radius_bottom_left = 36
+corner_radius_bottom_right = 36
 content_margin_left = 40.0
 content_margin_top = 44.0
 content_margin_right = 40.0
@@ -56,16 +56,16 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 shadow_color = Color(0.169, 0.369, 0.063, 1)
-shadow_size = 4
+shadow_size = 5
 shadow_offset = Vector2(0, 2)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_left = 16
-corner_radius_bottom_right = 16
-content_margin_left = 8.0
-content_margin_top = 12.0
-content_margin_right = 8.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 12.0
+content_margin_top = 14.0
+content_margin_right = 12.0
+content_margin_bottom = 14.0
 
 # Stat: amber
 [sub_resource type="StyleBoxFlat" id="stat_amber"]
@@ -76,16 +76,16 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 shadow_color = Color(0.627, 0.408, 0.063, 1)
-shadow_size = 4
+shadow_size = 5
 shadow_offset = Vector2(0, 2)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_left = 16
-corner_radius_bottom_right = 16
-content_margin_left = 8.0
-content_margin_top = 12.0
-content_margin_right = 8.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 12.0
+content_margin_top = 14.0
+content_margin_right = 12.0
+content_margin_bottom = 14.0
 
 # Stat: red
 [sub_resource type="StyleBoxFlat" id="stat_red"]
@@ -96,16 +96,16 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 shadow_color = Color(0.545, 0.102, 0.078, 1)
-shadow_size = 4
+shadow_size = 5
 shadow_offset = Vector2(0, 2)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_left = 16
-corner_radius_bottom_right = 16
-content_margin_left = 8.0
-content_margin_top = 12.0
-content_margin_right = 8.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+content_margin_left = 12.0
+content_margin_top = 14.0
+content_margin_right = 12.0
+content_margin_bottom = 14.0
 
 # Gradient shader material for "GREAT JOB!" — static green→amber→red top-to-bottom
 [sub_resource type="ShaderMaterial" id="gradient_mat"]

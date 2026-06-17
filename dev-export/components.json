@@ -318,7 +318,7 @@
           "Panel:PanelContainer (centered)",
           "Panel > VBox (space-between)",
           "Panel > VBox > TitleTab:Panel (gold, COMPLETE!)",
-          "Panel > VBox > Stars:HBox (3× 52px star)",
+          "Panel > VBox > Stars:HBox (3× 58px star)",
           "Panel > VBox > StatsGrid:GridContainer (3 cols: score/best-hit/golden)",
           "Panel > VBox > MessageLabel (GREAT JOB! gradient)",
           "Panel > VBox > DoneButton"
@@ -336,7 +336,7 @@
         "layout": "flexbox column, justify: space-between, align: center",
         "title_tab": "gold #FFD700, border 5px #B89800, shadow 5px #7A5200, radius 14, padding 8px 36px, font 24px, positioned -22px above panel top",
         "stars": "58×58px, gold filled #FFD700 / empty #C4B898, gap 16px",
-        "stat_boxes": "3-column grid, gap 14px, full width. Each: radius 16, border 4px, shadow 4px, padding 12px 10px",
+        "stat_boxes": "3-column grid, gap 16px, full width. Each: radius 18, border 4px, shadow 5px, padding 14px 12px",
         "stat_score": "bg GREEN, border GREEN_DARK, number 38px white, label 16px white",
         "stat_best_hit": "bg AMBER, border AMBER_DARK, number 38px white, label 16px white",
         "stat_golden": "bg RED, border RED_DARK, number 38px white, label 16px white",

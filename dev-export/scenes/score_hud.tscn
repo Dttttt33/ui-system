@@ -5,20 +5,21 @@
 
 # ===========================================================================
 # ScoreHUD — Top-right of HUD on 1920×1080
-# Position: 12px from right edge, 24px from top
-# Structure: cream panel wrapper (auto-width), two side-by-side badges
-# HTML: display:inline-flex;gap:10px;padding:12px 18px;
-#        background:#FFF5D6; border:4px solid #C8A848; border-radius:18px;
+# Position: right:40 top:40 (safe area)
+# Size: 384×154
+# Structure: cream panel wrapper, two side-by-side badges
+# HTML: display:inline-flex;gap:16px;padding:20px 28px;
+#        background:#FFF5D6; border:4px solid #C8A848; border-radius:24px;
 #        box-shadow:0 5px 0 #8B6A20
 #
 # Badge layout:
 #   SCORE badge (amber) + CAUGHT badge (green)
-#   Each badge: border-radius:12px, padding:6px 14px
-#   Caption: 9px Luckiest Guy, Value: 26px Luckiest Guy
+#   Each badge: border-radius:14px, padding:12px 22px
+#   Label: 14px Luckiest Guy, Number: 36px Luckiest Guy
 # ===========================================================================
 
 # Outer wrapper = cream panel
-# HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20
+# HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20, radius 24
 [sub_resource type="StyleBoxFlat" id="outer"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
@@ -29,14 +30,14 @@ border_width_bottom = 4
 shadow_color = Color(0.545, 0.416, 0.125, 1)
 shadow_size = 5
 shadow_offset = Vector2(0, 3)
-corner_radius_top_left = 18
-corner_radius_top_right = 18
-corner_radius_bottom_left = 18
-corner_radius_bottom_right = 18
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_left = 24
+corner_radius_bottom_right = 24
+content_margin_left = 28.0
+content_margin_top = 20.0
+content_margin_right = 28.0
+content_margin_bottom = 20.0
 
 # Score badge = amber
 # HTML: bg #F5A623, border 3px #D4891A, box-shadow 0 4px 0 #A06810
@@ -50,14 +51,14 @@ border_width_bottom = 3
 shadow_color = Color(0.627, 0.408, 0.063, 1)
 shadow_size = 4
 shadow_offset = Vector2(0, 2)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 14.0
-content_margin_top = 6.0
-content_margin_right = 14.0
-content_margin_bottom = 6.0
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
 
 # Caught badge = green
 # HTML: bg #6EC531, border 3px #4A9B1E, box-shadow 0 4px 0 #2B5E10
@@ -71,14 +72,14 @@ border_width_bottom = 3
 shadow_color = Color(0.169, 0.369, 0.063, 1)
 shadow_size = 4
 shadow_offset = Vector2(0, 2)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 14.0
-content_margin_top = 6.0
-content_margin_right = 14.0
-content_margin_bottom = 6.0
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
 
 # Position: top-right, 24px from right edge, 24px from top
 # Wider (296px) for bigger badges
@@ -86,17 +87,17 @@ content_margin_bottom = 6.0
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -320.0
-offset_top = 24.0
-offset_right = -24.0
-offset_bottom = 130.0
+offset_left = -424.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 194.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("outer")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 16
 alignment = 1
 
 # Amber SCORE badge
