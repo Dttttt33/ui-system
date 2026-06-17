@@ -4,7 +4,7 @@
     "game": "Farm Ring Toss",
     "engine": "Godot 4.3+ / C# (.NET 8)",
     "tokens_ref": "ui_tokens.gd",
-    "total_components": 15
+    "total_components": 13
   },
   "components": [
     {
@@ -60,237 +60,279 @@
       "name": "ActionCard",
       "path": "res://common/ui/action_card.tscn",
       "category": "common",
-      "purpose": "Shows current exercise name + illustration + hand side label",
+      "purpose": "Left-side exercise card: name tab + illustration + optional hand-switch pill + rep progress",
       "tree": {
         "root": "ActionCard:PanelContainer",
-        "children": ["VBox > ActionIcon:TextureRect", "VBox > ActionName:Label", "VBox > HandSide:Label"]
+        "children": ["VBox > NameTab:Panel > NameLabel", "VBox > IconArea:TextureRect", "VBox > HandPill:Panel (conditional)", "VBox > RepBlocks:HBox + CountLabel"]
       },
       "style": {
-        "panel": "cream panel (PANEL_FILL, PANEL_BORDER, 4px border, RADIUS_PANEL)",
-        "action_name_font": "FONT_FAMILY_DISPLAY",
-        "action_name_size": "FONT_SIZE_BODY",
-        "hand_badge_bg": "COLOR_GREEN",
-        "hand_badge_text": "COLOR_TEXT_ON_GREEN"
+        "panel": "cream panel (#FFF5D6, 5px border #8B6A20, shadow 6px #5A4010, RADIUS 28)",
+        "panel_size": "352×576",
+        "name_tab_bg": "COLOR_GREEN",
+        "name_tab_border": "3px COLOR_GREEN_DARK",
+        "name_tab_radius": 14,
+        "name_tab_padding": "8px 28px",
+        "name_font": "FONT_FAMILY_DISPLAY",
+        "name_size": 30,
+        "name_color": "white, text-shadow 0 3px 0 GREEN_DEEP",
+        "icon_area": "aspect-ratio 2:3, border 3px #a8c890, bg #e8f4dc, radius 16",
+        "hand_pill_bg": "COLOR_BLUE (#55C9C9)",
+        "hand_pill_border": "3px #3AA",
+        "hand_pill_shadow": "3px #288",
+        "hand_pill_radius": 99,
+        "hand_pill_font_size": 22,
+        "hand_pill_visibility": "ONLY visible during hand-switch phase, hidden otherwise",
+        "rep_block_size": "20×24px, radius 5",
+        "rep_block_done": "COLOR_GOLD border #B89800",
+        "rep_block_pending": "#E8DFC0 border #B8AE98",
+        "rep_count_font": "FONT_FAMILY_DISPLAY",
+        "rep_count_size": 30,
+        "rep_count_color": "COLOR_TEXT_DARK"
       },
       "exports": {
         "action_name": { "type": "String", "default": "KETTLEBELL SWING" },
         "action_icon": { "type": "Texture2D", "default": null },
-        "hand_side": { "type": "String", "default": "LEFT", "enum": ["LEFT", "RIGHT", "BOTH"] }
+        "hand_side": { "type": "String", "default": "LEFT", "enum": ["LEFT", "RIGHT", "BOTH"] },
+        "total_reps": { "type": "int", "default": 8 },
+        "is_hand_switch_phase": { "type": "bool", "default": false }
       },
-      "signals": ["card_shown", "card_hidden"]
-    },
-    {
-      "id": 4,
-      "name": "ChargeBar",
-      "path": "res://common/ui/charge_bar.tscn",
-      "category": "common",
-      "purpose": "Fills during exercise motion; turns gold when full",
-      "tree": {
-        "root": "ChargeBar:Control",
-        "children": ["Label", "Track:Panel", "Fill:Panel > Shine:Panel"]
-      },
-      "style": {
-        "same_as": "ProgressBar",
-        "label_font": "FONT_FAMILY_DISPLAY",
-        "label_color": "COLOR_TEXT_HUD",
-        "fill_animation": "ANIM_CHARGE_FILL ease-out"
-      },
-      "exports": {
-        "charge": { "type": "float", "default": 0.0, "range": [0.0, 1.0] },
-        "is_full": { "type": "bool", "default": false }
-      },
-      "signals": ["charge_full", "charge_reset"]
+      "signals": ["card_shown", "card_hidden"],
+      "animations": {
+        "card_shown": "slide-in from left, 300ms ease-out",
+        "hand_pill_show": "fade-in 200ms when is_hand_switch_phase becomes true"
+      }
     },
     {
       "id": 5,
       "name": "HitResultText",
       "path": "res://common/ui/hit_result_text.tscn",
       "category": "common",
-      "purpose": "Floating result text: Good!/Perfect!/Try again/Combo — pops then fades",
+      "purpose": "Floating result text below progress bar: Good!/Perfect!/Try again/Combo — pops then fades",
       "tree": {
         "root": "HitResultText:Control",
         "children": ["Label"]
       },
       "style": {
         "font": "FONT_FAMILY_DISPLAY",
+        "position": "CenterArea, below progress bar",
         "results": {
-          "good": { "color": "COLOR_SUCCESS", "size": "FONT_SIZE_DISPLAY_MD" },
-          "perfect": { "color": "COLOR_PERFECT", "size": "FONT_SIZE_DISPLAY_LG" },
-          "miss": { "color": "COLOR_MISS", "size": "FONT_SIZE_BODY" },
-          "combo": { "color": "COLOR_COMBO", "size": "FONT_SIZE_HUD_COMBO" }
-        },
-        "pop_animation": "ANIM_HIT_POP bounce",
-        "rise_animation": "ANIM_SCORE_RISE decelerate",
-        "fade_animation": "ANIM_MISS_FADE ease-out",
-        "text_shadow": "0 3px 0 rgba(0,0,0,0.3)"
+          "good": { "color": "COLOR_SUCCESS (#6EC531)", "size": 56, "shadow": "0 4px 0 GREEN_DEEP" },
+          "perfect": { "color": "COLOR_PERFECT (#FFD700)", "size": 84, "shadow": "0 5px 0 #B89800" },
+          "miss": { "color": "#A89878", "size": 52, "shadow": "0 3px 0 rgba(0,0,0,0.15)" },
+          "combo": { "color": "COLOR_COMBO (#E8453A)", "size": 96, "shadow": "0 5px 0 RED_DEEP" }
+        }
       },
       "exports": {
         "result_type": { "type": "String", "default": "good", "enum": ["good", "perfect", "miss", "combo"] },
         "text_override": { "type": "String", "default": "" },
         "score_value": { "type": "int", "default": 0 }
       },
-      "signals": []
+      "signals": [],
+      "animations": {
+        "show": "tween_bounce (scale 1.3→1.0, 0.3s ease-out-back)",
+        "rise": "translate y -40px over 600ms, decelerate",
+        "fade": "opacity 1→0 over 500ms ease-out, then queue_free"
+      }
     },
     {
       "id": 6,
       "name": "ScoreHUD",
       "path": "res://common/ui/score_hud.tscn",
       "category": "common",
-      "purpose": "Top-right score display in cream panel",
+      "purpose": "Top-right score display: two side-by-side badges (SCORE amber + CAUGHT green) in cream panel",
       "tree": {
         "root": "ScoreHUD:PanelContainer",
-        "children": ["VBox > CaptionLabel", "VBox > ScoreLabel"]
+        "children": ["HBox > ScoreBadge:Panel (amber) + CaughtBadge:Panel (green)"]
       },
       "style": {
-        "panel": "cream panel (3px border, RADIUS_MD, bottom bar 3px)",
-        "score_font": "FONT_FAMILY_DISPLAY",
-        "score_size": "FONT_SIZE_HUD_SCORE",
-        "score_color": "COLOR_TEXT_DARK",
-        "caption_color": "COLOR_TEXT_LIGHT",
-        "padding": "10px 20px"
+        "panel": "cream panel (4px border #C8A848, RADIUS 24, shadow 5px #8B6A20)",
+        "panel_size": "384×154 (1.2x wide, 1.4x tall)",
+        "panel_padding": "20px 28px",
+        "badge_gap": 16,
+        "badge_radius": 14,
+        "badge_padding": "12px 22px",
+        "score_badge_bg": "COLOR_AMBER",
+        "score_badge_border": "3px COLOR_AMBER_DARK",
+        "score_badge_shadow": "4px COLOR_AMBER_DEEP",
+        "caught_badge_bg": "COLOR_GREEN",
+        "caught_badge_border": "3px COLOR_GREEN_DARK",
+        "caught_badge_shadow": "4px COLOR_GREEN_DEEP",
+        "label_font": "FONT_FAMILY_DISPLAY",
+        "label_size": 14,
+        "number_font": "FONT_FAMILY_DISPLAY",
+        "number_size": 36,
+        "score_text_color": "COLOR_TEXT_ON_AMBER (#4A3728)",
+        "caught_text_color": "COLOR_TEXT_ON_GREEN (white)"
       },
       "exports": {
         "score": { "type": "int", "default": 0 },
+        "caught": { "type": "int", "default": 0 },
         "animate_on_change": { "type": "bool", "default": true }
       },
-      "signals": ["score_changed(old_value: int, new_value: int)"]
+      "signals": ["score_changed(old_value: int, new_value: int)"],
+      "animations": {
+        "score_change": "tween_bounce on number label, 0.3s"
+      }
     },
     {
       "id": 7,
       "name": "PhaseBanner",
       "path": "res://demos/ring-toss/ui/phase_banner.tscn",
       "category": "demo",
-      "purpose": "Center banner announcing phase (e.g. 'Catch the far targets!'), auto-fades after 2s",
+      "purpose": "Center banner announcing phase, amber button-style, auto-fades after 2s",
       "tree": {
         "root": "PhaseBanner:CenterContainer",
         "children": ["Panel > Label"]
       },
       "style": {
-        "panel": "cream panel",
+        "panel_bg": "COLOR_AMBER",
+        "panel_border": "5px COLOR_AMBER_DARK",
+        "panel_shadow": "6px COLOR_AMBER_DEEP",
+        "panel_radius": 22,
+        "panel_padding": "28px 72px",
+        "top_shine": "white strip 30% height, 35% opacity",
         "font": "FONT_FAMILY_DISPLAY",
-        "font_size": "FONT_SIZE_TITLE",
-        "enter_animation": "ANIM_PHASE_TRANSITION ease-in-out",
-        "exit_animation": "ANIM_MISS_FADE ease-out"
+        "font_size": 45,
+        "font_color": "white",
+        "text_shadow": "0 3px 0 rgba(0,0,0,0.2)",
+        "text_align": "center, vertically centered in panel"
       },
       "exports": {
         "banner_text": { "type": "String", "default": "CATCH THE FAR TARGETS!" },
         "display_duration": { "type": "float", "default": 2.0 },
         "auto_hide": { "type": "bool", "default": true }
       },
-      "signals": []
+      "signals": [],
+      "animations": {
+        "enter": "slide-in from top, 800ms ease-in-out (ANIM_PHASE_TRANSITION)",
+        "exit": "fade-out 500ms ease-out after display_duration"
+      }
     },
     {
       "id": 8,
       "name": "SwitchHandPrompt",
       "path": "res://demos/ring-toss/ui/switch_hand.tscn",
       "category": "demo",
-      "purpose": "Brief center prompt with arrow showing hand switch direction",
+      "purpose": "Fullscreen overlay for hand switch — 55% dim background, large centered text, NO subtitle",
       "tree": {
-        "root": "SwitchHandPrompt:CenterContainer",
-        "children": ["HBox > ArrowIcon:TextureRect", "HBox > Label"]
+        "root": "SwitchHandPrompt:CanvasLayer",
+        "children": ["DimOverlay:ColorRect", "CenterLabel:Label"]
       },
       "style": {
-        "text_color": "COLOR_TEXT_HUD",
-        "text_shadow": "shadow-hard",
-        "animation": "ANIM_HIT_POP bounce"
-      },
-      "exports": {},
-      "signals": []
-    },
-    {
-      "id": 9,
-      "name": "ReturnRhythmBar",
-      "path": "res://demos/ring-toss/ui/return_rhythm.tscn",
-      "category": "demo",
-      "purpose": "Post-launch timing bar — green zone = ideal return tempo",
-      "tree": {
-        "root": "ReturnRhythmBar:Control",
-        "children": ["Track:Panel", "IdealZone:Panel", "Cursor:Panel", "ResultLabel:Label"]
-      },
-      "style": {
-        "track": "same as ProgressBar track",
-        "ideal_zone_color": "COLOR_GREEN @ 50% opacity",
-        "cursor_color": "COLOR_AMBER",
-        "perfect_text": "COLOR_PERFECT",
-        "timing_text": "COLOR_TEXT_LIGHT"
+        "canvas_layer": 15,
+        "dim_overlay": "rgba(0,0,0,0.55) fullscreen",
+        "font": "FONT_FAMILY_DISPLAY",
+        "font_size": 120,
+        "font_color": "white",
+        "text_shadow": "0 6px 0 rgba(0,0,0,0.5)",
+        "text_align": "center, vertically centered",
+        "no_subtitle": true
       },
       "exports": {
-        "ideal_start": { "type": "float", "default": 0.4 },
-        "ideal_end": { "type": "float", "default": 0.7 },
-        "cursor_speed": { "type": "float", "default": 1.0 }
+        "target_hand": { "type": "String", "default": "LEFT", "enum": ["LEFT", "RIGHT"] }
       },
-      "signals": ["rhythm_completed(result: String)"]
+      "signals": ["switch_dismissed"],
+      "animations": {
+        "show": "instant (no transition)",
+        "dismiss": "fade-out dim overlay 300ms"
+      }
     },
     {
       "id": 10,
       "name": "MultiHitResult",
       "path": "res://demos/ring-toss/ui/multi_hit.tscn",
       "category": "demo",
-      "purpose": "Double/Triple/Amazing multi-hit celebration with multiplier",
+      "purpose": "Double/Triple/Amazing multi-hit celebration below progress bar",
       "tree": {
         "root": "MultiHitResult:Control",
         "children": ["TitleLabel", "MultiplierLabel", "ScoreLabel"]
       },
       "style": {
         "font": "FONT_FAMILY_DISPLAY",
-        "title_size": "FONT_SIZE_DISPLAY_LG",
+        "position": "CenterArea, below progress bar",
+        "title_size": 84,
+        "multiplier_size": 44,
+        "score_size": 32,
         "colors_by_hits": {
-          "2": "COLOR_AMBER",
-          "3": "COLOR_COMBO",
-          "4+": "rainbow gradient"
+          "2": { "color": "COLOR_AMBER", "shadow": "0 6px 0 #7A4A08" },
+          "3": { "color": "COLOR_COMBO (red)", "shadow": "0 6px 0 #5A0A08" },
+          "4+": { "color": "rainbow gradient (red→gold→green→blue)", "shadow": "0 8px 0 rgba(0,0,0,0.65)" }
         },
-        "animation": "ANIM_HIT_POP + combo-pulse",
-        "text_shadow": "shadow-hard"
+        "multiplier_color": "COLOR_TEXT_DARK",
+        "score_color": "COLOR_GREEN_DARK"
       },
-      "exports": {},
-      "signals": []
+      "exports": {
+        "hit_count": { "type": "int", "default": 2 },
+        "score_bonus": { "type": "int", "default": 0 }
+      },
+      "signals": [],
+      "animations": {
+        "show": "tween_bounce (scale 1.3→1.0, 0.3s) + combo-pulse (scale 1.0→1.05→1.0, 0.15s x2)",
+        "fade": "fade-out 500ms after 1.5s display"
+      }
     },
     {
       "id": 11,
       "name": "BurstHint",
       "path": "res://demos/ring-toss/ui/burst_hint.tscn",
       "category": "demo",
-      "purpose": "Subtle edge glow 1.5s before burst opportunity",
+      "purpose": "Fullscreen amber edge glow breathing effect before burst opportunity (1.5x intensity)",
       "tree": {
         "root": "BurstHint:CanvasLayer",
-        "children": ["EdgeGlow:ColorRect"]
+        "children": ["EdgeGlow:ColorRect (shader: edge_glow.gdshader)"]
       },
       "style": {
-        "glow_color": "COLOR_AMBER @ 15% opacity",
-        "peak_color": "COLOR_PERFECT @ 25% opacity",
-        "animation": "ANIM_EMPHASIS + fade"
+        "canvas_layer": 9,
+        "shader": "edge_glow.gdshader",
+        "glow_color": "COLOR_AMBER",
+        "intensity_range": "15% → 55% opacity (1.5x base intensity)"
       },
       "exports": {
         "lead_time": { "type": "float", "default": 1.5 },
         "enabled": { "type": "bool", "default": true }
       },
-      "signals": []
+      "signals": [],
+      "animations": {
+        "breathing": "edge glow opacity 0.15 → 0.55 → 0.15, period 1.2s, ease-in-out, infinite loop"
+      }
     },
     {
       "id": 12,
       "name": "EndPanel",
       "path": "res://demos/ring-toss/ui/end_panel.tscn",
       "category": "demo",
-      "purpose": "End-of-game results panel: stars, stats, message, done button",
+      "purpose": "End-of-game results panel: stars, stats, message, done button. 40% dim backdrop.",
       "tree": {
-        "root": "EndPanel:CenterContainer",
+        "root": "EndPanel:CanvasLayer",
         "children": [
-          "Panel",
-          "Panel > TitleTab:Label (COMPLETE!)",
-          "Panel > Stars:HBox (3x star)",
-          "Panel > StatsGrid (score/best-hit/golden rows)",
-          "Panel > MessageLabel (GREAT JOB!)",
-          "Panel > PlayButton"
+          "DimOverlay:ColorRect (rgba(0,0,0,0.4))",
+          "Panel:PanelContainer (centered)",
+          "Panel > VBox (space-evenly)",
+          "Panel > VBox > TitleTab:Panel (gold, COMPLETE!)",
+          "Panel > VBox > Stars:HBox (3× 52px star)",
+          "Panel > VBox > StatsGrid:GridContainer (3 cols: score/best-hit/golden)",
+          "Panel > VBox > MessageLabel (GREAT JOB! gradient)",
+          "Panel > VBox > DoneButton"
         ]
       },
       "style": {
-        "panel": "cream panel, large, gold border, RADIUS_PANEL",
-        "title_tab": "green pill above panel top edge",
-        "stars": "52px gold/empty star SVG",
-        "stat_rows": "saturated solid bg (green/amber/red), white text, text-shadow",
-        "message": "gradient text (green→amber→red) with shadow trick",
-        "button": "green button style",
-        "confetti": "~40 colored circles + rotated rectangles, absolute positioned"
+        "canvas_layer": 20,
+        "panel_size": "868×605",
+        "panel_bg": "COLOR_PANEL_FILL",
+        "panel_border": "6px COLOR_PANEL_BORDER",
+        "panel_shadow": "10px COLOR_PANEL_BORDER_DEEP",
+        "panel_radius": 36,
+        "panel_padding": "50px 40px 30px",
+        "layout": "flexbox column, justify: space-evenly, align: center",
+        "title_tab": "gold #FFD700, border 5px #B89800, shadow 5px #7A5200, radius 14, padding 8px 36px, font 24px, positioned -22px above panel top",
+        "stars": "52×52px, gold filled #FFD700 / empty #C4B898, gap 14px",
+        "stat_boxes": "3-column grid, gap 14px, full width. Each: radius 16, border 4px, shadow 4px, padding 12px 10px",
+        "stat_score": "bg GREEN, border GREEN_DARK, number 32px white, label 14px white",
+        "stat_best_hit": "bg AMBER, border AMBER_DARK, number 32px white, label 14px white",
+        "stat_golden": "bg RED, border RED_DARK, number 32px white, label 14px white",
+        "message": "GREAT JOB! — font 42px, vertical gradient text (green→amber→red) via shader, shadow trick: offset copy 3px below in GREEN_DEEP",
+        "button": "green, border-bottom 5px GREEN_DARK, radius 14, padding 14px 56px, font 26px white, top shine strip 35%",
+        "confetti": "~20 pieces INSIDE panel only (circles 6-8px + rotated rectangles 8-12×3-4px), absolute positioned, colors: red/gold/green/blue/purple/amber"
       },
       "exports": {
         "total_score": { "type": "int", "default": 0 },
@@ -298,27 +340,34 @@
         "golden_count": { "type": "int", "default": 0 },
         "star_count": { "type": "int", "default": 2, "range": [0, 3] }
       },
-      "signals": ["panel_closed"]
+      "signals": ["panel_closed"],
+      "animations": {
+        "panel_enter": "scale 0→1, 400ms ease-out-back",
+        "stars_reveal": "spin + scale per star, 400ms each, 200ms stagger",
+        "confetti": "static (no animation, just decoration)"
+      }
     },
     {
       "id": 13,
       "name": "HUDContainer",
       "path": "res://demos/ring-toss/ui/hud_container.tscn",
       "category": "demo",
-      "purpose": "Layout container combining all HUD elements into screen zones",
+      "purpose": "Layout container combining all HUD elements into absolute screen zones (40px safe area)",
       "tree": {
-        "root": "HUDContainer:CanvasLayer",
+        "root": "HUDContainer:CanvasLayer (layer 10)",
         "children": [
-          "TopBar:HBox > TotalProgress + ScoreHUD",
-          "CenterArea:CenterContainer > PhaseBanner + SwitchHandPrompt + HitResultText + MultiHitResult",
-          "BottomBar:HBox > ActionCard + ChargeBar + ReturnRhythmBar",
-          "BurstHint (fullscreen overlay)"
+          "TopCenter:Control → ProgressBar (960×54, centered at y:40)",
+          "TopRight:Control → ScoreHUD (384×154, right:40 top:40)",
+          "LeftCard:Control → ActionCard (352×576, x:40 y:252)",
+          "CenterArea:Control → HitResultText + MultiHitResult + PhaseBanner + RainbowFullscreen (660×500, x:580 y:120)",
+          "BurstHint (own CanvasLayer 9, fullscreen)",
+          "SwitchHand (own CanvasLayer 15, fullscreen)",
+          "EndPanel (own CanvasLayer 20, fullscreen)"
         ]
       },
       "style": {
-        "top_padding": "HUD_MARGIN",
-        "top_gap": "HUD_GAP",
-        "safe_area": "SCREEN_SAFE_AREA"
+        "safe_area": "40px all edges (SCREEN_SAFE_AREA)",
+        "no_bottom_bar": "ChargeBar and ReturnRhythmBar removed"
       },
       "exports": {},
       "signals": []
@@ -328,83 +377,114 @@
       "name": "RainbowFullscreen",
       "path": "res://demos/ring-toss/ui/rainbow_fullscreen.tscn",
       "category": "demo",
-      "purpose": "Full-screen RAINBOW! celebration when hitting rainbow fruit",
+      "purpose": "Full-screen RAINBOW! celebration — 2x text, animated rainbow gradient, positioned below progress bar",
       "tree": {
         "root": "RainbowFullscreen:CanvasLayer",
-        "children": ["Overlay:ColorRect", "TitleLabel", "ScoreLabel", "ParticleHint:CPUParticles2D"]
+        "children": ["Overlay:ColorRect (white 15%)", "CenterVBox > TitleLabel (RAINBOW!)", "CenterVBox > ScoreLabel (+BONUS)"]
       },
       "style": {
-        "title": "FONT_SIZE_HUD_SCORE, rainbow gradient",
-        "score": "FONT_SIZE_TITLE, COLOR_PERFECT",
-        "overlay": "white @ 30% → 0% (200ms)",
-        "pop": "ANIM_HIT_POP bounce, scale 1.3→1.0",
-        "duration": "1.5s then ANIM_MISS_FADE"
+        "canvas_layer": 20,
+        "overlay": "rgba(255,255,255,0.15) fullscreen",
+        "position": "centered horizontally, y:250 (below progress bar)",
+        "title_font": "FONT_FAMILY_DISPLAY",
+        "title_size": 104,
+        "title_color": "animated rainbow gradient (red→amber→gold→green→blue→purple→red), horizontal shift",
+        "title_shadow": "drop-shadow 0 6px 0 rgba(0,0,0,0.3)",
+        "score_font": "FONT_FAMILY_DISPLAY",
+        "score_size": 48,
+        "score_color": "COLOR_PERFECT (#FFD700)",
+        "score_shadow": "0 3px 0 #B89800"
       },
       "exports": {
         "bonus_score": { "type": "int", "default": 1200 },
         "show_particles": { "type": "bool", "default": true }
       },
-      "signals": ["rainbow_dismissed"]
+      "signals": ["rainbow_dismissed"],
+      "animations": {
+        "rainbow_text": "horizontal gradient background-position shift, 1.5s linear infinite (shader: rainbow_text.gdshader)",
+        "enter": "tween_bounce (scale 1.3→1.0, 0.3s)",
+        "exit": "fade-out 500ms after 1.5s display"
+      }
     },
     {
       "id": 15,
       "name": "FoxWarning",
       "path": "res://demos/ring-toss/ui/fox_warning.tscn",
       "category": "demo",
-      "purpose": "Directional warning when fox approaches golden pumpkin",
+      "purpose": "Directional warning when fox approaches — cream pill with fox icon + WATCH OUT! text, plus edge glow on approach side",
       "tree": {
         "root": "FoxWarning:Control",
-        "children": ["HBox:CenterContainer > FoxIcon + ArrowIcon + Label", "EdgeGlow:ColorRect"]
+        "children": ["Pill:PanelContainer > HBox > FoxIcon(102px) + Label(61px)", "EdgeGlow:ColorRect (directional_glow shader)"]
       },
       "style": {
-        "text_color": "COLOR_TEXT_HUD",
-        "text_shadow": "shadow-hard",
-        "text_size": 26,
-        "edge_color": "COLOR_AMBER @ 25% opacity",
-        "enter": "ANIM_HIT_POP bounce",
-        "pulse": "ANIM_COMBO_PULSE x2",
-        "duration": "2s then ANIM_MISS_FADE"
+        "pill_bg": "COLOR_PANEL_FILL",
+        "pill_border": "5px COLOR_PANEL_BORDER",
+        "pill_shadow": "7px COLOR_PANEL_BORDER_DEEP",
+        "pill_radius": 999,
+        "pill_padding": "24px 50px",
+        "pill_gap": 24,
+        "fox_icon_size": 102,
+        "text_font": "FONT_FAMILY_DISPLAY",
+        "text_size": 61,
+        "text_color": "COLOR_TEXT_DARK",
+        "text_shadow": "0 4px 0 rgba(0,0,0,0.1)",
+        "text_align": "vertically centered with icon (line-height: 1)",
+        "edge_glow_color": "COLOR_AMBER @ 40% opacity",
+        "edge_glow_shader": "directional_glow.gdshader"
       },
       "exports": {
         "direction": { "type": "String", "default": "left", "enum": ["left", "right"] },
         "urgency": { "type": "float", "default": 1.0, "range": [0.0, 1.0] }
       },
-      "signals": ["fox_warning_shown", "fox_warning_dismissed"]
+      "signals": ["fox_warning_shown", "fox_warning_dismissed"],
+      "animations": {
+        "enter": "tween_bounce (scale 1.3→1.0, 0.3s)",
+        "edge_glow_pulse": "opacity 0.3→1.0→0.3, period 0.7s, ease-in-out, infinite while visible",
+        "exit": "fade-out 500ms after 2s display"
+      }
     },
     {
       "id": 16,
       "name": "GoldenCountdown",
       "path": "res://demos/ring-toss/ui/golden_countdown.tscn",
       "category": "demo",
-      "purpose": "Circular countdown ring next to golden pumpkin (4s timer)",
+      "purpose": "Circular countdown ring (176px) following golden pumpkin world position. Gold ring → red when urgent.",
       "tree": {
         "root": "GoldenCountdown:Control",
-        "children": ["RingProgress:TextureProgressBar > PumpkinIcon:TextureRect"]
+        "children": ["RingProgress:TextureProgressBar (176×176) > PumpkinIcon:TextureRect (68×76)"]
       },
       "style": {
-        "ring_color_normal": "COLOR_PERFECT",
-        "ring_color_urgent": "COLOR_RED",
-        "ring_width": 4,
-        "track_bg": "rgba(0,0,0,0.2)",
-        "size": 48,
-        "urgent_pulse": "ANIM_COMBO_PULSE when <1s"
+        "size": 176,
+        "ring_width": 18,
+        "ring_color_normal": "COLOR_PERFECT (#FFD700)",
+        "ring_color_urgent": "COLOR_RED (#E8453A)",
+        "ring_glow_normal": "drop-shadow 0 0 10px rgba(255,215,0,0.5)",
+        "ring_glow_urgent": "drop-shadow 0 0 14px rgba(232,69,58,0.6)",
+        "track_bg": "rgba(0,0,0,0.1)",
+        "pumpkin_icon_size": "68×76",
+        "timer_text_font": "FONT_FAMILY_DISPLAY",
+        "timer_text_size": 24,
+        "positioning": "follows pumpkin world position (NOT fixed HUD), uses follow_target"
       },
       "exports": {
         "duration": { "type": "float", "default": 4.0 },
         "urgent_threshold": { "type": "float", "default": 1.0 },
         "follow_target": { "type": "Node3D", "default": null }
       },
-      "signals": ["countdown_expired", "countdown_cancelled"]
+      "signals": ["countdown_expired", "countdown_cancelled"],
+      "animations": {
+        "ring_fill": "arc decreases over duration (stroke-dashoffset from 0 to circumference)",
+        "urgent_shake": "rotation oscillation ±3°, period 0.25s, infinite while remaining < urgent_threshold",
+        "color_transition": "ring color gold→red when entering urgent zone"
+      }
     }
   ],
   "event_bus_signals": [
     "rep_completed(rep_index: int, result: String)",
-    "charge_changed(value: float)",
     "score_changed(new_score: int, delta: int)",
     "phase_started(phase_index: int, phase_name: String)",
     "hand_switch(new_side: String)",
     "ring_launched()",
-    "return_completed(timing: String)",
     "burst_approaching(time_to_burst: float)",
     "burst_triggered()",
     "game_completed(stats: Dictionary)",

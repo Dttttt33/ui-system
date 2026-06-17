@@ -5,107 +5,82 @@
 # ===========================================================================
 # All positions are in absolute pixels for 1920×1080.
 # stretch_mode = canvas_items, aspect = keep (see project_settings.cfg)
+# Safe area: 40px all edges. All elements inside Rect2(40, 40, 1840, 1000).
+#
+# REMOVED: BottomCenter (ChargeBar / ReturnRhythmBar no longer used)
 #
 # Layout map:
-# ┌────────────────────────────────────────────────────────────────────────┐
-# │                    [TopCenter: ProgressBar]   [TopRight: ScoreHUD]     │
-# │                     center, 640w              x:1600 y:24             │
-# │                     y:24, h:36               296×106                  │
-# │                                                                        │
-# │                     [CenterTop: ComboCounter]                          │
-# │                      center, 240w, y:80                                │
-# │                                                                        │
-# │ [LeftCard]           [Upper: HitResult / PhaseBanner]                  │
-# │  x:24 y:250          center, 800×200, y:200                           │
-# │  330×580                                                               │
-# │                                                                        │
-# │                     [BottomCenter: ChargeBar / RhythmBar]              │
-# │                      center, 320w, y:940–990                           │
-# └────────────────────────────────────────────────────────────────────────┘
+# ┌─ 40px safe area ──────────────────────────────────────────────────────────┐
+# │                                                                           │
+# │              ProgressBar (960w, centered)       ScoreHUD (384×154)        │
+# │              x:480 y:40, 960×54                 x:1496 y:40              │
+# │                                                                           │
+# │  ActionCard         CenterArea (below progress bar)                      │
+# │  x:40 y:252         x:580 y:120, 660×500                                │
+# │  352×576            HitResult / MultiHit / PhaseBanner / Rainbow         │
+# │  fonts 1.5x                                                              │
+# │                                                                           │
+# │  GoldenCountdown: 176×176, follows pumpkin (NOT in this container)       │
+# │  BurstHint: CanvasLayer 9 (fullscreen edge glow)                         │
+# │  SwitchHand: CanvasLayer 15 (fullscreen overlay)                         │
+# │  EndPanel: CanvasLayer 20 (fullscreen modal)                             │
+# │                                                                           │
+# └───────────────────────────────────────────────────────────────────────────┘
 
 [node name="HUDContainer" type="CanvasLayer"]
 layer = 10
 
 # --- TOP CENTER: ProgressBar zone ---
-# Position: centered horizontally, 24px from top
-# Size: 640×48 (bar is 36px tall, milestones extend ±8px)
+# Position: centered horizontally, 40px from top (safe area)
+# Size: 960×54
 [node name="TopCenter" type="Control" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -320.0
-offset_top = 24.0
-offset_right = 320.0
-offset_bottom = 72.0
+offset_left = -480.0
+offset_top = 40.0
+offset_right = 480.0
+offset_bottom = 94.0
 grow_horizontal = 2
 
 # --- TOP RIGHT: ScoreHUD zone ---
-# Position: 24px from right edge, 24px from top
-# Size: 296×106 (bigger badges)
+# Position: 40px from right edge (safe area), 40px from top
+# Size: 384×154 (1.2x wide, 1.4x tall)
 [node name="TopRight" type="Control" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -320.0
-offset_top = 24.0
-offset_right = -24.0
-offset_bottom = 130.0
+offset_left = -424.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = 194.0
 grow_horizontal = 0
 
-# --- CENTER TOP: ComboCounter zone ---
-# Position: centered horizontally, y:80 (below progress bar)
-# Size: 240×70
-[node name="CenterTop" type="Control" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -120.0
-offset_top = 80.0
-offset_right = 120.0
-offset_bottom = 150.0
-grow_horizontal = 2
-
 # --- LEFT: ActionCard zone ---
-# Position: 24px from left, vertically centered (y: 250–830)
-# Size: 330×580 (1.5x wider per feedback)
+# Position: 40px from left (safe area), y:252
+# Size: 352×576
+# Fonts: 1.5x (name 30px, pill 22px, rep count 30px)
 [node name="LeftCard" type="Control" parent="."]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -290.0
-offset_right = 354.0
-offset_bottom = 290.0
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 252.0
+offset_right = 392.0
+offset_bottom = 828.0
 
-# --- UPPER CENTER: Transient feedback (HitResult, PhaseBanner, MultiHit) ---
-# Position: centered, upper area y:200
-# Size: 800×200
-[node name="UpperCenter" type="Control" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -400.0
-offset_top = 200.0
-offset_right = 400.0
-offset_bottom = 400.0
-grow_horizontal = 2
+# --- CENTER AREA: Transient feedback (below progress bar) ---
+# Position: x:580 y:120
+# Size: 660×500
+# Contains: HitResultText, MultiHitResult, PhaseBanner, RainbowFullscreen
+[node name="CenterArea" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 580.0
+offset_top = 120.0
+offset_right = 1240.0
+offset_bottom = 620.0
 
-# --- BOTTOM CENTER: ChargeBar / ReturnRhythmBar ---
-# Position: centered, 90px from bottom
-# Size: 320×40
-[node name="BottomCenter" type="Control" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -90.0
-offset_right = 160.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 0
-
-# --- FULLSCREEN overlays (BurstHint, SwitchHand, RainbowFullscreen) ---
-# Handled by their own CanvasLayer at higher layer indices
+# --- FULLSCREEN overlays ---
+# BurstHint: own CanvasLayer 9 (fullscreen amber edge glow, breathing 1.2s)
+# SwitchHand: own CanvasLayer 15 (55% dim + 120px text, no subtitle)
+# EndPanel: own CanvasLayer 20 (40% dim + 868×605 panel, space-evenly)
+# RainbowFullscreen: own CanvasLayer 20 (15% white overlay + 104px rainbow text)
+# GoldenCountdown: NOT in HUD — follows pumpkin Node3D world position (176×176)

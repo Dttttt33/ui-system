@@ -5,7 +5,7 @@
 | File | What it is | How to use |
 |------|-----------|------------|
 | `ui_tokens.gd` | All design tokens as GDScript constants + helper functions | Add as autoload or `preload()` |
-| `components.json` | 16 component specs (tree, exports, signals, style mapping) | Reference when building scenes |
+| `components.json` | 13 component specs (tree, exports, signals, style, animations) | Reference when building scenes |
 | `asset_manifest.json` | Every texture asset: path, size, purpose, priority | Import checklist + loader reference |
 | `theme/ui_theme.tres` | Godot Theme resource with all StyleBoxFlat presets | Apply to root or per-scene |
 | `shaders/` | 6 shaders for fills, glows, gradients, shine | Materials in .tscn files reference these |
@@ -41,28 +41,42 @@ window/stretch/aspect="keep"
 ```
 ┌─ 40px safe area ──────────────────────────────────────────────────────────┐
 │                                                                           │
-│              ProgressBar (960w, centered)              ScoreHUD           │
-│              x:480 y:40                               x:1560 y:40        │
-│              960×54                                    320×110            │
-│                                                       GoldenCountdown    │
-│                                                       x:1600 y:164      │
-│                                                       200×130            │
+│              ProgressBar (960w, centered)       ScoreHUD (1.2×1.4)       │
+│              x:480 y:40                         x:1496 y:40              │
+│              960×54                             384×154                   │
 │                                                                           │
-│  ActionCard                    CenterArea                                 │
-│  x:40 y:252                    x:500 y:350                               │
-│  352×576                       700×350                                   │
-│  (1.6w × 1.2h)                 (HitResult, PhaseBanner,                  │
-│                                 MultiHit, SwitchHand)                     │
+│  ActionCard         CenterArea (below progress bar)                      │
+│  x:40 y:252         x:580 y:120                                         │
+│  352×576            660×500                                              │
+│  fonts 1.5x         (HitResult 2x, PhaseBanner 75%,                     │
+│                      MultiHit 2x, Rainbow 2x)                            │
 │                                                                           │
-│                         BottomCenter                                      │
-│                         x:700 y:900                                      │
-│                         520×140                                          │
-│                         (ChargeBar + RhythmBar)                          │
+│  GoldenCountdown: 176×176, follows pumpkin world pos (NOT fixed HUD)     │
 │                                                                           │
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
+**Removed:** BottomCenter zone, ChargeBar, ReturnRhythmBar (no longer in use).
+
 All positions are also available as `UiTokens.HUD_*` Rect2 constants.
+
+### Component Size & Animation Reference
+
+| Component | Size / Font | Position | Key Animation |
+|-----------|------------|----------|---------------|
+| ProgressBar | 960×54, milestones 42/33px | TopCenter (480,40) | milestone done: `tween_bounce` |
+| ScoreHUD | 384×154, labels 14px, numbers 36px | TopRight (1496,40) | score change: `tween_bounce` on number |
+| ActionCard | 352×576, name 30px, rep count 30px, pill 22px | Left (40,252) | card_shown: slide-in from left 300ms |
+| ActionCard blue pill | Only visible during hand-switch phase | Inside card | fade-in 200ms |
+| GoldenCountdown | 176×176, ring width 18px, text 24px | Follows pumpkin in world | urgent (<1s): `shake 0.25s infinite` + ring turns red |
+| HitResult | Good 56px, Perfect 84px, Miss 52px, Combo 96px | CenterArea | `tween_bounce` pop + `score_rise` 40px up + fade 600ms |
+| MultiHit | Title 84px, multiplier 44px, score 32px | CenterArea | `tween_bounce` + combo-pulse |
+| PhaseBanner | Text 45px, padding 28px 72px | CenterArea centered | slide-in from top 800ms + auto-fade 2s |
+| FoxWarning | Fox 102px, text 61px, cream pill | Screen center | edge-glow pulse 0.7s on approach side + `tween_bounce` enter |
+| BurstHint | Fullscreen edge glow, 1.5x intensity | CanvasLayer 9 | breathing pulse 1.2s ease-in-out infinite |
+| SwitchHand | Text 120px, NO subtitle | CanvasLayer 15, 55% dim | instant show, holds until dismissed |
+| EndPanel | 868×605, space-evenly layout | CanvasLayer 20, 40% dim | stars: spin+scale 400ms staggered, panel: scale 0→1 ease-out-back |
+| Rainbow | "RAINBOW!" 104px, "+BONUS" 48px | CanvasLayer 20, 15% white overlay | rainbow text: background-position shift 1.5s linear infinite |
 
 ## Style Rules (DO / DON'T)
 
@@ -169,14 +183,46 @@ for each action in action_plan:
 - **Hand pending:** light teal `#d8f0f0`, empty (no icon)
 - Transition: pending → done with `tween_bounce` animation
 
-### Charge Bar
+### Animations Detail
 
-- Track: cream panel `#FFF5D6`, border 4px `#C8A848`, pill radius
-- Fill: same three-stop gradient as progress bar
-- Full state: gold gradient (two-stop)
-- Top shine strip: white @ 45%
-- Height: 50px, pill radius
-- Shader: `progress_fill.gdshader` handles this too
+All animations use hard/flat depth style — NO blur-based effects.
+
+**GoldenCountdown urgent shake:**
+```gdscript
+# When remaining < urgent_threshold (1s):
+var tween = create_tween().set_loops()
+tween.tween_property(self, "rotation_degrees", 3.0, 0.0625)
+tween.tween_property(self, "rotation_degrees", -3.0, 0.125)
+tween.tween_property(self, "rotation_degrees", 0.0, 0.0625)
+# Ring color transitions from COLOR_PERFECT (gold) to COLOR_RED
+```
+
+**Fox Warning edge glow pulse:**
+```gdscript
+# Directional edge glow (shader: directional_glow.gdshader)
+# direction: 0=left, 1=right
+# Pulsing: opacity 0.3 → 1.0, period 0.7s, ease-in-out
+var tween = create_tween().set_loops()
+tween.tween_property(edge_glow, "modulate:a", 1.0, 0.35).set_ease(Tween.EASE_IN_OUT)
+tween.tween_property(edge_glow, "modulate:a", 0.3, 0.35).set_ease(Tween.EASE_IN_OUT)
+```
+
+**Burst Hint breathing glow:**
+```gdscript
+# Fullscreen edge glow (shader: edge_glow.gdshader)
+# 1.5x intensity: glow_color amber @ 15%→55% opacity
+# Period: 1.2s ease-in-out infinite
+var tween = create_tween().set_loops()
+tween.tween_method(set_glow_intensity, 0.15, 0.55, 0.6).set_ease(Tween.EASE_IN_OUT)
+tween.tween_method(set_glow_intensity, 0.55, 0.15, 0.6).set_ease(Tween.EASE_IN_OUT)
+```
+
+**Rainbow text animation:**
+```gdscript
+# Horizontal rainbow gradient shift (shader: rainbow_text.gdshader)
+# Speed: completes one full cycle in 1.5s, linear, infinite loop
+# Shader uniform: uv_offset += delta / 1.5
+```
 
 ### Colors — When to Use What
 

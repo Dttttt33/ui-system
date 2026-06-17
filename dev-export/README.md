@@ -21,7 +21,6 @@ your-godot-project/
 │       ├── scenes/
 │       │   ├── action_card.tscn
 │       │   ├── burst_hint.tscn
-│       │   ├── charge_bar.tscn
 │       │   ├── end_panel.tscn
 │       │   ├── fox_warning.tscn
 │       │   ├── golden_countdown.tscn
@@ -31,7 +30,6 @@ your-godot-project/
 │       │   ├── phase_banner.tscn
 │       │   ├── progress_bar.tscn
 │       │   ├── rainbow_fullscreen.tscn
-│       │   ├── return_rhythm_bar.tscn
 │       │   ├── score_hud.tscn
 │       │   └── switch_hand.tscn
 │       ├── fonts/
@@ -92,27 +90,25 @@ $Root.theme = preload("res://common/ui/theme/ui_theme.tres")
 | `progress_fill.gdshader` | 进度条/charge 条的填充 | `progress(0-1)`, `is_full` 时变金色, `shine_height=0.35` |
 | `button_shine.gdshader` | 按钮顶部高光条 | `shine_height=0.38`, `shine_opacity=0.45` |
 
-### Scenes（15 个组件）
+### Scenes（13 个组件）
 
 每个 `.tscn` 都是自包含的——样式内联为 sub_resource，不依赖外部 Theme（但推荐配合 Theme 使用）。
 
-| 场景 | 说明 | 关键节点 |
-|------|------|---------|
-| `action_card.tscn` | 动作卡片 | NameTab + IconArea + HandPill + RepBlocks |
-| `score_hud.tscn` | 右上角计分 | ScoreBadge + CaughtBadge |
-| `progress_bar.tscn` | 回合进度条 | Track(StyleBox) + Fill(Shader) + Label |
-| `charge_bar.tscn` | Burst 充能条 | 同上，amber 色 |
-| `hit_result_text.tscn` | 命中反馈文字 | 居中 Label, outline 6px |
-| `phase_banner.tscn` | 回合开始横幅 | Title + Subtitle |
-| `switch_hand.tscn` | 换手提示 | Icon + Title + Subtitle |
-| `return_rhythm_bar.tscn` | 回位节奏条 | Track + Indicator |
-| `multi_hit_result.tscn` | 多环命中结果 | Combo + Score + Quality |
-| `burst_hint.tscn` | Burst 可用提示 | 底部金色 pill |
-| `end_panel.tscn` | 结算面板 | Title + Stars + 3x StatCards + Button |
-| `hud_container.tscn` | HUD 布局框架 | CanvasLayer > TopBar + BottomBar |
-| `rainbow_fullscreen.tscn` | 全屏彩虹特效 | Overlay + CenterPanel |
-| `fox_warning.tscn` | 狐狸警告 | 红色 pill + icon |
-| `golden_countdown.tscn` | 金色倒计时 | 圆形金色 badge |
+| 场景 | 说明 | 尺寸/字号 | 关键动画 |
+|------|------|----------|---------|
+| `action_card.tscn` | 动作卡片 (352×576) | 名称30px, 计数30px, pill 22px | slide-in from left 300ms |
+| `score_hud.tscn` | 右上角计分 (384×154) | 标签14px, 数字36px | tween_bounce on change |
+| `progress_bar.tscn` | 回合进度条 (960×54) | milestones 42/33px | tween_bounce on complete |
+| `hit_result_text.tscn` | 命中反馈文字 | 56-96px (按类型) | bounce + rise + fade |
+| `phase_banner.tscn` | 回合横幅 (amber) | 文字45px | slide-in top 800ms, auto-fade 2s |
+| `switch_hand.tscn` | 换手全屏覆盖 | 文字120px, 无副标题 | instant show, fade dismiss |
+| `multi_hit_result.tscn` | 多环命中庆祝 | 标题84px | bounce + combo-pulse |
+| `burst_hint.tscn` | 全屏amber呼吸光 | CanvasLayer 9 | 1.2s breathing 15%→55% |
+| `end_panel.tscn` | 结算面板 (868×605) | 数字32px, 消息42px | scale 0→1 ease-out-back |
+| `hud_container.tscn` | HUD布局框架 | CanvasLayer 10 | — |
+| `rainbow_fullscreen.tscn` | 全屏彩虹 | 标题104px, 分数48px | rainbow shift 1.5s loop |
+| `fox_warning.tscn` | 狐狸警告 (cream pill) | fox 102px, 文字61px | edge pulse 0.7s + bounce |
+| `golden_countdown.tscn` | 金色倒计时 (176px) | ring width 18px | urgent: shake 0.25s + red |
 
 ### Placeholder Textures
 
@@ -168,10 +164,11 @@ add_child(card)
 # 更新 progress bar
 var bar = $HUD/ProgressBar
 bar.get_node("Fill").material.set_shader_parameter("progress", 0.75)
-bar.get_node("Label").text = "15 / 20"
 
-# Burst 充满变金色
-$ChargeBar/Fill.material.set_shader_parameter("is_full", true)
+# 显示 hit result (2x sizes: good=56, perfect=84, miss=52, combo=96)
+var hit = preload("res://common/ui/scenes/hit_result_text.tscn").instantiate()
+hit.result_type = "perfect"  # 84px gold text
+$HUD/CenterArea.add_child(hit)
 ```
 
 ---
