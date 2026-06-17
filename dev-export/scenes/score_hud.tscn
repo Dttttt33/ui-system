@@ -80,16 +80,16 @@ content_margin_top = 6.0
 content_margin_right = 14.0
 content_margin_bottom = 6.0
 
-# Position: top-right, 12px from right edge, 24px from top
-# Size flags: shrink-center horizontally so it auto-sizes to content
+# Position: top-right, 24px from right edge, 24px from top
+# Wider (296px) for bigger badges
 [node name="ScoreHUD" type="PanelContainer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -240.0
+offset_left = -320.0
 offset_top = 24.0
-offset_right = -12.0
-offset_bottom = 100.0
+offset_right = -24.0
+offset_bottom = 130.0
 grow_horizontal = 0
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("outer")
@@ -112,7 +112,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = "SCORE"
 horizontal_alignment = 1
 
@@ -120,7 +120,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 36
 text = "480"
 horizontal_alignment = 1
 
@@ -137,7 +137,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 14
 text = "CAUGHT"
 horizontal_alignment = 1
 
@@ -145,6 +145,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 36
 text = "6"
 horizontal_alignment = 1

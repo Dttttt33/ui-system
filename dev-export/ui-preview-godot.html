@@ -1,400 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-<meta charset="UTF-8">
-<title>Godot .tscn Preview — Pixel Audit at 1920×1080</title>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset=UTF-8>
+<title>Godot .tscn Audit — Before / After</title>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel=stylesheet>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#1a1a2e; font-family:'Fredoka',sans-serif; color:#fff; padding:20px; }
-h1 { font-family:'Luckiest Guy',cursive; font-size:28px; margin-bottom:8px; }
-.sub { color:rgba(255,255,255,.6); font-size:13px; margin-bottom:30px; }
-.component-section { margin-bottom:60px; }
-.component-section h2 {
-  font-family:'Luckiest Guy',cursive; font-size:16px;
-  background:#333; display:inline-block; padding:4px 16px;
-  border-radius:8px; margin-bottom:12px; color:#FFD700;
-}
-.component-section .meta {
-  font-size:11px; color:rgba(255,255,255,.5); margin-bottom:8px; font-family:monospace;
-}
-.viewport {
-  width:1920px; height:1080px;
-  background:linear-gradient(180deg,#87CEEB 0%,#B8D888 50%,#78B838 100%);
-  position:relative; border:2px solid #444; border-radius:4px;
-  overflow:hidden; transform-origin:top left;
-}
-.viewport-wrapper {
-  overflow-x:auto; border-radius:4px;
-}
-.scale-note {
-  font-size:11px; color:rgba(255,255,255,.4); margin-top:4px;
-}
-
-/* Shared depth model: no drop-shadow, border + thicker bottom + optional inner shine */
-.depth-panel {
-  position:relative;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;font-family:Fredoka,sans-serif;color:#fff;padding:20px 30px}
+h1{font-family:Luckiest Guy,cursive;font-size:22px;margin-bottom:20px}
+.row{display:flex;gap:30px;margin-bottom:50px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
+.col{flex:1}
+.col h3{font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;color:rgba(255,255,255,.4)}
+.col h3.after{color:#6EC531}
+.label{font-family:Luckiest Guy,cursive;font-size:14px;color:#FFD700;background:#222;display:inline-block;padding:3px 12px;border-radius:6px;margin-bottom:10px}
+.meta{font-size:10px;color:rgba(255,255,255,.35);margin-bottom:10px;font-family:monospace;line-height:1.5}
+.scene{background:linear-gradient(180deg,#87CEEB 0%,#B8D888 50%,#78B838 100%);border-radius:12px;padding:20px;min-height:60px;display:flex;align-items:center;justify-content:center}
+.scene.dark{background:rgba(0,0,0,0.55)}
 </style>
 </head>
 <body>
+<h1>BEFORE / AFTER COMPARISON</h1>
+<div class=row>
+<div class=col><h3>BEFORE</h3>
+<div class=label>1. PROGRESS BAR</div>
+<div class=meta>Issues: dots SQUARE | pending has checkmarks (wrong)</div>
+<div class=scene>
+<div style="position:relative;width:640px;height:36px">
+<div style="position:absolute;inset:0;border-radius:16px;background:#FFF5D6;border:4px solid #C8A848;box-shadow:0 5px 0 #8B6A20"><div style="position:absolute;top:4px;left:4px;bottom:4px;width:40%;border-radius:10px;background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37)"></div></div>
+<div style="position:absolute;left:0px;top:4px;width:28px;height:28px;border-radius:4px;background:#6EC531;border:3px solid #4A9B1E;display:flex;align-items:center;justify-content:center"><svg width=12 height=12 viewBox="0 0 24 24" fill=white><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+<div style="position:absolute;left:125px;top:7px;width:22px;height:22px;border-radius:4px;background:#55c9c9;border:3px solid #3aa;display:flex;align-items:center;justify-content:center"><svg width=9 height=9 viewBox="0 0 24 24" fill=white><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+<div style="position:absolute;left:244px;top:4px;width:28px;height:28px;border-radius:4px;background:#6EC531;border:3px solid #4A9B1E;display:flex;align-items:center;justify-content:center"><svg width=12 height=12 viewBox="0 0 24 24" fill=white><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+<div style="position:absolute;left:366px;top:4px;width:28px;height:28px;border-radius:4px;background:#e8dfc8;border:3px solid #C8A848"></div>
+<div style="position:absolute;left:491px;top:7px;width:22px;height:22px;border-radius:4px;background:#d8f0f0;border:3px solid #88cccc"></div>
+<div style="position:absolute;left:598px;top:4px;width:28px;height:28px;border-radius:4px;background:#e8dfc8;border:3px solid #C8A848"></div>
+</div>
+</div></div>
 
-<h1>GODOT .TSCN PIXEL AUDIT</h1>
-<p class="sub">Each component rendered at exact 1920×1080 viewport scale, matching current .tscn values. Scroll horizontally if needed.</p>
-
-<!-- ================================================================== -->
-<!-- 1. PROGRESS BAR -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>1. PROGRESS BAR</h2>
-  <div class="meta">progress_bar.tscn — Position: centered, y:24–60 | Size: 640×36 | Milestones: vertically centered on track</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- Progress bar: centered at x:640, y:24, 640×36 -->
-      <div style="position:absolute; left:640px; top:24px; width:640px; height:36px;">
-        <!-- Track: cream panel -->
-        <div style="position:absolute; inset:0; border-radius:16px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20;">
-          <!-- Fill: 40% width, 4px inset -->
-          <div style="position:absolute; top:4px; left:4px; bottom:4px; width:40%; border-radius:10px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-        <!-- Milestones: vertically centered, evenly spaced (14, 136, 258, 380, 502, 612) -->
-        <!-- M1: Action done (28×28) at x:0, y:4 (centered vertically) -->
-        <div style="position:absolute; left:0px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:'Luckiest Guy',cursive; font-size:12px; color:#fff;">✓</span>
-        </div>
-        <!-- M2: Hand done (22×22) at x:125, y:7 (centered vertically) -->
-        <div style="position:absolute; left:125px; top:7px; width:22px; height:22px; border-radius:50%; background:#55c9c9; border:3px solid #3aa; box-shadow:0 2px 0 #288; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:'Luckiest Guy',cursive; font-size:9px; color:#fff;">✓</span>
-        </div>
-        <!-- M3: Action done (28×28) at x:244, y:4 -->
-        <div style="position:absolute; left:244px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;">
-          <span style="font-family:'Luckiest Guy',cursive; font-size:12px; color:#fff;">✓</span>
-        </div>
-        <!-- M4: Action pending (28×28) at x:366, y:4 -->
-        <div style="position:absolute; left:366px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-        <!-- M5: Hand pending (22×22) at x:491, y:7 — proper pending style -->
-        <div style="position:absolute; left:491px; top:7px; width:22px; height:22px; border-radius:50%; background:#d8f0f0; border:3px solid #88cccc;"></div>
-        <!-- M6: Action pending (28×28) at x:598, y:4 -->
-        <div style="position:absolute; left:598px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-      </div>
-      <!-- Grid overlay showing position -->
-      <div style="position:absolute; left:640px; top:24px; width:640px; height:36px; border:1px dashed rgba(255,0,0,0.3); pointer-events:none;"></div>
-      <div style="position:absolute; left:640px; top:64px; font-size:10px; color:rgba(255,255,255,0.6); font-family:monospace;">x:640 y:24 → x:1280 y:60 (640×36)</div>
-    </div>
-  </div>
-  <p class="scale-note">FIXED: dots now vertically centered (y:4 for 28px, y:7 for 22px), evenly spaced, hand pending uses proper light-teal style, top margin increased to 24px.</p>
+<div class=col><h3 class=after>AFTER</h3>
+<div class=label>1. PROGRESS BAR (fixed)</div>
+<div class=meta>Fixed: ROUND dots | check ONLY when fill has passed | 40% fill = first 2 done</div>
+<div class=scene>
+<div style="position:relative;width:640px;height:36px">
+<div style="position:absolute;inset:0;border-radius:16px;background:#FFF5D6;border:4px solid #C8A848;box-shadow:0 5px 0 #8B6A20"><div style="position:absolute;top:4px;left:4px;bottom:4px;width:40%;border-radius:10px;background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37)"></div></div>
+<div style="position:absolute;left:0px;top:4px;width:28px;height:28px;border-radius:50%;background:#6EC531;border:3px solid #4A9B1E;box-shadow:0 3px 0 #2B5E10;display:flex;align-items:center;justify-content:center"><svg width=12 height=12 viewBox="0 0 24 24" fill=white><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+<div style="position:absolute;left:125px;top:7px;width:22px;height:22px;border-radius:50%;background:#55c9c9;border:3px solid #3aa;box-shadow:0 2px 0 #288;display:flex;align-items:center;justify-content:center"><svg width=9 height=9 viewBox="0 0 24 24" fill=white><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+<div style="position:absolute;left:244px;top:4px;width:28px;height:28px;border-radius:50%;background:#e8dfc8;border:3px solid #C8A848"></div>
+<div style="position:absolute;left:366px;top:4px;width:28px;height:28px;border-radius:50%;background:#e8dfc8;border:3px solid #C8A848"></div>
+<div style="position:absolute;left:491px;top:7px;width:22px;height:22px;border-radius:50%;background:#d8f0f0;border:3px solid #88cccc"></div>
+<div style="position:absolute;left:598px;top:4px;width:28px;height:28px;border-radius:50%;background:#e8dfc8;border:3px solid #C8A848"></div>
+</div>
+</div></div>
 </div>
 
-<!-- ================================================================== -->
-<!-- 2. ACTION CARD -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>2. ACTION CARD</h2>
-  <div class="meta">action_card.tscn — Position: x:24 y:300→780 (left, vert-centered) | Size: 220×480</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- Action card: x:24, vertically centered (y:300–780) -->
-      <div style="position:absolute; left:24px; top:300px; width:220px; height:480px;">
-        <!-- Name tab: centered, at top -->
-        <div style="position:absolute; left:50%; transform:translateX(-50%); top:0; z-index:2;">
-          <div style="background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; border-radius:10px; padding:4px 16px; font-family:'Luckiest Guy',cursive; font-size:13px; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,.3); white-space:nowrap;">Bicep Curl</div>
-        </div>
-        <!-- Panel: offset_top=15, so starts at y:15 -->
-        <div style="position:absolute; left:0; top:15px; right:0; bottom:0; background:#FFF5D6; border:5px solid #8B6A20; box-shadow:0 6px 0 #5A4010; border-radius:28px; padding:22px 12px 12px; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center;">
-          <!-- Icon area: ~196×280 -->
-          <div style="width:100%; height:280px; background:#e8f4dc; border:3px solid #a8c890; border-radius:16px; display:flex; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 200 300" width="80" height="120"><g fill="none" stroke="#285c4b" stroke-width="14" stroke-linecap="round"><circle cx="100" cy="55" r="20" fill="#285c4b" stroke="none"/><path d="M100 78v75M100 100L60 130M100 100l48 18M148 118l-18-32M100 152l-40 50M100 152l40 50"/></g></svg>
-          </div>
-          <!-- Hand pill -->
-          <div style="background:#55c9c9; border:3px solid #3a9a9a; box-shadow:0 3px 0 #288080; border-radius:999px; padding:3px 8px; font-family:'Luckiest Guy',cursive; font-size:11px; color:#fff; text-align:center;">Left hand</div>
-          <!-- Rep blocks -->
-          <div style="display:flex; gap:3px; align-items:center; justify-content:center;">
-            <div style="width:13px; height:15px; border-radius:4px; background:#FFD700; border:2px solid #B89800;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#FFD700; border:2px solid #B89800;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#FFD700; border:2px solid #B89800;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#FFD700; border:2px solid #B89800;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#FFD700; border:2px solid #B89800;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#E8DFC0; border:2px solid #B8AE98;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#E8DFC0; border:2px solid #B8AE98;"></div>
-            <div style="width:13px; height:15px; border-radius:4px; background:#E8DFC0; border:2px solid #B8AE98;"></div>
-            <span style="font-family:'Luckiest Guy',cursive; font-size:14px; color:#4A3728; margin-left:6px;">5/8</span>
-          </div>
-        </div>
-      </div>
-      <!-- Debug outline -->
-      <div style="position:absolute; left:24px; top:300px; width:220px; height:480px; border:1px dashed rgba(255,0,0,0.3); pointer-events:none;"></div>
-      <div style="position:absolute; left:24px; top:785px; font-size:10px; color:rgba(255,255,255,0.6); font-family:monospace;">x:24 y:300 → x:244 y:780 (220×480)</div>
-    </div>
-  </div>
-  <p class="scale-note">Compare with HTML spec: HTML card is 220px wide with same structure. At 1920×1080 full viewport this is correct scale.</p>
+<div class=row>
+<div class=col><h3>BEFORE</h3>
+<div class=label>2. ACTION CARD</div>
+<div class=meta>Issues: text too small | green tab too much gap | card not tall enough | hand text tiny</div>
+<div class=scene>
+<div style="width:220px;padding:22px 12px 12px;border-radius:28px;background:#FFF5D6;border:5px solid #8B6A20;box-shadow:0 6px 0 #5A4010;position:relative;">
+<div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#6EC531;border:3px solid #4A9B1E;border-radius:10px;padding:4px 16px;box-shadow:0 3px 0 #2B5E10;font-family:Luckiest Guy,cursive;font-size:13px;color:#fff;white-space:nowrap;">Bicep Curl</div>
+<div style="width:100%;aspect-ratio:2/3;margin-top:20px;border-radius:16px;background:#e8f4dc;border:3px solid #a8c890;display:flex;align-items:center;justify-content:center;">
+<svg viewBox="0 0 200 300" width="80" height="120"><g fill="none" stroke="#285c4b" stroke-width="14" stroke-linecap="round"><circle cx="100" cy="55" r="22" fill="#285c4b" stroke="none"/><path d="M100 80v80M100 105L55 145M100 105l50 30M150 135l-20-35M100 160l-42 55M100 160l42 55"/></g></svg>
+</div>
+<div style="margin:8px 0;padding:5px 12px;background:#55c9c9;border-radius:99px;border:3px solid #3a9a9a;box-shadow:0 3px 0 #288080;text-align:center;font-family:Luckiest Guy,cursive;font-size:11px;color:#fff;">Left hand</div>
+<div style="display:flex;gap:3px;justify-content:center;align-items:center;">
+<div style="width:13px;height:15px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<div style="width:13px;height:15px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<span style="font-family:Luckiest Guy,cursive;font-size:14px;color:#4A3728;margin-left:6px;">5/8</span>
+</div>
+</div>
+</div></div>
+
+<div class=col><h3 class=after>AFTER</h3>
+<div class=label>2. ACTION CARD (fixed)</div>
+<div class=meta>Fixed: 15% bigger | taller (380x670) | text 2x | green tab tight overlap | hand text bigger | centered name</div>
+<div class=scene>
+<div style="width:253px;padding:22px 14px 14px;border-radius:32px;background:#FFF5D6;border:5px solid #8B6A20;box-shadow:0 7px 0 #5A4010;position:relative;">
+<div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#6EC531;border:3px solid #4A9B1E;border-radius:10px;padding:4px 18px;box-shadow:0 3px 0 #2B5E10;font-family:Luckiest Guy,cursive;font-size:16px;color:#fff;white-space:nowrap;">Bicep Curl</div>
+<div style="width:100%;aspect-ratio:2/3;margin-top:6px;border-radius:16px;background:#e8f4dc;border:3px solid #a8c890;display:flex;align-items:center;justify-content:center;">
+<svg viewBox="0 0 200 300" width="100" height="150"><g fill="none" stroke="#285c4b" stroke-width="14" stroke-linecap="round"><circle cx="100" cy="55" r="22" fill="#285c4b" stroke="none"/><path d="M100 80v80M100 105L55 145M100 105l50 30M150 135l-20-35M100 160l-42 55M100 160l42 55"/></g></svg>
+</div>
+<div style="margin:8px 0;padding:6px 14px;background:#55c9c9;border-radius:99px;border:3px solid #3a9a9a;box-shadow:0 3px 0 #288080;text-align:center;font-family:Luckiest Guy,cursive;font-size:16px;color:#fff;">Switch to left hand</div>
+<div style="display:flex;gap:3px;justify-content:center;align-items:center;">
+<div style="width:15px;height:17px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#FFD700;border:2px solid #B89800"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<div style="width:15px;height:17px;border-radius:4px;background:#E8DFC0;border:2px solid #B8AE98"></div>
+<span style="font-family:Luckiest Guy,cursive;font-size:16px;color:#4A3728;margin-left:6px;">5/8</span>
+</div>
+</div>
+</div></div>
 </div>
 
-<!-- ================================================================== -->
-<!-- 3. SCORE HUD -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>3. SCORE HUD</h2>
-  <div class="meta">score_hud.tscn — Position: 12px from right, y:24 | Auto-width ~220px (matches HTML inline-flex)</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- Score HUD: top-right, y:24, auto-width -->
-      <div style="position:absolute; right:12px; top:24px;">
-        <!-- Outer cream panel — matches HTML: padding:12px 18px, border:4px, inline-flex -->
-        <div style="display:inline-flex; gap:10px; padding:12px 18px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20; border-radius:18px; align-items:center;">
-          <!-- Amber SCORE badge -->
-          <div style="background:#F5A623; border:3px solid #D4891A; box-shadow:0 4px 0 #A06810; border-radius:12px; padding:6px 14px; text-align:center;">
-            <div style="font-family:'Luckiest Guy',cursive; font-size:9px; color:#4A3728; letter-spacing:1px;">SCORE</div>
-            <div style="font-family:'Luckiest Guy',cursive; font-size:26px; color:#4A3728; line-height:1;">480</div>
-          </div>
-          <!-- Green CAUGHT badge -->
-          <div style="background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 4px 0 #2B5E10; border-radius:12px; padding:6px 14px; text-align:center;">
-            <div style="font-family:'Luckiest Guy',cursive; font-size:9px; color:#fff; letter-spacing:1px;">CAUGHT</div>
-            <div style="font-family:'Luckiest Guy',cursive; font-size:26px; color:#fff; line-height:1;">6</div>
-          </div>
-        </div>
-      </div>
-      <!-- Debug outline -->
-      <div style="position:absolute; right:12px; top:24px; font-size:10px; color:rgba(255,255,255,0.6); font-family:monospace; margin-top:80px;">Auto-width, y:24 from top</div>
-    </div>
-  </div>
-  <p class="scale-note">FIXED: Now uses auto-width like HTML (inline-flex), padding 12px 18px, border 4px matching HTML spec exactly. Top margin increased from 10px to 24px.</p>
+<div class=row>
+<div class=col><h3>BEFORE</h3>
+<div class=label>3. SCORE HUD</div>
+<div class=meta>Issues: font too big (14/36) | style doesn't match demo (should be 9/26)</div>
+<div class=scene>
+<div style="display:inline-flex;gap:10px;padding:12px 18px;background:#FFF5D6;border:4px solid #C8A848;border-radius:18px;box-shadow:0 5px 0 #8B6A20;align-items:center;">
+<div style="background:#F5A623;border:3px solid #D4891A;border-radius:12px;padding:6px 14px;box-shadow:0 4px 0 #A06810;text-align:center;">
+<div style="font-family:Luckiest Guy,cursive;font-size:14px;color:#4A3728;letter-spacing:1px;">SCORE</div>
+<div style="font-family:Luckiest Guy,cursive;font-size:36px;color:#4A3728;">480</div>
 </div>
-
-<!-- ================================================================== -->
-<!-- 4. PHASE BANNER -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>4. PHASE BANNER</h2>
-  <div class="meta">phase_banner.tscn — Position: centered | Container: 400×100 (auto-sizes to content)</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- Phase banner: centered, offset ±200 x, ±50 y -->
-      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:400px;">
-        <div style="background:#F5A623; border:4px solid #D4891A; box-shadow:0 5px 0 #A06810; border-radius:16px; padding:16px 40px; position:relative; text-align:center;">
-          <!-- Shine -->
-          <div style="position:absolute; top:4px; left:8px; right:8px; height:35%; background:linear-gradient(180deg,rgba(255,255,255,0.35),transparent); border-radius:8px; pointer-events:none;"></div>
-          <div style="font-family:'Luckiest Guy',cursive; font-size:12px; color:rgba(255,255,255,0.85);">PHASE 2 OF 3</div>
-          <div style="font-family:'Luckiest Guy',cursive; font-size:24px; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,0.2); margin-top:2px;">CATCH THE FAR TARGETS!</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div style="background:#6EC531;border:3px solid #4A9B1E;border-radius:12px;padding:6px 14px;box-shadow:0 4px 0 #2B5E10;text-align:center;">
+<div style="font-family:Luckiest Guy,cursive;font-size:14px;color:#fff;letter-spacing:1px;">CAUGHT</div>
+<div style="font-family:Luckiest Guy,cursive;font-size:36px;color:#fff;">6</div>
 </div>
-
-<!-- ================================================================== -->
-<!-- 5. SWITCH HAND -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>5. SWITCH HAND</h2>
-  <div class="meta">switch_hand_fullscreen.tscn — Fullscreen overlay, CanvasLayer 15 | Text: centered, 800×80</div>
-  <div class="viewport-wrapper">
-    <div class="viewport" style="background:none;">
-      <!-- Dark overlay 55% -->
-      <div style="position:absolute; inset:0; background:rgba(0,0,0,0.55);"></div>
-      <!-- Centered text: offset ±400 x, ±40 y from center -->
-      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:800px; height:80px; display:flex; align-items:center; justify-content:center;">
-        <span style="font-family:'Luckiest Guy',cursive; font-size:40px; color:#fff; text-shadow:0 3px 0 rgba(0,0,0,0.4);">SWITCH TO LEFT HAND</span>
-      </div>
-    </div>
-  </div>
 </div>
+</div></div>
 
-<!-- ================================================================== -->
-<!-- 6. CHARGE BAR -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>6. CHARGE BAR</h2>
-  <div class="meta">charge_bar.tscn — Position: bottom-center, y:940–990 | Size: 320×50 (label + track)</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- Charge bar: bottom center, offset -160 to +160 x, -90 to -50 y from bottom -->
-      <div style="position:absolute; left:50%; bottom:50px; transform:translateX(-50%); width:320px;">
-        <!-- CHARGE label -->
-        <div style="font-family:'Luckiest Guy',cursive; font-size:12px; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,0.3); text-align:center; margin-bottom:4px;">CHARGE</div>
-        <!-- Track: 320×22, warm grey -->
-        <div style="width:320px; height:22px; border-radius:999px; background:#D4C4A0; border:3px solid #8B7A5A; position:relative;">
-          <!-- Fill: 60% with gradient -->
-          <div style="position:absolute; top:3px; left:3px; bottom:3px; width:60%; border-radius:999px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-      </div>
-      <!-- Debug -->
-      <div style="position:absolute; left:800px; top:940px; width:320px; height:50px; border:1px dashed rgba(255,0,0,0.3); pointer-events:none;"></div>
-      <div style="position:absolute; left:800px; top:995px; font-size:10px; color:rgba(255,255,255,0.6); font-family:monospace;">x:800 y:940 → x:1120 y:990 (320×50)</div>
-    </div>
-  </div>
+<div class=col><h3 class=after>AFTER</h3>
+<div class=label>3. SCORE HUD (fixed)</div>
+<div class=meta>Fixed: matches demo exactly — caption 9px, value 26px (original reference sizes)</div>
+<div class=scene>
+<div style="display:inline-flex;gap:10px;padding:12px 18px;background:#FFF5D6;border:4px solid #C8A848;border-radius:18px;box-shadow:0 5px 0 #8B6A20;align-items:center;">
+<div style="background:#F5A623;border:3px solid #D4891A;border-radius:12px;padding:6px 14px;box-shadow:0 4px 0 #A06810;text-align:center;">
+<div style="font-family:Luckiest Guy,cursive;font-size:9px;color:#4A3728;letter-spacing:1px;">SCORE</div>
+<div style="font-family:Luckiest Guy,cursive;font-size:26px;color:#4A3728;">480</div>
 </div>
-
-<!-- ================================================================== -->
-<!-- 7. HUD CONTAINER (Full Layout) -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>7. HUD CONTAINER — Full Layout</h2>
-  <div class="meta">hud_container.tscn — All zones rendered together at 1920×1080 positions</div>
-  <div class="viewport-wrapper">
-    <div class="viewport">
-      <!-- TOP LEFT: RepCounter 24,24 → 184,72 -->
-      <div style="position:absolute; left:24px; top:24px; width:160px; height:48px; border:2px dashed rgba(255,255,0,0.4); display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:10px; color:rgba(255,255,0,0.8); font-family:monospace;">RepCounter<br>24,24 → 184,72</span>
-      </div>
-
-      <!-- TOP CENTER: ProgressBar 640,24 → 1280,72 -->
-      <div style="position:absolute; left:640px; top:24px; width:640px; height:48px;">
-        <div style="position:absolute; inset:0 0 12px 0; border-radius:16px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20;">
-          <div style="position:absolute; top:4px; left:4px; bottom:4px; width:40%; border-radius:10px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-        <!-- Milestones (vertically centered, evenly spaced) -->
-        <div style="position:absolute; left:0px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:10px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:125px; top:7px; width:22px; height:22px; border-radius:50%; background:#55c9c9; border:3px solid #3aa; box-shadow:0 2px 0 #288; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:8px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:244px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:10px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:366px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-        <div style="position:absolute; left:491px; top:7px; width:22px; height:22px; border-radius:50%; background:#d8f0f0; border:3px solid #88cccc;"></div>
-        <div style="position:absolute; left:598px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-      </div>
-
-      <!-- TOP RIGHT: ScoreHUD right:12, y:24, auto-width -->
-      <div style="position:absolute; right:12px; top:24px; display:inline-flex; gap:10px; padding:12px 18px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20; border-radius:18px; align-items:center;">
-        <div style="background:#F5A623; border:3px solid #D4891A; box-shadow:0 4px 0 #A06810; border-radius:12px; padding:4px 10px; text-align:center;">
-          <div style="font-family:'Luckiest Guy',cursive; font-size:7px; color:#4A3728; letter-spacing:1px;">SCORE</div>
-          <div style="font-family:'Luckiest Guy',cursive; font-size:18px; color:#4A3728; line-height:1;">480</div>
-        </div>
-        <div style="background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 4px 0 #2B5E10; border-radius:12px; padding:4px 10px; text-align:center;">
-          <div style="font-family:'Luckiest Guy',cursive; font-size:7px; color:#fff; letter-spacing:1px;">CAUGHT</div>
-          <div style="font-family:'Luckiest Guy',cursive; font-size:18px; color:#fff; line-height:1;">6</div>
-        </div>
-      </div>
-
-      <!-- TOP RIGHT 2: ComboCounter 1748,108 → 1908,158 -->
-      <div style="position:absolute; right:12px; top:108px; width:160px; height:50px; border:2px dashed rgba(255,255,0,0.4); display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:10px; color:rgba(255,255,0,0.8); font-family:monospace;">ComboCounter<br>1748,108 → 1908,158</span>
-      </div>
-
-      <!-- LEFT: ActionCard 24,300 → 244,780 -->
-      <div style="position:absolute; left:24px; top:300px; width:220px; height:480px;">
-        <div style="position:absolute; left:50%; transform:translateX(-50%); top:0; z-index:2;">
-          <div style="background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; border-radius:10px; padding:4px 16px; font-family:'Luckiest Guy',cursive; font-size:13px; color:#fff; white-space:nowrap;">Bicep Curl</div>
-        </div>
-        <div style="position:absolute; left:0; top:15px; right:0; bottom:0; background:#FFF5D6; border:5px solid #8B6A20; box-shadow:0 6px 0 #5A4010; border-radius:28px; padding:22px 12px 12px; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center;">
-          <div style="width:100%; flex:1; max-height:280px; background:#e8f4dc; border:3px solid #a8c890; border-radius:16px; display:flex; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 200 300" width="60" height="90"><g fill="none" stroke="#285c4b" stroke-width="14" stroke-linecap="round"><circle cx="100" cy="55" r="20" fill="#285c4b" stroke="none"/><path d="M100 78v75M100 100L60 130M100 100l48 18M148 118l-18-32M100 152l-40 50M100 152l40 50"/></g></svg>
-          </div>
-          <div style="background:#55c9c9; border:3px solid #3a9a9a; box-shadow:0 3px 0 #288080; border-radius:999px; padding:3px 8px; font-family:'Luckiest Guy',cursive; font-size:11px; color:#fff;">Left hand</div>
-          <div style="display:flex; gap:3px; align-items:center;">
-            <div style="width:11px; height:13px; border-radius:3px; background:#FFD700; border:1.5px solid #B89800;"></div>
-            <div style="width:11px; height:13px; border-radius:3px; background:#FFD700; border:1.5px solid #B89800;"></div>
-            <div style="width:11px; height:13px; border-radius:3px; background:#E8DFC0; border:1.5px solid #B8AE98;"></div>
-            <div style="width:11px; height:13px; border-radius:3px; background:#E8DFC0; border:1.5px solid #B8AE98;"></div>
-            <span style="font-family:'Luckiest Guy',cursive; font-size:10px; color:#4A3728; margin-left:3px;">2/4</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CENTER: HitResult area 660,420 → 1260,660 -->
-      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:600px; height:240px; border:2px dashed rgba(255,255,0,0.2); display:flex; align-items:center; justify-content:center;">
-        <span style="font-family:'Luckiest Guy',cursive; font-size:32px; color:#FFD700; text-shadow:0 3px 0 #B89800;">Perfect!</span>
-      </div>
-
-      <!-- BOTTOM CENTER: ChargeBar 800,940 → 1120,990 -->
-      <div style="position:absolute; left:50%; bottom:50px; transform:translateX(-50%); width:320px; text-align:center;">
-        <div style="font-family:'Luckiest Guy',cursive; font-size:12px; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,0.3); margin-bottom:4px;">CHARGE</div>
-        <div style="width:320px; height:22px; border-radius:999px; background:#D4C4A0; border:3px solid #8B7A5A; position:relative;">
-          <div style="position:absolute; top:3px; left:3px; bottom:3px; width:60%; border-radius:999px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-      </div>
-
-      <!-- Zone labels -->
-      <div style="position:absolute; bottom:10px; left:10px; font-size:9px; color:rgba(255,255,255,0.4); font-family:monospace; line-height:1.6;">
-        HUD Layout — CanvasLayer 10<br>
-        TopLeft: RepCounter (24,24 → 184,72)<br>
-        TopCenter: ProgressBar (640,24 → 1280,72)<br>
-        TopRight: ScoreHUD (right:12, y:24, auto-width)<br>
-        TopRight2: Combo (1748,108 → 1908,158)<br>
-        LeftCard: ActionCard (24,300 → 244,780)<br>
-        Center: HitResult (660,420 → 1260,660)<br>
-        Bottom: ChargeBar (800,940 → 1120,990)
-      </div>
-    </div>
-  </div>
-  <p class="scale-note">Full HUD at game-time positions. All top elements now at y:24 minimum (fixed from original y:10-12).</p>
+<div style="background:#6EC531;border:3px solid #4A9B1E;border-radius:12px;padding:6px 14px;box-shadow:0 4px 0 #2B5E10;text-align:center;">
+<div style="font-family:Luckiest Guy,cursive;font-size:9px;color:#fff;letter-spacing:1px;">CAUGHT</div>
+<div style="font-family:Luckiest Guy,cursive;font-size:26px;color:#fff;">6</div>
 </div>
-
-<!-- ================================================================== -->
-<!-- 8. COMPARISON: HTML SPEC vs GODOT -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>8. SIDE-BY-SIDE: HTML Spec Progress Bar vs Godot .tscn</h2>
-  <div class="meta">Same 640px width, showing the structural difference</div>
-  <div style="display:flex; gap:40px; flex-wrap:wrap; padding:20px; background:#222; border-radius:8px;">
-    <!-- HTML spec version -->
-    <div>
-      <div style="font-size:11px; color:#4A9DD9; margin-bottom:8px; font-family:monospace;">HTML SPEC (source of truth)</div>
-      <div style="position:relative; width:640px; height:36px;">
-        <div style="position:absolute; inset:0; border-radius:16px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20;">
-          <div style="position:absolute; top:4px; left:4px; bottom:4px; width:40%; border-radius:10px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-        <!-- HTML uses inset:-8px 14px with flex justify-content:space-between -->
-        <div style="position:absolute; inset:-8px 14px; display:flex; justify-content:space-between; align-items:center;">
-          <div style="width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
-          <div style="width:22px; height:22px; border-radius:50%; background:#55c9c9; border:3px solid #3aa; box-shadow:0 2px 0 #288; display:flex; align-items:center; justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="white"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
-          <div style="width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
-          <div style="width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-          <div style="width:22px; height:22px; border-radius:50%; background:#d8f0f0; border:3px solid #8cc;"></div>
-          <div style="width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Godot .tscn version (FIXED) -->
-    <div>
-      <div style="font-size:11px; color:#6EC531; margin-bottom:8px; font-family:monospace;">GODOT .TSCN (fixed)</div>
-      <div style="position:relative; width:640px; height:36px;">
-        <div style="position:absolute; inset:0; border-radius:16px; background:#FFF5D6; border:4px solid #C8A848; box-shadow:0 5px 0 #8B6A20;">
-          <div style="position:absolute; top:4px; left:4px; bottom:4px; width:40%; border-radius:10px; background:linear-gradient(90deg,#7edb66,#ffe064,#ff9e37);"></div>
-        </div>
-        <!-- Now vertically centered and evenly spaced -->
-        <div style="position:absolute; left:0px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:12px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:125px; top:7px; width:22px; height:22px; border-radius:50%; background:#55c9c9; border:3px solid #3aa; box-shadow:0 2px 0 #288; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:9px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:244px; top:4px; width:28px; height:28px; border-radius:50%; background:#6EC531; border:3px solid #4A9B1E; box-shadow:0 3px 0 #2B5E10; display:flex; align-items:center; justify-content:center;"><span style="font-family:'Luckiest Guy'; font-size:12px; color:#fff;">✓</span></div>
-        <div style="position:absolute; left:366px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-        <div style="position:absolute; left:491px; top:7px; width:22px; height:22px; border-radius:50%; background:#d8f0f0; border:3px solid #88cccc;"></div>
-        <div style="position:absolute; left:598px; top:4px; width:28px; height:28px; border-radius:50%; background:#e8dfc8; border:3px solid #C8A848;"></div>
-      </div>
-    </div>
-  </div>
-  <p class="scale-note" style="margin-top:8px; color:#6EC531;">
-    FIXED: (1) Dots vertically centered (y:4 for 28px, y:7 for 22px).
-    (2) Evenly spaced across 640px (14px edge padding, 122px between centers).
-    (3) Hand pending now uses proper light-teal style (#d8f0f0, border #88cccc).
-    (4) Checkmarks use "✓" text — acceptable Godot substitute for SVG.
-  </p>
 </div>
-
-<!-- ================================================================== -->
-<!-- AUDIT NOTES -->
-<!-- ================================================================== -->
-<div class="component-section">
-  <h2>KNOWN ISSUES TO FIX</h2>
-  <div style="background:#222; border-radius:8px; padding:20px; font-size:13px; line-height:2; font-family:monospace;">
-    <div style="color:#6EC531;">PROGRESS BAR: ✓ FIXED</div>
-    <div>• Dots vertically centered (y:4 for 28px, y:7 for 22px)</div>
-    <div>• Even spacing across 640px (centers at 14, 136, 258, 380, 502, 612)</div>
-    <div>• Dedicated ms_hand_pending style (light teal #d8f0f0, border #88cccc)</div>
-    <div>• Top margin increased to y:24</div>
-    <br>
-    <div style="color:#6EC531;">SCORE HUD: ✓ FIXED</div>
-    <div>• Now auto-width with inline-flex layout matching HTML</div>
-    <div>• Border increased to 4px matching HTML spec</div>
-    <div>• Padding: 12px 18px matching HTML</div>
-    <div>• Top margin increased to y:24</div>
-    <br>
-    <div style="color:#6EC531;">HUD CONTAINER: ✓ FIXED</div>
-    <div>• All top zones moved to y:24 minimum</div>
-    <div>• ComboCounter adjusted to y:108 (below ScoreHUD)</div>
-    <br>
-    <div style="color:#F5A623;">ACTION CARD: REVIEW NEEDED</div>
-    <div>• Size 220×480 matches HTML spec (220px card width)</div>
-    <div>• If it still looks "too small" at 1920×1080, consider if the HTML reference</div>
-    <div>  itself shows the card at this proportion relative to the full viewport</div>
-  </div>
+</div></div>
 </div>
-
-</body>
-</html>

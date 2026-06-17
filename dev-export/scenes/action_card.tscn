@@ -5,7 +5,7 @@
 
 # ===========================================================================
 # ActionCard — Left side of HUD on 1920×1080
-# Position: x:24 y:300 → x:244 y:780 (220×480)
+# Position: x:24 y:250 → x:354 y:830 (330×580)
 # Internally: 2:3 portrait aspect, name tab on top
 # ===========================================================================
 
@@ -72,15 +72,15 @@ content_margin_top = 3.0
 content_margin_right = 8.0
 content_margin_bottom = 3.0
 
-# Root: left-center anchored, 220×480
+# Root: left-center anchored, 330×580 (1.5x wider per feedback)
 [node name="ActionCard" type="Control"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 24.0
-offset_top = -240.0
-offset_right = 244.0
-offset_bottom = 240.0
+offset_top = -290.0
+offset_right = 354.0
+offset_bottom = 290.0
 grow_vertical = 2
 
 # Panel: fills root minus name tab overflow space

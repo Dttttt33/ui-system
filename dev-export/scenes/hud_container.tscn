@@ -8,17 +8,16 @@
 #
 # Layout map:
 # ┌────────────────────────────────────────────────────────────────────────┐
-# │ [TopLeft: RepCounter]   [TopCenter: ProgressBar]   [TopRight: ScoreHUD]│
-# │  x:24 y:24              center, 640w               x:1668 y:24        │
-# │  160×48                 y:24, h:36                  240×76             │
+# │                    [TopCenter: ProgressBar]   [TopRight: ScoreHUD]     │
+# │                     center, 640w              x:1600 y:24             │
+# │                     y:24, h:36               296×106                  │
 # │                                                                        │
-# │                     [TopRight2: ComboCounter]                           │
-# │                      x:1748 y:108  160×50                              │
+# │                     [CenterTop: ComboCounter]                          │
+# │                      center, 240w, y:80                                │
 # │                                                                        │
-# │ [LeftCard]                                                             │
-# │  x:24 y:300             [CenterArea: HitResult / PhaseBanner]          │
-# │  220×480                 center, 600×240                               │
-# │                                                                        │
+# │ [LeftCard]           [Upper: HitResult / PhaseBanner]                  │
+# │  x:24 y:250          center, 800×200, y:200                           │
+# │  330×580                                                               │
 # │                                                                        │
 # │                     [BottomCenter: ChargeBar / RhythmBar]              │
 # │                      center, 320w, y:940–990                           │
@@ -26,16 +25,6 @@
 
 [node name="HUDContainer" type="CanvasLayer"]
 layer = 10
-
-# --- TOP LEFT: RepCounter zone ---
-# Position: 24px from left, 24px from top
-# Size: 160×48
-[node name="TopLeft" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 184.0
-offset_bottom = 72.0
 
 # --- TOP CENTER: ProgressBar zone ---
 # Position: centered horizontally, 24px from top
@@ -51,59 +40,56 @@ offset_bottom = 72.0
 grow_horizontal = 2
 
 # --- TOP RIGHT: ScoreHUD zone ---
-# Position: 12px from right edge, 24px from top
-# Size: 240×76 (auto-sizes to badge content)
+# Position: 24px from right edge, 24px from top
+# Size: 296×106 (bigger badges)
 [node name="TopRight" type="Control" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -252.0
+offset_left = -320.0
 offset_top = 24.0
-offset_right = -12.0
-offset_bottom = 100.0
+offset_right = -24.0
+offset_bottom = 130.0
 grow_horizontal = 0
 
-# --- TOP RIGHT 2: ComboCounter zone ---
-# Position: 12px from right edge, 108px from top (below ScoreHUD)
-# Size: 160×50
-[node name="TopRight2" type="Control" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -172.0
-offset_top = 108.0
-offset_right = -12.0
-offset_bottom = 158.0
-grow_horizontal = 0
+# --- CENTER TOP: ComboCounter zone ---
+# Position: centered horizontally, y:80 (below progress bar)
+# Size: 240×70
+[node name="CenterTop" type="Control" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 80.0
+offset_right = 120.0
+offset_bottom = 150.0
+grow_horizontal = 2
 
 # --- LEFT: ActionCard zone ---
-# Position: 24px from left, vertically centered (y: 300–780)
-# Size: 220×480
+# Position: 24px from left, vertically centered (y: 250–830)
+# Size: 330×580 (1.5x wider per feedback)
 [node name="LeftCard" type="Control" parent="."]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 24.0
-offset_top = -240.0
-offset_right = 244.0
-offset_bottom = 240.0
+offset_top = -290.0
+offset_right = 354.0
+offset_bottom = 290.0
 grow_vertical = 2
 
-# --- CENTER: Transient feedback (HitResult, PhaseBanner, MultiHit, SwitchHand) ---
-# Position: dead center of viewport
-# Size: 600×240
-[node name="CenterArea" type="Control" parent="."]
-anchors_preset = 8
+# --- UPPER CENTER: Transient feedback (HitResult, PhaseBanner, MultiHit) ---
+# Position: centered, upper area y:200
+# Size: 800×200
+[node name="UpperCenter" type="Control" parent="."]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -120.0
-offset_right = 300.0
-offset_bottom = 120.0
+offset_left = -400.0
+offset_top = 200.0
+offset_right = 400.0
+offset_bottom = 400.0
 grow_horizontal = 2
-grow_vertical = 2
 
 # --- BOTTOM CENTER: ChargeBar / ReturnRhythmBar ---
 # Position: centered, 90px from bottom

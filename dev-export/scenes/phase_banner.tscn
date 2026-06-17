@@ -4,9 +4,10 @@
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 # ===========================================================================
-# PhaseBanner — Center of viewport on 1920×1080
-# Position: x:660 y:440 → x:1260 y:640 (600×200 container, auto-sizes to content)
+# PhaseBanner — Upper-center of viewport on 1920×1080
+# Position: centered horizontally, y:100 (top area, below progress bar)
 # Amber button style, centered, auto-fades after 2s
+# Font sizes 2x per feedback: phase label 24px, title 48px
 # ===========================================================================
 
 # Amber button-style panel
@@ -30,19 +31,16 @@ content_margin_top = 16.0
 content_margin_right = 40.0
 content_margin_bottom = 16.0
 
-# Centered in viewport
+# Top-center area
 [node name="PhaseBanner" type="PanelContainer"]
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -50.0
-offset_right = 200.0
-offset_bottom = 50.0
+offset_left = -300.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 220.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_styles/panel = SubResource("banner")
 
 # Top shine highlight (HTML: white gradient 35% opacity, top 4px to 35% height)
@@ -65,7 +63,7 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.85)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "PHASE 2 OF 3"
 horizontal_alignment = 1
 
@@ -73,8 +71,8 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
-theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "CATCH THE FAR TARGETS!"
 horizontal_alignment = 1

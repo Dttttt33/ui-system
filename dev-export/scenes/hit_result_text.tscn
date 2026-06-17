@@ -3,37 +3,35 @@
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 # ===========================================================================
-# HitResultText — Center of viewport on 1920×1080
-# Position: x:760 y:460 → x:1160 y:620 (400×160 container)
+# HitResultText — Upper-center of viewport on 1920×1080
+# Position: x:560 y:200 → x:1360 y:400 (800×200 container)
 # Variants set by script: Good/Perfect/Try again/Combo
 # Uses font_shadow (downward offset) instead of outline for text-shadow effect
+# Font sizes 2x per feedback: Good=56, Perfect=84, Try again=52, Combo=96
 # ===========================================================================
 
 # Default state: "Perfect!" in gold with downward shadow
 [node name="HitResultText" type="Label"]
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -80.0
-offset_right = 200.0
-offset_bottom = 80.0
+offset_left = -400.0
+offset_top = 200.0
+offset_right = 400.0
+offset_bottom = 400.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0.843, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.722, 0.596, 0, 1)
 theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_offset_y = 5
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 84
 text = "Perfect!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 # Script sets these per result type:
-# Good:     font_color=#6EC531  shadow_color=#2B5E10  font_size=28
-# Perfect:  font_color=#FFD700  shadow_color=#B89800  font_size=42
-# Try again: font_color=#A89878 shadow_color=#5A4A30  font_size=26
-# Combo:    font_color=#E8453A  shadow_color=#8B1A14  font_size=48
+# Good:     font_color=#6EC531  shadow_color=#2B5E10  font_size=56
+# Perfect:  font_color=#FFD700  shadow_color=#B89800  font_size=84
+# Try again: font_color=#A89878 shadow_color=#5A4A30  font_size=52
+# Combo:    font_color=#E8453A  shadow_color=#8B1A14  font_size=96

@@ -3,8 +3,9 @@
 [ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 
 # ===========================================================================
-# ComboCounter — Top-right, below ScoreHUD on 1920×1080
-# Position: x:1748 y:84 → x:1908 y:134 (160×50)
+# ComboCounter — Center-top area on 1920×1080
+# Position: centered horizontally, y:160 (below progress bar)
+# Size: 240×70 (bigger than before)
 # Amber pill badge with combo value + label
 # ===========================================================================
 
@@ -36,14 +37,14 @@ shadow_color = Color(0.627, 0.412, 0.063, 1)
 shadow_offset = Vector2(0, 3)
 
 [node name="ComboCounter" type="PanelContainer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -172.0
-offset_top = 84.0
-offset_right = -12.0
-offset_bottom = 134.0
-grow_horizontal = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 80.0
+offset_right = 120.0
+offset_bottom = 150.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("combo_pill")
 
 [node name="HBox" type="HBoxContainer" parent="."]
@@ -57,12 +58,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.627, 0.412, 0.063, 1)
 theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 56
 text = "x5"
 
 [node name="ComboLabel" type="Label" parent="HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.85)
 theme_override_fonts/font = ExtResource("font_display")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 28
 text = "COMBO"
