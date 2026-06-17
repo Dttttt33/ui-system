@@ -9,7 +9,11 @@
 | `asset_manifest.json` | Every texture asset: path, size, purpose, priority | Import checklist + loader reference |
 | `theme/ui_theme.tres` | Godot Theme resource with all StyleBoxFlat presets | Apply to root or per-scene |
 | `shaders/` | 7 shaders for fills, glows, gradients, shine | Materials in .tscn files reference these |
-| `scripts/action_database.gd` | Action definitions (ID, name, requires_hand_switch) | Preload for session/milestone config |
+| `scripts/action_database.gd` | Action definitions (ID, name, requires_hand_switch, joint positions for collision) | Preload for session/milestone config. NOTE: `athlete` joint coords are for hit detection only — NOT rendered visually |
+| `scripts/motion_feedback.gd` | MotionFeedbackPanel controller — loads athlete PNG frames + drives ROM/COP/speed overlays | Embedded inside ActionCard (replaces static illustration) |
+| `scripts/cop_panel.gd` | COP overlay renderer (plate + safe zone + crosshair + trail + ping + dot) | Child of MotionFeedbackPanel |
+| `scripts/rom_path_overlay.gd` | ROM path renderer (dashed line/quadratic + zone + progress bands) | Child of MotionFeedbackPanel |
+| `motion_feedback_config.json` | Per-exercise config: athlete frame rects, ROM path points, COP positions, speed standards | Read by motion_feedback.gd at runtime |
 | `scripts/animation_helpers.gd` | Animation utilities (score_rise, phase_slide_in, star_reveal) | Call static methods from any UI script |
 | `DEV_GUIDE.md` | This file — style rules, do/don't, patterns | Read once, refer when unsure |
 
@@ -69,6 +73,7 @@ All positions are also available as `UiTokens.HUD_*` Rect2 constants.
 | ProgressBar | 960×54, milestones 42/33px | TopCenter (480,40) | milestone done: `tween_bounce` |
 | ScoreHUD | 384×154, labels 14px, numbers 36px | TopRight (1496,40) | score change: `tween_bounce` on number |
 | ActionCard | 352×576, name 30px, rep count 30px, pill 22px | Left (40,252) | card_shown: slide-in from left 300ms |
+| ActionCard MotionArea | Embedded MotionFeedbackPanel (athlete + overlays), scaled 0.34x | Inside card (replaces old static IconArea) | live animation at exercise FPS |
 | ActionCard blue pill | Only visible during hand-switch phase | Inside card | fade-in 200ms |
 | GoldenCountdown | 176×176, ring width 18px, text 24px | Follows pumpkin in world | urgent (<1s): `shake 0.25s infinite` + ring turns red |
 | HitResult | Good 56px, Perfect 84px, Miss 52px, Combo 96px | CenterArea | `tween_bounce` pop + `score_rise` 40px up + fade 600ms |
@@ -79,6 +84,34 @@ All positions are also available as `UiTokens.HUD_*` Rect2 constants.
 | SwitchHand | Text 120px, NO subtitle | CanvasLayer 15, 55% dim | instant show, holds until dismissed |
 | EndPanel | 800×520, space-between, overflow:visible | CanvasLayer 20, 40% dim | stars: spin+scale 400ms staggered, panel: scale 0→1 ease-out-back |
 | Rainbow | "RAINBOW!" 104px, "+BONUS" 48px | CanvasLayer 20, 15% white overlay | rainbow text: background-position shift 1.5s linear infinite |
+
+## MotionFeedbackPanel — Athlete Rendering
+
+The MotionFeedbackPanel shows a live exercise visualization **inside the ActionCard**. It is NOT a separate HUD element — it replaces the card's old static illustration area.
+
+### What Gets Rendered (layers bottom to top)
+
+1. **AthleteFrame (TextureRect)** — PNG sprite frame sequence (`textures/motion/{action}/{action}_00000.png` ... `{action}_NNNNN.png`). This is the ONLY athlete visual. No stick figures, no SVG, no procedural skeleton drawing.
+2. **RomPathOverlay (Control._draw)** — Dashed path showing range of motion, with speed zone (green band) and progress (blue band) overlaid.
+3. **CopPanel (Control._draw)** — Force plate rectangle with safe zone, crosshair, trail line, ping ring, and dot showing center of pressure.
+4. **RomMarker (Control._draw)** — Dot on the ROM path at current progress position (green = in speed zone, red = outside).
+5. **DirectionArrow (Control._draw)** — Blue arrow indicating current movement direction.
+
+### Coordinate Space
+
+All positions in `motion_feedback_config.json` use a **900×580 internal design space**. When embedded in ActionCard, the entire panel is uniformly scaled (~0.34x) to fit the card's width. Coordinates scale proportionally — no manual adjustment needed.
+
+### What `action_database.gd` Athlete Joints Are For
+
+The `athlete` dictionary (head, shoulder, hip, feet, handle) in `action_database.gd` provides joint positions for **game logic only** (hit detection, ROM anchor points). They are NOT rendered as visible stick figures or skeleton lines. Do not draw them.
+
+### Config-Driven
+
+Each exercise's visual layout is defined in `motion_feedback_config.json`:
+- `athleteFrames.rect` — position/size of the sprite within the 900×580 space
+- `athleteFrames.count/fps` — total frames and playback speed
+- `romPath.type/points` — line or quadratic bezier defining the movement arc
+- `copPanel.center/size/safeSize` — force plate position (always in the lower portion of the panel)
 
 ## Style Rules (DO / DON'T)
 

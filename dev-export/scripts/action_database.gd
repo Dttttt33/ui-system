@@ -4,6 +4,12 @@ extends RefCounted
 # =============================================================================
 # 7 Action definitions — ROM path, pose, CoP position, speed standards
 # Translated from cop-rom-speed-ui-versions.html
+#
+# NOTE: The "athlete" dictionary (head, shoulder, hip, feet, handle) stores
+# joint positions for collision/hit detection and ROM anchor calculation ONLY.
+# These are NOT rendered as stick figures or skeleton visuals.
+# The actual athlete visual is a PNG sprite frame sequence (see motion_feedback_config.json
+# "athleteFrames") displayed via AthleteFrame:TextureRect in motion_feedback.tscn.
 # =============================================================================
 
 static var _actions: Dictionary = {}
