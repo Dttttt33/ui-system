@@ -60,6 +60,12 @@ grow_horizontal = 0
 # Position: 40px from left (safe area), y:252
 # Size: 352×576
 # Fonts: 1.5x (name 30px, pill 22px, rep count 30px)
+#
+# The ActionCard embeds MotionFeedbackPanel directly — the card's illustration
+# area shows the live athlete sprite with ROM path, COP panel, speed zone,
+# marker dot, and direction arrow overlaid on top. COP appears in the bottom
+# portion of the motion area (within the card, NOT as a separate HUD element).
+# MotionFeedbackPanel's 900×580 space is scaled ~0.34x to fit the card width.
 [node name="LeftCard" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 40.0

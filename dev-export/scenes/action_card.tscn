@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
 [ext_resource type="FontFile" path="res://common/ui/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+[ext_resource type="PackedScene" path="res://godot/motion_feedback.tscn" id="motion_feedback"]
 
 # ===========================================================================
 # ActionCard — Left side of HUD on 1920×1080
-# Position: x:24 y:250 → x:354 y:830 (330×580)
-# Internally: 2:3 portrait aspect, name tab on top
+# Position: x:40 y:252 → 352×576
+# The old static IconArea is replaced by an embedded MotionFeedbackPanel
+# which renders athlete sprite + ROM/COP/speed overlays live inside the card.
 # ===========================================================================
 
 # Card panel: cream bg, bold dark-gold border + shadow
@@ -97,13 +99,22 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-# Exercise illustration area: 2:3 aspect ratio
-# At 196px width (card width - padding), height = 294px
-[node name="IconArea" type="TextureRect" parent="Panel/VBox"]
+# MotionFeedbackPanel embedded here — replaces the old static IconArea.
+# Shows live athlete sprite + ROM path + COP panel + speed zone + marker + arrow.
+# The 900×580 design space is scaled to fit the card's available width (~306px).
+# clip_children clips overlays to the rounded area.
+[node name="MotionArea" type="Control" parent="Panel/VBox"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 280)
-stretch_mode = 5
-expand_mode = 1
+custom_minimum_size = Vector2(0, 380)
+clip_children = 2
+
+[node name="MotionFeedbackPanel" parent="Panel/VBox/MotionArea" instance=ExtResource("motion_feedback")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+scale = Vector2(0.34, 0.34)
+pivot_offset = Vector2(0, 0)
 
 # Hand side indicator: teal pill
 [node name="HandPill" type="PanelContainer" parent="Panel/VBox"]

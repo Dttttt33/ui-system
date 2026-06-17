@@ -60,10 +60,15 @@
       "name": "ActionCard",
       "path": "res://common/ui/action_card.tscn",
       "category": "common",
-      "purpose": "Left-side exercise card: name tab + illustration + optional hand-switch pill + rep progress",
+      "purpose": "Left-side exercise card: name tab + live MotionFeedbackPanel (athlete sprite with ROM/COP/speed overlays) + optional hand-switch pill + rep progress",
       "tree": {
         "root": "ActionCard:PanelContainer",
-        "children": ["VBox > NameTab:Panel > NameLabel", "VBox > IconArea:TextureRect", "VBox > HandPill:Panel (conditional)", "VBox > RepBlocks:HBox + CountLabel"]
+        "children": [
+          "VBox > NameTab:Panel > NameLabel",
+          "VBox > MotionFeedbackPanel:Control (embedded — replaces static IconArea; contains AthleteFrame + RomPathOverlay + CopPanel + RomMarker + DirectionArrow)",
+          "VBox > HandPill:Panel (conditional)",
+          "VBox > RepBlocks:HBox + CountLabel"
+        ]
       },
       "style": {
         "panel": "cream panel (#FFF5D6, 5px border #8B6A20, shadow 6px #5A4010, RADIUS 28)",
@@ -75,7 +80,7 @@
         "name_font": "FONT_FAMILY_DISPLAY",
         "name_size": 30,
         "name_color": "white, text-shadow 0 3px 0 GREEN_DEEP",
-        "icon_area": "aspect-ratio 2:3, border 3px #a8c890, bg #e8f4dc, radius 16",
+        "motion_feedback_area": "fills IconArea slot, aspect-ratio 2:3, border 3px #a8c890, bg #e8f4dc, radius 16, clip_children = true. Contains the full MotionFeedbackPanel scene (athlete frames + ROM path + COP + marker + arrow) scaled to fit within the card.",
         "hand_pill_bg": "COLOR_BLUE (#55C9C9)",
         "hand_pill_border": "3px #3AA",
         "hand_pill_shadow": "3px #288",
@@ -89,9 +94,13 @@
         "rep_count_size": 30,
         "rep_count_color": "COLOR_TEXT_DARK"
       },
+      "logic": {
+        "description": "The ActionCard embeds a MotionFeedbackPanel instance directly in place of the old static IconArea. The motion panel shows the live athlete sprite animation with ROM path overlay, speed zone, COP panel, marker dot, and direction arrow — all rendered within the card's clipped area. The COP sub-panel renders at the bottom portion of the motion feedback area (its position is defined in motion_feedback_config.json per exercise).",
+        "motion_feedback_embedding": "ActionCard instantiates motion_feedback.tscn as a child, scaled to fit the 2:3 aspect area. The motion panel's internal 900×580 coordinate space is uniformly scaled down to fit the card width (~306px usable). All overlay positions (ROM points, COP center/size, athlete rect) are defined in motion_feedback_config.json and scale proportionally."
+      },
       "exports": {
         "action_name": { "type": "String", "default": "KETTLEBELL SWING" },
-        "action_icon": { "type": "Texture2D", "default": null },
+        "action_key": { "type": "String", "default": "row", "description": "Key into motion_feedback_config.json actions dict — drives which athlete frames, ROM path, COP config, and speed profile to use" },
         "hand_side": { "type": "String", "default": "LEFT", "enum": ["LEFT", "RIGHT", "BOTH"] },
         "total_reps": { "type": "int", "default": 8 },
         "is_hand_switch_phase": { "type": "bool", "default": false }
@@ -359,7 +368,7 @@
         "children": [
           "TopCenter:Control → ProgressBar (960×54, centered at y:40)",
           "TopRight:Control → ScoreHUD (384×154, right:40 top:40)",
-          "LeftCard:Control → ActionCard (352×576, x:40 y:252)",
+          "LeftCard:Control → ActionCard (352×576, x:40 y:252) — contains embedded MotionFeedbackPanel (athlete sprite + ROM/COP/speed overlays rendered inside the card). COP sub-panel appears in the bottom portion of the card's motion area.",
           "CenterArea:Control → HitResultText + MultiHitResult + PhaseBanner + RainbowFullscreen (660×500, x:580 y:120)",
           "BurstHint (own CanvasLayer 9, fullscreen)",
           "SwitchHand (own CanvasLayer 15, fullscreen)",
@@ -369,6 +378,9 @@
       "style": {
         "safe_area": "40px all edges (SCREEN_SAFE_AREA)",
         "no_bottom_bar": "ChargeBar and ReturnRhythmBar removed"
+      },
+      "logic": {
+        "motion_feedback_placement": "MotionFeedbackPanel is NOT a separate HUD element — it is embedded inside ActionCard's motion area (replacing the old static IconArea). The motion panel's 900×580 design space is scaled to fit the card's 2:3 illustration slot. COP plate, ROM path, speed zone overlays, and athlete frames all render within this embedded area. No separate screen-level positioning needed for MotionFeedbackPanel."
       },
       "exports": {},
       "signals": []
