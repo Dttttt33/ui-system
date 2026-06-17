@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://godot/motion_feedback.gd" id="1"]
+[ext_resource type="Script" path="res://godot/rom_path_overlay.gd" id="2"]
+[ext_resource type="Script" path="res://godot/cop_panel.gd" id="3"]
+[ext_resource type="Script" path="res://godot/marker_dot.gd" id="4"]
+[ext_resource type="Script" path="res://godot/direction_arrow.gd" id="5"]
+
+[node name="MotionFeedbackPanel" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="PanelFrame" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Stage" type="Control" parent="PanelFrame"]
+custom_minimum_size = Vector2(900, 580)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AthleteFrame" type="TextureRect" parent="PanelFrame/Stage"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 5
+
+[node name="RomPathOverlay" type="Control" parent="PanelFrame/Stage"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("2")
+
+[node name="CopPanel" type="Control" parent="PanelFrame/Stage"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("3")
+
+[node name="RomMarker" type="Control" parent="PanelFrame/Stage"]
+script = ExtResource("4")
+
+[node name="DirectionArrow" type="Control" parent="PanelFrame/Stage"]
+script = ExtResource("5")
+
+[node name="HoldCue" type="Control" parent="PanelFrame/Stage"]
+visible = false
+

@@ -1,0 +1,129 @@
+{
+  "designSize": {
+    "width": 900,
+    "height": 580
+  },
+  "previewMode": {
+    "showHoldVisuals": false
+  },
+  "standardCableSpeedRange": {
+    "unit": "m/s",
+    "exercises": [
+      {
+        "exercise": "Single-Arm Lunge Row",
+        "repDuration": 5.0,
+        "pullOutSpeed": {
+          "min": 0.18,
+          "max": 0.23
+        },
+        "returnInSpeed": {
+          "min": 0.12,
+          "max": 0.15
+        }
+      },
+      {
+        "exercise": "Squat Swing",
+        "repDuration": 2.5,
+        "pullOutSpeed": {
+          "min": 0.45,
+          "max": 0.65
+        },
+        "returnInSpeed": {
+          "min": 0.30,
+          "max": 0.43
+        }
+      },
+      {
+        "exercise": "Single-Arm Incline Chest Press",
+        "repDuration": 7.0,
+        "pullOutSpeed": {
+          "min": 0.13,
+          "max": 0.18
+        },
+        "returnInSpeed": {
+          "min": 0.08,
+          "max": 0.12
+        }
+      }
+    ]
+  },
+  "actions": {
+    "row": {
+      "displayName": "Lunge Single-Arm Row",
+      "speedProfileKey": "Single-Arm Lunge Row",
+      "romPath": {
+        "type": "line",
+        "points": [
+          [500, 330],
+          [555, 235]
+        ]
+      },
+      "copPanel": {
+        "center": [205, 430],
+        "size": [260, 145],
+        "safeSize": [200, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/row",
+        "prefix": "row",
+        "count": 134,
+        "fps": 30,
+        "rect": [360, 24, 390, 520]
+      }
+    },
+    "swing": {
+      "displayName": "Squat Swing",
+      "speedProfileKey": "Squat Swing",
+      "romPath": {
+        "type": "quadratic",
+        "points": [
+          [540, 430],
+          [395, 360],
+          [345, 195]
+        ]
+      },
+      "copPanel": {
+        "center": [140, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/swing",
+        "prefix": "swing",
+        "count": 120,
+        "fps": 30,
+        "rect": [226, -18, 450, 600]
+      }
+    },
+    "press": {
+      "displayName": "Single-Arm Incline Chest Press",
+      "speedProfileKey": "Single-Arm Incline Chest Press",
+      "romPath": {
+        "type": "line",
+        "points": [
+          [430, 405],
+          [330, 145]
+        ]
+      },
+      "copPanel": {
+        "center": [150, 430],
+        "size": [250, 145],
+        "safeSize": [192, 92],
+        "radius": 36,
+        "safeRadius": 28
+      },
+      "athleteFrames": {
+        "dir": "res://assets/motion/press",
+        "prefix": "press",
+        "count": 182,
+        "fps": 30,
+        "rect": [285, 38, 390, 520]
+      }
+    }
+  }
+}
+
