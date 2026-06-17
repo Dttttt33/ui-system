@@ -75,7 +75,7 @@ All positions are also available as `UiTokens.HUD_*` Rect2 constants.
 | FoxWarning | Fox 102px, text 61px, cream pill | Screen center | edge-glow pulse 0.7s on approach side + `tween_bounce` enter |
 | BurstHint | Fullscreen edge glow, 1.5x intensity | CanvasLayer 9 | breathing pulse 1.2s ease-in-out infinite |
 | SwitchHand | Text 120px, NO subtitle | CanvasLayer 15, 55% dim | instant show, holds until dismissed |
-| EndPanel | 868×480, space-between layout, overflow:visible | CanvasLayer 20, 40% dim | stars: spin+scale 400ms staggered, panel: scale 0→1 ease-out-back |
+| EndPanel | 800×520, space-between, overflow:visible | CanvasLayer 20, 40% dim | stars: spin+scale 400ms staggered, panel: scale 0→1 ease-out-back |
 | Rainbow | "RAINBOW!" 104px, "+BONUS" 48px | CanvasLayer 20, 15% white overlay | rainbow text: background-position shift 1.5s linear infinite |
 
 ## Style Rules (DO / DON'T)

@@ -61,12 +61,30 @@ const COLOR_TEXT_HUD := Color.WHITE
 const FONT_FAMILY_DISPLAY := "res://assets/fonts/LuckiestGuy-Regular.ttf"
 const FONT_FAMILY_BODY := "res://assets/fonts/Fredoka-Medium.ttf"
 
-const FONT_SIZE_HUD_SCORE := 64
-const FONT_SIZE_HUD_COMBO := 52
-const FONT_SIZE_HUD_LABEL := 22
-const FONT_SIZE_DISPLAY_LG := 44
-const FONT_SIZE_DISPLAY_MD := 32
-const FONT_SIZE_TITLE := 24
+# Component font sizes (actual values used in each component)
+const FONT_SIZE_SWITCH_HAND := 120       # SwitchHand fullscreen overlay
+const FONT_SIZE_RAINBOW_TITLE := 104     # RainbowFullscreen "RAINBOW!"
+const FONT_SIZE_HIT_COMBO := 96          # HitResult combo "5x COMBO!"
+const FONT_SIZE_MULTI_HIT_TITLE := 84    # MultiHitResult "DOUBLE!/TRIPLE!/AMAZING!"
+const FONT_SIZE_HIT_PERFECT := 84        # HitResult "Perfect!"
+const FONT_SIZE_FOX_WARNING := 61        # FoxWarning "WATCH OUT!"
+const FONT_SIZE_HIT_GOOD := 56           # HitResult "Good!"
+const FONT_SIZE_HIT_MISS := 52           # HitResult "Try again"
+const FONT_SIZE_RAINBOW_BONUS := 48      # RainbowFullscreen "+1200 BONUS"
+const FONT_SIZE_END_MESSAGE := 48        # EndPanel "GREAT JOB!"
+const FONT_SIZE_PHASE_BANNER := 45       # PhaseBanner text
+const FONT_SIZE_MULTI_HIT_MULT := 44     # MultiHitResult "x2"/"x3"
+const FONT_SIZE_END_STAT_NUM := 38       # EndPanel stat numbers
+const FONT_SIZE_SCORE_HUD_NUM := 36      # ScoreHUD badge numbers
+const FONT_SIZE_MULTI_HIT_SCORE := 32    # MultiHitResult "+480"
+const FONT_SIZE_ACTION_NAME := 30        # ActionCard exercise name tab
+const FONT_SIZE_ACTION_REP := 30         # ActionCard rep count "5/8"
+const FONT_SIZE_END_BUTTON := 30         # EndPanel "DONE" button
+const FONT_SIZE_END_TITLE := 24          # EndPanel "COMPLETE!" tab
+const FONT_SIZE_GOLDEN_TIMER := 24       # GoldenCountdown "4s"
+const FONT_SIZE_ACTION_PILL := 22        # ActionCard "SWITCH TO LEFT HAND"
+const FONT_SIZE_END_STAT_LABEL := 16     # EndPanel stat labels "SCORE"
+const FONT_SIZE_SCORE_HUD_LABEL := 14    # ScoreHUD badge labels "SCORE"/"CAUGHT"
 const FONT_SIZE_BODY := 18
 const FONT_SIZE_CAPTION := 14
 const FONT_SIZE_MICRO := 11
@@ -80,8 +98,8 @@ const SPACING_XL := 32
 const SPACING_2XL := 48
 const SPACING_3XL := 64
 
-const HUD_MARGIN := 24
-const HUD_GAP := 12
+const HUD_MARGIN := 40   # safe area = margin from all screen edges
+const HUD_GAP := 16
 const PANEL_PADDING := 20
 const PANEL_INNER_PADDING := 16
 const SCREEN_SAFE_AREA := 40
@@ -123,6 +141,20 @@ const ANIM_MISS_FADE := 0.5
 const ANIM_PHASE_TRANSITION := 0.8
 const ANIM_STAR_SPIN := 0.4
 const ANIM_BUTTON_PRESS := 0.1
+
+# --- Component Sizes (px @ 1920×1080) ---
+const SIZE_PROGRESS_BAR := Vector2(960, 54)
+const SIZE_PROGRESS_MILESTONE_ACTION := 42
+const SIZE_PROGRESS_MILESTONE_HAND := 33
+const SIZE_SCORE_HUD := Vector2(384, 154)
+const SIZE_ACTION_CARD := Vector2(352, 576)
+const SIZE_GOLDEN_COUNTDOWN := 176        # diameter (follows pumpkin world pos)
+const SIZE_GOLDEN_RING_WIDTH := 18
+const SIZE_GOLDEN_PUMPKIN_ICON := Vector2(68, 76)
+const SIZE_FOX_ICON := 102
+const SIZE_END_PANEL := Vector2(800, 520)
+const SIZE_END_STARS := 58
+const SIZE_PHASE_BANNER_PADDING := Vector2(72, 28)  # horizontal, vertical
 
 # --- HUD Positions (absolute px @ 1920×1080) ---
 const HUD_PROGRESS_BAR := Rect2(480, 40, 960, 54)
