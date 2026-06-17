@@ -15,9 +15,13 @@ your-godot-project/
 │       ├── theme/
 │       │   └── ui_theme.tres          ← 全局 Theme
 │       ├── shaders/
-│       │   ├── badge_sphere.gdshader  ← 球形高光 shader
-│       │   ├── progress_fill.gdshader ← 进度条填充
-│       │   └── button_shine.gdshader  ← 按钮顶部光
+│       │   ├── badge_sphere.gdshader        ← 球形高光
+│       │   ├── button_shine.gdshader        ← 按钮顶部光
+│       │   ├── directional_glow.gdshader    ← 单侧边缘光 (狐狸警告)
+│       │   ├── edge_glow.gdshader           ← 全屏呼吸光 (burst)
+│       │   ├── progress_fill.gdshader       ← 进度条填充
+│       │   ├── rainbow_text.gdshader        ← 彩虹文字动画
+│       │   └── vertical_gradient_text.gdshader ← 静态渐变文字
 │       ├── scenes/
 │       │   ├── action_card.tscn
 │       │   ├── burst_hint.tscn
@@ -32,6 +36,9 @@ your-godot-project/
 │       │   ├── rainbow_fullscreen.tscn
 │       │   ├── score_hud.tscn
 │       │   └── switch_hand.tscn
+│       ├── scripts/
+│       │   ├── action_database.gd         ← 动作数据定义
+│       │   └── animation_helpers.gd       ← 动画辅助函数
 │       ├── fonts/
 │       │   ├── LuckiestGuy-Regular.ttf   ← 已包含 (Display/HUD)
 │       │   ├── Fredoka-Medium.ttf         ← 已包含 (Body/UI)
@@ -55,10 +62,10 @@ your-godot-project/
 
 | 设置路径 | 值 |
 |---------|---|
-| Display > Window > Viewport Width | `480` |
-| Display > Window > Viewport Height | `854` |
+| Display > Window > Viewport Width | `1920` |
+| Display > Window > Viewport Height | `1080` |
 | Display > Window > Stretch Mode | `canvas_items` |
-| Display > Window > Stretch Aspect | `expand` |
+| Display > Window > Stretch Aspect | `keep` |
 | GUI > Theme > Custom Font | `res://common/ui/fonts/Fredoka-Medium.ttf` |
 
 或直接把 `project_settings.cfg` 中的内容复制到 `project.godot`。
@@ -104,11 +111,18 @@ $Root.theme = preload("res://common/ui/theme/ui_theme.tres")
 | `switch_hand.tscn` | 换手全屏覆盖 | 文字120px, 无副标题 | instant show, fade dismiss |
 | `multi_hit_result.tscn` | 多环命中庆祝 | 标题84px | bounce + combo-pulse |
 | `burst_hint.tscn` | 全屏amber呼吸光 | CanvasLayer 9 | 1.2s breathing 15%→55% |
-| `end_panel.tscn` | 结算面板 (868×605) | 数字32px, 消息42px | scale 0→1 ease-out-back |
+| `end_panel.tscn` | 结算面板 (800×520) | 数字38px, 消息48px | scale 0→1 ease-out-back |
 | `hud_container.tscn` | HUD布局框架 | CanvasLayer 10 | — |
 | `rainbow_fullscreen.tscn` | 全屏彩虹 | 标题104px, 分数48px | rainbow shift 1.5s loop |
 | `fox_warning.tscn` | 狐狸警告 (cream pill) | fox 102px, 文字61px | edge pulse 0.7s + bounce |
 | `golden_countdown.tscn` | 金色倒计时 (176px) | ring width 18px | urgent: shake 0.25s + red |
+
+### Scripts
+
+| 文件 | 用途 |
+|------|------|
+| `action_database.gd` | 动作数据库：所有运动的 ID、名称、requires_hand_switch 等配置 |
+| `animation_helpers.gd` | 动画辅助函数：score_rise、phase_slide_in、star_reveal 等 |
 
 ### Placeholder Textures
 
@@ -181,6 +195,7 @@ $HUD/CenterArea.add_child(hit)
 dev-export/theme/     →  res://common/ui/theme/
 dev-export/shaders/   →  res://common/ui/shaders/
 dev-export/scenes/    →  res://common/ui/scenes/
+dev-export/scripts/   →  res://common/ui/scripts/
 dev-export/fonts/     →  res://common/ui/fonts/
 dev-export/textures/  →  res://common/ui/textures/
 ```

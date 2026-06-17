@@ -8,7 +8,9 @@
 | `components.json` | 13 component specs (tree, exports, signals, style, animations) | Reference when building scenes |
 | `asset_manifest.json` | Every texture asset: path, size, purpose, priority | Import checklist + loader reference |
 | `theme/ui_theme.tres` | Godot Theme resource with all StyleBoxFlat presets | Apply to root or per-scene |
-| `shaders/` | 6 shaders for fills, glows, gradients, shine | Materials in .tscn files reference these |
+| `shaders/` | 7 shaders for fills, glows, gradients, shine | Materials in .tscn files reference these |
+| `scripts/action_database.gd` | Action definitions (ID, name, requires_hand_switch) | Preload for session/milestone config |
+| `scripts/animation_helpers.gd` | Animation utilities (score_rise, phase_slide_in, star_reveal) | Call static methods from any UI script |
 | `DEV_GUIDE.md` | This file — style rules, do/don't, patterns | Read once, refer when unsure |
 
 ## Setup
@@ -20,8 +22,8 @@ UiTokens="*res://common/ui/ui_tokens.gd"
 ```
 
 Fonts required at:
-- `res://assets/fonts/LuckiestGuy-Regular.ttf` (display/HUD)
-- `res://assets/fonts/Fredoka-Medium.ttf` (body/UI)
+- `res://common/ui/fonts/LuckiestGuy-Regular.ttf` (display/HUD)
+- `res://common/ui/fonts/Fredoka-Medium.ttf` (body/UI)
 
 ## Viewport & Layout
 

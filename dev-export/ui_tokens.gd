@@ -58,8 +58,8 @@ const COLOR_TEXT_ON_PANEL := Color("#4A3728")
 const COLOR_TEXT_HUD := Color.WHITE
 
 # --- Typography ---
-const FONT_FAMILY_DISPLAY := "res://assets/fonts/LuckiestGuy-Regular.ttf"
-const FONT_FAMILY_BODY := "res://assets/fonts/Fredoka-Medium.ttf"
+const FONT_FAMILY_DISPLAY := "res://common/ui/fonts/LuckiestGuy-Regular.ttf"
+const FONT_FAMILY_BODY := "res://common/ui/fonts/Fredoka-Medium.ttf"
 
 # Component font sizes (actual values used in each component)
 const FONT_SIZE_SWITCH_HAND := 120       # SwitchHand fullscreen overlay

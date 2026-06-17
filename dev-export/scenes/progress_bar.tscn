@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3]
 
 [ext_resource type="Theme" path="res://theme/ui_theme.tres" id="theme"]
-[ext_resource type="FontFile" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
+[ext_resource type="FontFile" path="res://common/ui/fonts/LuckiestGuy-Regular.ttf" id="font_display"]
 [ext_resource type="Shader" path="res://common/ui/shaders/progress_fill.gdshader" id="shader_fill"]
 
 # ===========================================================================

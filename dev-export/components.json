@@ -10,7 +10,7 @@
     {
       "id": 2,
       "name": "ProgressBar",
-      "path": "res://common/ui/total_progress.tscn",
+      "path": "res://common/ui/scenes/progress_bar.tscn",
       "category": "common",
       "purpose": "Top progress bar showing session structure. Dynamically generates milestones from action plan.",
       "tree": {
@@ -307,7 +307,7 @@
         "children": [
           "DimOverlay:ColorRect (rgba(0,0,0,0.4))",
           "Panel:PanelContainer (centered)",
-          "Panel > VBox (space-evenly)",
+          "Panel > VBox (space-between)",
           "Panel > VBox > TitleTab:Panel (gold, COMPLETE!)",
           "Panel > VBox > Stars:HBox (3× 52px star)",
           "Panel > VBox > StatsGrid:GridContainer (3 cols: score/best-hit/golden)",

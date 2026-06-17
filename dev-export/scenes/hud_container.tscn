@@ -81,6 +81,6 @@ offset_bottom = 620.0
 # --- FULLSCREEN overlays ---
 # BurstHint: own CanvasLayer 9 (fullscreen amber edge glow, breathing 1.2s)
 # SwitchHand: own CanvasLayer 15 (55% dim + 120px text, no subtitle)
-# EndPanel: own CanvasLayer 20 (40% dim + 868×605 panel, space-evenly)
+# EndPanel: own CanvasLayer 20 (40% dim + 800×520 panel, space-between)
 # RainbowFullscreen: own CanvasLayer 20 (15% white overlay + 104px rainbow text)
 # GoldenCountdown: NOT in HUD — follows pumpkin Node3D world position (176×176)
