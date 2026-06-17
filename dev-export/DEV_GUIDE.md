@@ -123,25 +123,48 @@ This matches HTML's `text-shadow: 0 3px 0 rgba(...)`. Reserve `font_outline` onl
 | Static green→amber→red (top→bottom) | `vertical_gradient_text.gdshader` | EndPanel "GREAT JOB!" |
 | Animated rainbow (left→right, looping) | `rainbow_text.gdshader` | RainbowFullscreen "RAINBOW!", "AMAZING!" |
 
-### Progress/Charge Bars
+### Progress Bar (Session Progress)
 
-- Track: `#D4C4A0`, 3px border `#8B7A5A`, pill radius
+- Track: cream panel `#FFF5D6`, border 4px `#C8A848`, shadow 5px `#8B6A20`
+- Size: **960×54** (centered top), radius 24px
 - Fill: **three-stop gradient** green `#7edb66` → yellow `#ffe064` → orange `#ff9e37`
+- Fill covers the portion of the track up to the current milestone
+- Milestones: 6 circles evenly spaced, centered vertically (extend ±8px beyond track)
+  - **Action switch** (bigger, 42×42): green `#6EC531` when done, muted cream `#e8dfc8` when pending
+  - **Hand switch** (smaller, 33×33): teal `#55C9C9` when done, light teal `#d8f0f0` when pending
+  - Done state: filled circle + **white SVG checkmark** (not text ✓)
+  - Pending state: empty circle (no icon)
+- Shader: `progress_fill.gdshader` handles fill gradient + shine
+
+### Charge Bar
+
+- Track: cream panel `#FFF5D6`, border 4px `#C8A848`, pill radius
+- Fill: same three-stop gradient as progress bar
 - Full state: gold gradient (two-stop)
 - Top shine strip: white @ 45%
-- Height: 22px, pill radius
-- Shader: `progress_fill.gdshader` handles all of this
+- Height: 50px, pill radius
+- Shader: `progress_fill.gdshader` handles this too
 
 ### Colors — When to Use What
 
 | Color | Use for |
 |-------|---------|
-| Green `#6EC531` | Primary actions, progress fill, success, rep counter |
+| Green `#6EC531` | Primary actions, progress fill, success |
 | Amber `#F5A623` | Secondary panels, warnings, ring-normal, charge cursor |
 | Red `#E8453A` | Destructive/urgent, combo, ring-shockwave, fox-related |
 | Gold `#FFD700` | Perfect hits, full charge, stars, golden pumpkin |
 | Cream `#FFF5D6` | All panel backgrounds |
 | Teal `#55C9C9` | Hand switch indicator, rest overlay |
+
+### Text Color on Badges
+
+| Badge color | Text color | Why |
+|-------------|-----------|-----|
+| Amber `#F5A623` | Dark brown `#4A3728` | Light background needs dark text |
+| Green `#6EC531` | White `#FFFFFF` | Dark background needs light text |
+| Red `#E8453A` | White `#FFFFFF` | Dark background needs light text |
+| Gold `#FFD700` | Dark brown `#5A3A00` | Light metallic needs dark contrast |
+| Cream `#FFF5D6` | Dark brown `#4A3728` | Panel text is always dark |
 
 ### Animation Patterns
 
