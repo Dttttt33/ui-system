@@ -125,8 +125,7 @@ const ANIM_STAR_SPIN := 0.4
 const ANIM_BUTTON_PRESS := 0.1
 
 # --- HUD Positions (absolute px @ 1920×1080) ---
-const HUD_REP_COUNTER := Rect2(24, 12, 160, 48)
-const HUD_PROGRESS_BAR := Rect2(640, 12, 640, 48)
+const HUD_PROGRESS_BAR := Rect2(480, 12, 960, 54)
 const HUD_SCORE := Rect2(1648, 10, 260, 64)
 const HUD_COMBO := Rect2(1748, 84, 160, 50)
 const HUD_ACTION_CARD := Rect2(24, 300, 220, 480)
@@ -192,7 +191,7 @@ static func make_button_style_pressed() -> StyleBoxFlat:
 	return sb
 
 # =============================================================================
-# Helper: Create pill badge StyleBox (e.g. RepCounter, HandSide)
+# Helper: Create pill badge StyleBox (e.g. HandSide)
 # =============================================================================
 static func make_pill_style(bg_color: Color, border_color: Color, shadow_color: Color = Color.TRANSPARENT) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()

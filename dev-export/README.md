@@ -31,7 +31,6 @@ your-godot-project/
 │       │   ├── phase_banner.tscn
 │       │   ├── progress_bar.tscn
 │       │   ├── rainbow_fullscreen.tscn
-│       │   ├── rep_counter.tscn
 │       │   ├── return_rhythm_bar.tscn
 │       │   ├── score_hud.tscn
 │       │   └── switch_hand.tscn
@@ -93,7 +92,7 @@ $Root.theme = preload("res://common/ui/theme/ui_theme.tres")
 | `progress_fill.gdshader` | 进度条/charge 条的填充 | `progress(0-1)`, `is_full` 时变金色, `shine_height=0.35` |
 | `button_shine.gdshader` | 按钮顶部高光条 | `shine_height=0.38`, `shine_opacity=0.45` |
 
-### Scenes（16 个组件）
+### Scenes（15 个组件）
 
 每个 `.tscn` 都是自包含的——样式内联为 sub_resource，不依赖外部 Theme（但推荐配合 Theme 使用）。
 
@@ -101,7 +100,6 @@ $Root.theme = preload("res://common/ui/theme/ui_theme.tres")
 |------|------|---------|
 | `action_card.tscn` | 动作卡片 | NameTab + IconArea + HandPill + RepBlocks |
 | `score_hud.tscn` | 右上角计分 | ScoreBadge + CaughtBadge |
-| `rep_counter.tscn` | REP 计数药丸 | 单 Label |
 | `progress_bar.tscn` | 回合进度条 | Track(StyleBox) + Fill(Shader) + Label |
 | `charge_bar.tscn` | Burst 充能条 | 同上，amber 色 |
 | `hit_result_text.tscn` | 命中反馈文字 | 居中 Label, outline 6px |

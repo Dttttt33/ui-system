@@ -38,9 +38,9 @@ window/stretch/aspect="keep"
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
-│ RepCounter        ProgressBar (640w, centered)           ScoreHUD         │
-│ x:24 y:12         x:640 y:12                            x:1648 y:10      │
-│ 160×48            640×48                                 260×64           │
+│                   ProgressBar (960w, centered)           ScoreHUD         │
+│                   x:480 y:12                            x:1648 y:10      │
+│                   960×54                                 260×64           │
 │                                                          ComboCounter     │
 │                                                          x:1748 y:84     │
 │                                                          160×50          │

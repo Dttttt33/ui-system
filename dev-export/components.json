@@ -4,34 +4,9 @@
     "game": "Farm Ring Toss",
     "engine": "Godot 4.3+ / C# (.NET 8)",
     "tokens_ref": "ui_tokens.gd",
-    "total_components": 16
+    "total_components": 15
   },
   "components": [
-    {
-      "id": 1,
-      "name": "RepCounter",
-      "path": "res://common/ui/rep_counter.tscn",
-      "category": "common",
-      "purpose": "Shows current rep progress (e.g. REP 8/36) as a green pill badge",
-      "tree": {
-        "root": "RepCounter:PanelContainer",
-        "children": ["Label"]
-      },
-      "style": {
-        "background": "COLOR_GREEN",
-        "border": "4px solid COLOR_GREEN_DARK",
-        "bottom_bar": "4px COLOR_GREEN_DEEP",
-        "font": "FONT_FAMILY_DISPLAY",
-        "font_size": "FONT_SIZE_HUD_LABEL",
-        "text_color": "COLOR_TEXT_ON_GREEN",
-        "radius": "RADIUS_PILL"
-      },
-      "exports": {
-        "current_rep": { "type": "int", "default": 0 },
-        "total_reps": { "type": "int", "default": 36 }
-      },
-      "signals": ["rep_updated(current: int, total: int)"]
-    },
     {
       "id": 2,
       "name": "ProgressBar",
@@ -312,7 +287,7 @@
       "tree": {
         "root": "HUDContainer:CanvasLayer",
         "children": [
-          "TopBar:HBox > RepCounter + TotalProgress + ScoreHUD",
+          "TopBar:HBox > TotalProgress + ScoreHUD",
           "CenterArea:CenterContainer > PhaseBanner + SwitchHandPrompt + HitResultText + MultiHitResult",
           "BottomBar:HBox > ActionCard + ChargeBar + ReturnRhythmBar",
           "BurstHint (fullscreen overlay)"
