@@ -9,14 +9,14 @@
 # Layout map:
 # ┌────────────────────────────────────────────────────────────────────────┐
 # │ [TopLeft: RepCounter]   [TopCenter: ProgressBar]   [TopRight: ScoreHUD]│
-# │  x:24 y:12              center, 640w               x:1648 y:10        │
-# │  160×48                 y:12, h:36                  260×64             │
+# │  x:24 y:24              center, 640w               x:1668 y:24        │
+# │  160×48                 y:24, h:36                  240×76             │
 # │                                                                        │
 # │                     [TopRight2: ComboCounter]                           │
-# │                      x:1740 y:84  140×50                               │
+# │                      x:1748 y:108  160×50                              │
 # │                                                                        │
 # │ [LeftCard]                                                             │
-# │  x:24 y:240             [CenterArea: HitResult / PhaseBanner]          │
+# │  x:24 y:300             [CenterArea: HitResult / PhaseBanner]          │
 # │  220×480                 center, 600×240                               │
 # │                                                                        │
 # │                                                                        │
@@ -28,52 +28,52 @@
 layer = 10
 
 # --- TOP LEFT: RepCounter zone ---
-# Position: 24px from left, 12px from top
+# Position: 24px from left, 24px from top
 # Size: 160×48
 [node name="TopLeft" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 24.0
-offset_top = 12.0
+offset_top = 24.0
 offset_right = 184.0
-offset_bottom = 60.0
+offset_bottom = 72.0
 
 # --- TOP CENTER: ProgressBar zone ---
-# Position: centered horizontally, 12px from top
+# Position: centered horizontally, 24px from top
 # Size: 640×48 (bar is 36px tall, milestones extend ±8px)
 [node name="TopCenter" type="Control" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -320.0
-offset_top = 12.0
+offset_top = 24.0
 offset_right = 320.0
-offset_bottom = 60.0
+offset_bottom = 72.0
 grow_horizontal = 2
 
 # --- TOP RIGHT: ScoreHUD zone ---
-# Position: 12px from right edge, 10px from top
-# Size: 260×64
+# Position: 12px from right edge, 24px from top
+# Size: 240×76 (auto-sizes to badge content)
 [node name="TopRight" type="Control" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -272.0
-offset_top = 10.0
+offset_left = -252.0
+offset_top = 24.0
 offset_right = -12.0
-offset_bottom = 74.0
+offset_bottom = 100.0
 grow_horizontal = 0
 
 # --- TOP RIGHT 2: ComboCounter zone ---
-# Position: 12px from right edge, 84px from top (below ScoreHUD)
+# Position: 12px from right edge, 108px from top (below ScoreHUD)
 # Size: 160×50
 [node name="TopRight2" type="Control" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -172.0
-offset_top = 84.0
+offset_top = 108.0
 offset_right = -12.0
-offset_bottom = 134.0
+offset_bottom = 158.0
 grow_horizontal = 0
 
 # --- LEFT: ActionCard zone ---

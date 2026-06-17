@@ -6,9 +6,22 @@
 
 # ===========================================================================
 # ProgressBar — Top-center of HUD on 1920×1080
-# Position: x:640–1280 (centered), y:12–48
+# Position: x:640–1280 (centered), y:24–60
 # Actual size: 640×36
-# Milestones extend ±8px beyond track vertically
+# Milestones: vertically centered on track, extend ±8px beyond track
+#
+# Milestone layout (6 dots, evenly spaced):
+#   Track inner width = 640 - 2*14 = 612px usable
+#   Spacing: 612 / 5 = ~122px between dots
+#   x positions: 14, 136, 258, 380, 502, 612 (from track left edge)
+#   Vertical center: track=36px, dot_large=28px → y = (36-28)/2 = 4
+#                    track=36px, dot_small=22px → y = (36-22)/2 = 7
+#
+# Dot semantics:
+#   Action done = green circle + ✓ (28×28)
+#   Hand done = teal circle + ✓ (22×22)
+#   Action pending = muted cream circle, empty (28×28)
+#   Hand pending = light teal circle, empty (22×22)
 # ===========================================================================
 
 # Track = cream panel style
@@ -75,7 +88,8 @@ corner_radius_top_right = 999
 corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
 
-# Milestone pending: action (28×28, muted)
+# Milestone pending: action (28×28, muted cream)
+# HTML: bg #e8dfc8, border 3px #C8A848
 [sub_resource type="StyleBoxFlat" id="ms_action_pending"]
 bg_color = Color(0.910, 0.875, 0.784, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
@@ -88,19 +102,33 @@ corner_radius_top_right = 999
 corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
 
-# Root: centered top, 640×36 track + milestone overflow
-# Absolute on 1920×1080: x:640 y:12 → x:1280 y:48
+# Milestone pending: hand (22×22, light teal)
+# HTML: bg #d8f0f0, border 3px #8cc
+[sub_resource type="StyleBoxFlat" id="ms_hand_pending"]
+bg_color = Color(0.847, 0.941, 0.941, 1)
+border_color = Color(0.533, 0.800, 0.800, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_left = 999
+corner_radius_bottom_right = 999
+
+# Root: centered top, 640×36
+# y:24 (moved down from edge per user feedback)
 [node name="ProgressBar" type="Control"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -320.0
-offset_top = 12.0
+offset_top = 24.0
 offset_right = 320.0
-offset_bottom = 48.0
+offset_bottom = 60.0
 grow_horizontal = 2
 
-# Track panel: fills the whole control
+# Track panel: fills the whole control (640×36)
 [node name="Track" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -121,23 +149,25 @@ offset_right = 260.0
 offset_bottom = 28.0
 material = SubResource("fill_mat")
 
-# Milestones: absolute positioned over track
-# Spacing: evenly across 640px width, 6 milestones
-# x positions: ~76, 182, 288, 396, 502, 560 (distributed)
+# Milestones: vertically centered, evenly spaced
+# 6 milestones across 640px with 14px edge padding
+# x: 14, 136, 258, 380, 502, 612 (center of each dot)
+# For 28px dot: left = x - 14, top = (36-28)/2 = 4
+# For 22px dot: left = x - 11, top = (36-22)/2 = 7
 [node name="Milestones" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-# M1: Action done (green, 28×28) — x:76
+# M1: Action done (green, 28×28) — center x:14 → left:0, top:4
 [node name="M1" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
-offset_left = 76.0
-offset_top = -4.0
-offset_right = 104.0
-offset_bottom = 24.0
+offset_left = 0.0
+offset_top = 4.0
+offset_right = 28.0
+offset_bottom = 32.0
 theme_override_styles/panel = SubResource("ms_action_done")
 
 [node name="Check" type="Label" parent="Milestones/M1"]
@@ -149,14 +179,14 @@ text = "✓"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-# M2: Hand done (teal, 22×22) — x:182
+# M2: Hand done (teal, 22×22) — center x:136 → left:125, top:7
 [node name="M2" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(22, 22)
 layout_mode = 1
-offset_left = 182.0
-offset_top = -1.0
-offset_right = 204.0
-offset_bottom = 21.0
+offset_left = 125.0
+offset_top = 7.0
+offset_right = 147.0
+offset_bottom = 29.0
 theme_override_styles/panel = SubResource("ms_hand_done")
 
 [node name="Check" type="Label" parent="Milestones/M2"]
@@ -168,14 +198,14 @@ text = "✓"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-# M3: Action done (green, 28×28) — x:288
+# M3: Action done (green, 28×28) — center x:258 → left:244, top:4
 [node name="M3" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
-offset_left = 288.0
-offset_top = -4.0
-offset_right = 316.0
-offset_bottom = 24.0
+offset_left = 244.0
+offset_top = 4.0
+offset_right = 272.0
+offset_bottom = 32.0
 theme_override_styles/panel = SubResource("ms_action_done")
 
 [node name="Check" type="Label" parent="Milestones/M3"]
@@ -187,33 +217,32 @@ text = "✓"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-# M4: Action pending (28×28) — x:396
+# M4: Action pending (28×28) — center x:380 → left:366, top:4
 [node name="M4" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
-offset_left = 396.0
-offset_top = -4.0
-offset_right = 424.0
-offset_bottom = 24.0
+offset_left = 366.0
+offset_top = 4.0
+offset_right = 394.0
+offset_bottom = 32.0
 theme_override_styles/panel = SubResource("ms_action_pending")
 
-# M5: Hand pending (22×22, light teal) — x:502
+# M5: Hand pending (22×22, light teal) — center x:502 → left:491, top:7
 [node name="M5" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(22, 22)
 layout_mode = 1
-offset_left = 502.0
-offset_top = -1.0
-offset_right = 524.0
-offset_bottom = 21.0
-theme_override_styles/panel = SubResource("ms_hand_done")
-modulate = Color(0.847, 0.941, 0.941, 0.6)
+offset_left = 491.0
+offset_top = 7.0
+offset_right = 513.0
+offset_bottom = 29.0
+theme_override_styles/panel = SubResource("ms_hand_pending")
 
-# M6: Action pending (28×28) — x:560
+# M6: Action pending (28×28) — center x:612 → left:598, top:4
 [node name="M6" type="PanelContainer" parent="Milestones"]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
-offset_left = 560.0
-offset_top = -4.0
-offset_right = 588.0
-offset_bottom = 24.0
+offset_left = 598.0
+offset_top = 4.0
+offset_right = 626.0
+offset_bottom = 32.0
 theme_override_styles/panel = SubResource("ms_action_pending")

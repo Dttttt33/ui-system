@@ -5,30 +5,38 @@
 
 # ===========================================================================
 # ScoreHUD — Top-right of HUD on 1920×1080
-# Position: x:1648 y:10 → x:1908 y:74 (260×64)
-# Structure: cream panel wrapper, two side-by-side badges (amber + green)
+# Position: 12px from right edge, 24px from top
+# Structure: cream panel wrapper (auto-width), two side-by-side badges
+# HTML: display:inline-flex;gap:10px;padding:12px 18px;
+#        background:#FFF5D6; border:4px solid #C8A848; border-radius:18px;
+#        box-shadow:0 5px 0 #8B6A20
+#
+# Badge layout:
+#   SCORE badge (amber) + CAUGHT badge (green)
+#   Each badge: border-radius:12px, padding:6px 14px
+#   Caption: 9px Luckiest Guy, Value: 26px Luckiest Guy
 # ===========================================================================
 
-# Outer wrapper = cream panel (smaller padding for HUD density)
+# Outer wrapper = cream panel
 # HTML: bg #FFF5D6, border 4px #C8A848, box-shadow 0 5px 0 #8B6A20
 [sub_resource type="StyleBoxFlat" id="outer"]
 bg_color = Color(1.0, 0.961, 0.839, 1)
 border_color = Color(0.784, 0.659, 0.282, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 shadow_color = Color(0.545, 0.416, 0.125, 1)
-shadow_size = 4
+shadow_size = 5
 shadow_offset = Vector2(0, 3)
 corner_radius_top_left = 18
 corner_radius_top_right = 18
 corner_radius_bottom_left = 18
 corner_radius_bottom_right = 18
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
 
 # Score badge = amber
 # HTML: bg #F5A623, border 3px #D4891A, box-shadow 0 4px 0 #A06810
@@ -72,16 +80,18 @@ content_margin_top = 6.0
 content_margin_right = 14.0
 content_margin_bottom = 6.0
 
-# Position: top-right, 12px from right edge, 10px from top
+# Position: top-right, 12px from right edge, 24px from top
+# Size flags: shrink-center horizontally so it auto-sizes to content
 [node name="ScoreHUD" type="PanelContainer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -272.0
-offset_top = 10.0
+offset_left = -240.0
+offset_top = 24.0
 offset_right = -12.0
-offset_bottom = 74.0
+offset_bottom = 100.0
 grow_horizontal = 0
+size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("outer")
 
 [node name="HBox" type="HBoxContainer" parent="."]
@@ -111,7 +121,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.290, 0.216, 0.157, 1)
 theme_override_fonts/font = ExtResource("font_display")
 theme_override_font_sizes/font_size = 26
-text = "2,480"
+text = "480"
 horizontal_alignment = 1
 
 # Green CAUGHT badge
