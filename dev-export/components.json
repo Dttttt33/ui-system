@@ -12,26 +12,48 @@
       "name": "ProgressBar",
       "path": "res://common/ui/total_progress.tscn",
       "category": "common",
-      "purpose": "Top progress bar that fills across the session",
+      "purpose": "Top progress bar showing session structure. Dynamically generates milestones from action plan.",
       "tree": {
         "root": "TotalProgress:Control",
-        "children": ["Track:Panel", "Fill:Panel > Shine:Panel"]
+        "children": ["Track:Panel", "Fill:Panel", "Milestones:Control > M1..MN:PanelContainer"]
       },
       "style": {
-        "track_bg": "#D4C4A0",
-        "track_border": "3px solid #8B7A5A",
-        "track_inset_shadow": "inset 0 3px 6px rgba(0,0,0,0.25)",
-        "fill_gradient": "COLOR_CHARGE_FILL → #B8E44B",
-        "full_gradient": "#F5B800 → COLOR_CHARGE_FULL",
-        "shine": "rgba(255,255,255,0.45)",
-        "height": 22,
-        "radius": "RADIUS_PILL"
+        "track_bg": "#FFF5D6",
+        "track_border": "4px solid #C8A848",
+        "track_shadow": "0 5px 0 #8B6A20",
+        "track_radius": 24,
+        "track_height": 54,
+        "track_width": 960,
+        "fill_gradient": "#7edb66 → #ffe064 → #ff9e37",
+        "milestone_action_size": 42,
+        "milestone_hand_size": 33,
+        "milestone_action_done": "#6EC531 border #4A9B1E shadow #2B5E10",
+        "milestone_hand_done": "#55C9C9 border #3AA shadow #288",
+        "milestone_action_pending": "#e8dfc8 border #C8A848",
+        "milestone_hand_pending": "#d8f0f0 border #8cc"
+      },
+      "logic": {
+        "description": "Milestones are generated at runtime from the session's action_plan array. Each action adds a green 'action' circle. If that action requires_hand_switch, a teal 'hand' circle follows it (meaning: repeat this action with the other hand). Milestones are evenly spaced across the track.",
+        "input": "action_plan: Array[{action_id: String, requires_hand_switch: bool}]",
+        "milestone_generation": [
+          "For each action in action_plan:",
+          "  1. Add ACTION milestone (green, 42px)",
+          "  2. If action.requires_hand_switch AND this is not the last segment:",
+          "     Add HAND milestone (teal, 33px)",
+          "Total milestones = len(actions) + count(hand_switches)"
+        ],
+        "fill_logic": "Fill width = (completed_milestones / total_milestones) * track_width. Gradient always starts from left edge.",
+        "state_transitions": "When a milestone is completed: change from pending style to done style + show SVG checkmark. Animate with tween_bounce.",
+        "examples": [
+          "3 actions all single-arm → [Action, Hand, Action, Hand, Action] = 5 milestones",
+          "4 actions, 2 bilateral → [Action, Hand, Action, Action, Hand, Action] = 6 milestones",
+          "2 actions no hand switch (e.g. t-bar, squat) → [Action, Action] = 2 milestones"
+        ]
       },
       "exports": {
-        "progress": { "type": "float", "default": 0.0, "range": [0.0, 1.0] },
-        "show_full_glow": { "type": "bool", "default": false }
+        "action_plan": { "type": "Array", "default": [], "description": "Array of {action_id, requires_hand_switch} from session config" }
       },
-      "signals": []
+      "signals": ["milestone_completed(index: int)", "all_milestones_done"]
     },
     {
       "id": 3,

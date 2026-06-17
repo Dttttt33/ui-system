@@ -6,22 +6,33 @@
 
 # ===========================================================================
 # ProgressBar — Top-center of HUD on 1920×1080
-# Position: x:480–1440 (centered), y:12–66
-# Actual size: 960×54 (1.5x scale)
-# Milestones: vertically centered on track, extend ±8px beyond track
+# Position: x:480–1440 (centered), y:40 (inside 40px safe area)
+# Actual size: 960×54
 #
-# Milestone layout (6 dots, evenly spaced):
-#   Track inner width = 960 - 2*20 = 920px usable
-#   Spacing: 920 / 5 = 184px between dots
-#   x positions: 20, 204, 388, 572, 756, 940 (from track left edge)
-#   Vertical center: track=54px, dot_large=42px → y = (54-42)/2 = 6
-#                    track=54px, dot_small=33px → y = (54-33)/2 = 10.5 ≈ 10
+# DYNAMIC MILESTONE LOGIC:
+#   Milestones are generated at runtime from session's action_plan.
+#   Input: action_plan = [{action_id, requires_hand_switch}, ...]
 #
-# Dot semantics:
-#   Action done = green circle + white SVG ✓ (42×42)
-#   Hand done = teal circle + white SVG ✓ (33×33)
-#   Action pending = muted cream circle, empty (42×42)
-#   Hand pending = light teal circle, empty (33×33)
+#   Generation rules:
+#     For each action in plan:
+#       -> Add ACTION milestone (green, 42px)
+#       -> If requires_hand_switch AND not last segment:
+#            Add HAND milestone (teal, 33px)
+#
+#   Examples:
+#     3 single-arm actions -> [A, H, A, H, A] = 5 milestones
+#     4 actions (2 bilateral) -> [A, H, A, A, H, A] = 6 milestones
+#     2 bilateral actions (t-bar, squat) -> [A, A] = 2 milestones
+#
+#   Layout: milestones evenly spaced across track width (920px usable)
+#     spacing = 920 / (total_milestones - 1)
+#     Vertical center: action y=(54-42)/2=6, hand y=(54-33)/2=10
+#
+#   Fill: gradient width = (completed / total) * track_width
+#   State: pending -> done (tween_bounce, add SVG checkmark)
+#
+# Visual (this .tscn shows a STATIC example with 6 milestones):
+#   [Action done] [Hand done] [Action done] [Action pending] [Hand pending] [Action pending]
 # ===========================================================================
 
 # Track = cream panel style
@@ -117,15 +128,15 @@ corner_radius_bottom_left = 999
 corner_radius_bottom_right = 999
 
 # Root: centered top, 960×54
-# y:12 (full-width centered)
+# y:40 (inside 40px safe area)
 [node name="ProgressBar" type="Control"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -480.0
-offset_top = 12.0
+offset_top = 40.0
 offset_right = 480.0
-offset_bottom = 66.0
+offset_bottom = 94.0
 grow_horizontal = 2
 
 # Track panel: fills the whole control (640×36)

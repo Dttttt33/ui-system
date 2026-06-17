@@ -125,13 +125,14 @@ const ANIM_STAR_SPIN := 0.4
 const ANIM_BUTTON_PRESS := 0.1
 
 # --- HUD Positions (absolute px @ 1920×1080) ---
-const HUD_PROGRESS_BAR := Rect2(480, 12, 960, 54)
-const HUD_SCORE := Rect2(1648, 10, 260, 64)
-const HUD_COMBO := Rect2(1748, 84, 160, 50)
-const HUD_ACTION_CARD := Rect2(24, 300, 220, 480)
-const HUD_CENTER_AREA := Rect2(660, 420, 600, 240)
-const HUD_CHARGE_BAR := Rect2(800, 940, 320, 50)
-const HUD_RHYTHM_BAR := Rect2(760, 980, 400, 60)
+const HUD_PROGRESS_BAR := Rect2(480, 40, 960, 54)
+const HUD_SCORE := Rect2(1560, 40, 320, 110)
+const HUD_GOLDEN_COUNTDOWN := Rect2(1600, 164, 200, 130)
+const HUD_ACTION_CARD := Rect2(40, 252, 352, 576)
+const HUD_CENTER_AREA := Rect2(500, 350, 700, 350)
+const HUD_BOTTOM_CENTER := Rect2(700, 900, 520, 140)
+const HUD_CHARGE_BAR := Rect2(700, 900, 520, 50)
+const HUD_RHYTHM_BAR := Rect2(700, 962, 520, 24)
 
 # =============================================================================
 # Helper: Create standard panel StyleBox (cream + gold border + bottom shadow)

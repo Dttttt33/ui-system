@@ -36,28 +36,30 @@ window/stretch/aspect="keep"
 
 ### HUD Layout Map (absolute px positions)
 
+**Safe area: 40px on all edges.** All HUD elements stay inside `Rect2(40, 40, 1840, 1000)`.
+
 ```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                   ProgressBar (960w, centered)           ScoreHUD         │
-│                   x:480 y:12                            x:1648 y:10      │
-│                   960×54                                 260×64           │
-│                                                          ComboCounter     │
-│                                                          x:1748 y:84     │
-│                                                          160×50          │
+┌─ 40px safe area ──────────────────────────────────────────────────────────┐
 │                                                                           │
-│ ActionCard                  CenterArea                                    │
-│ x:24 y:300                  x:660 y:420                                  │
-│ 220×480                     600×240                                      │
-│                             (HitResult, PhaseBanner,                      │
-│                              MultiHit, SwitchHand)                        │
+│              ProgressBar (960w, centered)              ScoreHUD           │
+│              x:480 y:40                               x:1560 y:40        │
+│              960×54                                    320×110            │
+│                                                       GoldenCountdown    │
+│                                                       x:1600 y:164      │
+│                                                       200×130            │
 │                                                                           │
-│                          ChargeBar                                        │
-│                          x:800 y:940                                     │
-│                          320×50                                          │
-│                          RhythmBar                                       │
-│                          x:760 y:980                                     │
-│                          400×60                                          │
-└────────────────────────────────────────────────────────────────────────────┘
+│  ActionCard                    CenterArea                                 │
+│  x:40 y:252                    x:500 y:350                               │
+│  352×576                       700×350                                   │
+│  (1.6w × 1.2h)                 (HitResult, PhaseBanner,                  │
+│                                 MultiHit, SwitchHand)                     │
+│                                                                           │
+│                         BottomCenter                                      │
+│                         x:700 y:900                                      │
+│                         520×140                                          │
+│                         (ChargeBar + RhythmBar)                          │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
 ```
 
 All positions are also available as `UiTokens.HUD_*` Rect2 constants.
@@ -126,15 +128,46 @@ This matches HTML's `text-shadow: 0 3px 0 rgba(...)`. Reserve `font_outline` onl
 ### Progress Bar (Session Progress)
 
 - Track: cream panel `#FFF5D6`, border 4px `#C8A848`, shadow 5px `#8B6A20`
-- Size: **960×54** (centered top), radius 24px
+- Size: **960×54** (centered top, inside 40px safe area), radius 24px
 - Fill: **three-stop gradient** green `#7edb66` → yellow `#ffe064` → orange `#ff9e37`
-- Fill covers the portion of the track up to the current milestone
-- Milestones: 6 circles evenly spaced, centered vertically (extend ±8px beyond track)
-  - **Action switch** (bigger, 42×42): green `#6EC531` when done, muted cream `#e8dfc8` when pending
-  - **Hand switch** (smaller, 33×33): teal `#55C9C9` when done, light teal `#d8f0f0` when pending
-  - Done state: filled circle + **white SVG checkmark** (not text ✓)
-  - Pending state: empty circle (no icon)
+- Fill width = `(completed_milestones / total_milestones) * track_width`
 - Shader: `progress_fill.gdshader` handles fill gradient + shine
+
+#### Dynamic Milestone Logic
+
+Milestones are **generated at runtime** from the session's `action_plan` array.
+
+**Input:** `action_plan: Array[{action_id: String, requires_hand_switch: bool}]`
+
+**Generation rules:**
+```
+for each action in action_plan:
+    add ACTION milestone (green, 42px)
+    if action.requires_hand_switch AND not last segment:
+        add HAND milestone (teal, 33px)
+```
+
+**`requires_hand_switch` depends on the exercise:**
+- Single-arm exercises (row, raise, press, swing) → `true`
+- Bilateral exercises (squat, t-bar row, upright row) → `false`
+
+**Examples:**
+| Session plan | Milestones | Count |
+|---|---|---|
+| 3 single-arm actions | `[A, H, A, H, A]` | 5 |
+| 4 actions, 2 bilateral | `[A, H, A, A, H, A]` | 6 |
+| 2 bilateral only (t-bar + squat) | `[A, A]` | 2 |
+
+**Layout:** evenly spaced across 920px usable width (track 960 - 2×20 padding)
+- Action milestone: 42×42, vertically centered (y = 6px from track top)
+- Hand milestone: 33×33, vertically centered (y = 10px from track top)
+
+**Visual states:**
+- **Action done:** green `#6EC531` + white SVG ✓ checkmark
+- **Hand done:** teal `#55C9C9` + white SVG ✓ checkmark
+- **Action pending:** muted cream `#e8dfc8`, empty (no icon)
+- **Hand pending:** light teal `#d8f0f0`, empty (no icon)
+- Transition: pending → done with `tween_bounce` animation
 
 ### Charge Bar
 
